@@ -12,5 +12,6 @@ target 'Delvo' do
    pod 'Alamofire', '~> 4.2.0'
    pod 'GooglePlacePicker'
    pod 'GooglePlacePicker'
+   pod 'NVActivityIndicatorView'
    
 end

@@ -18,7 +18,6 @@ class MapViewController: UIViewController ,GMSMapViewDelegate ,Address{
     var placesClient: GMSPlacesClient!
     var lat: CLLocationDegrees = 24.8838999
     var long: CLLocationDegrees = 67.0546788
-    var marker = GMSMarker()
     var controller:String = "PickUpVc"
     
     override func viewDidLoad() {
@@ -26,7 +25,6 @@ class MapViewController: UIViewController ,GMSMapViewDelegate ,Address{
 
         self.Pointer.frame=MapView.camera.accessibilityFrame
         GetMap(a: lat, b: long)
-        
         }
     
     
@@ -43,7 +41,6 @@ class MapViewController: UIViewController ,GMSMapViewDelegate ,Address{
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
         
         MapView.camera=position
-        marker.position=position.target
         MapView.isMyLocationEnabled = true
         getAddressFromGeocodeCoordinate(coordinate: position.target)
     }
@@ -70,10 +67,16 @@ class MapViewController: UIViewController ,GMSMapViewDelegate ,Address{
                     
                     let address = lines.joined(separator: ",")
                     if self.controller == "PickUpVc"{
-                        Location.PickLocation = address}
+                        Location.PickLocation = address
+                        Location.PickLat = coordinate.latitude
+                        Location.PickLng = coordinate.longitude
+                    }
                         
                     else{
-                        Location.DropLocation = address}
+                        Location.DropLocation = address
+                        Location.DropLat = coordinate.latitude
+                        Location.DropLng = coordinate.longitude
+                    }
                     
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "GetArea"), object: nil)
                     
@@ -84,7 +87,11 @@ class MapViewController: UIViewController ,GMSMapViewDelegate ,Address{
     struct Location{
         
         static var PickLocation = String()
+        static var PickLat = Double()
+        static var PickLng = Double()
         static var DropLocation = String()
+        static var DropLat = Double()
+        static var DropLng = Double()
     }
     
     func GetLatLng(lat: CLLocationDegrees, lng: CLLocationDegrees) {

@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		181316EF1E50A7BF00910ADB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 181316EE1E50A7BF00910ADB /* Main.storyboard */; };
 		181316F11E50ACCE00910ADB /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 181316F01E50ACCE00910ADB /* search.png */; };
+		181316F51E51A89D00910ADB /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181316F41E51A89D00910ADB /* SearchTableViewCell.swift */; };
+		181316F71E51C7CB00910ADB /* DelvoMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181316F61E51C7CA00910ADB /* DelvoMethods.swift */; };
+		1854BD791E52233A00AB9F55 /* ApiParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854BD781E52233A00AB9F55 /* ApiParsing.swift */; };
 		18C424351E4F8D4D005E5546 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C424341E4F8D4D005E5546 /* AppDelegate.swift */; };
 		18C4243C1E4F8D4D005E5546 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18C4243B1E4F8D4D005E5546 /* Assets.xcassets */; };
 		18C4243F1E4F8D4D005E5546 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18C4243D1E4F8D4D005E5546 /* LaunchScreen.storyboard */; };
@@ -30,6 +33,9 @@
 		0D64B710A25DDD50246B318D /* Pods-Delvo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Delvo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Delvo/Pods-Delvo.release.xcconfig"; sourceTree = "<group>"; };
 		181316EE1E50A7BF00910ADB /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		181316F01E50ACCE00910ADB /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
+		181316F41E51A89D00910ADB /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
+		181316F61E51C7CA00910ADB /* DelvoMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelvoMethods.swift; sourceTree = "<group>"; };
+		1854BD781E52233A00AB9F55 /* ApiParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiParsing.swift; sourceTree = "<group>"; };
 		18C424311E4F8D4D005E5546 /* Delvo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Delvo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18C424341E4F8D4D005E5546 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18C4243B1E4F8D4D005E5546 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -67,6 +73,7 @@
 		18C424281E4F8D4D005E5546 = {
 			isa = PBXGroup;
 			children = (
+				1854BD781E52233A00AB9F55 /* ApiParsing.swift */,
 				18C424331E4F8D4D005E5546 /* Delvo */,
 				18C424321E4F8D4D005E5546 /* Products */,
 				F3033DC40CF87A730FF97B4D /* Pods */,
@@ -94,9 +101,11 @@
 				18C4243D1E4F8D4D005E5546 /* LaunchScreen.storyboard */,
 				18C424401E4F8D4D005E5546 /* Info.plist */,
 				18C424581E4FAE36005E5546 /* Geocoding.swift */,
+				181316F41E51A89D00910ADB /* SearchTableViewCell.swift */,
 				18C4245C1E4FAF99005E5546 /* SideTableCell.swift */,
 				18C4244D1E4FA222005E5546 /* SWRevealViewController */,
 				18C424621E4FB12D005E5546 /* ViewControllers */,
+				181316F61E51C7CA00910ADB /* DelvoMethods.swift */,
 			);
 			path = Delvo;
 			sourceTree = "<group>";
@@ -271,7 +280,10 @@
 				18C424591E4FAE36005E5546 /* Geocoding.swift in Sources */,
 				18C424551E4FA899005E5546 /* SearchViewController.swift in Sources */,
 				18C424351E4F8D4D005E5546 /* AppDelegate.swift in Sources */,
+				181316F71E51C7CB00910ADB /* DelvoMethods.swift in Sources */,
+				1854BD791E52233A00AB9F55 /* ApiParsing.swift in Sources */,
 				18C424511E4FA46F005E5546 /* PickUpViewController.swift in Sources */,
+				181316F51E51A89D00910ADB /* SearchTableViewCell.swift in Sources */,
 				18C4244C1E4FA20C005E5546 /* SWRevealViewController.m in Sources */,
 				18C4244F1E4FA290005E5546 /* MapViewController.swift in Sources */,
 				18C424571E4FACCF005E5546 /* OrderDescriptionViewController.swift in Sources */,
@@ -396,6 +408,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Delvo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				"OTHER_LDFLAGS[arch=*]" = " $(inherited) ";
 				PRODUCT_BUNDLE_IDENTIFIER = com.attribe.Delvo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Delvo/Delvo-Bridging-Header.h";

@@ -10,19 +10,22 @@ PODS:
     - GooglePlaces (= 2.1.1)
   - GooglePlaces (2.1.1):
     - GoogleMaps/Base (= 2.1.1)
+  - NVActivityIndicatorView (3.2)
 
 DEPENDENCIES:
   - Alamofire (~> 4.2.0)
   - GoogleMaps
   - GooglePlacePicker
   - GooglePlaces
+  - NVActivityIndicatorView
 
 SPEC CHECKSUMS:
   Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
   GoogleMaps: a5b5bbe47734e2443bde781a6aa64e69fdb6d785
   GooglePlacePicker: 665f39f931f2df32f9dd3fcc45f7e8abf71e535c
   GooglePlaces: 35636d86e5020cba3856eb988c09a5491de0a65a
+  NVActivityIndicatorView: 28942c18ced111a6a3ce5e6f5b27d9d40116d639
 
-PODFILE CHECKSUM: 23fe16b67bb90e6f466a01860a61dac877c0ebfb
+PODFILE CHECKSUM: 89e8260d0fadeda58d8bcee8db5fbc491607ccc5
 
 COCOAPODS: 1.1.1

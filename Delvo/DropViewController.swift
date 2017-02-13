@@ -9,8 +9,9 @@
 
 import UIKit
 
-class DropViewController: UIViewController {
+class DropViewController: UIViewController , UITextFieldDelegate {
 
+    @IBOutlet weak var DropAddress: UITextField!
     @IBOutlet weak var PickUpLocation: UILabel!
     @IBOutlet weak var DropLocation: UILabel!
     @IBOutlet weak var MapView: UIView!
@@ -21,14 +22,15 @@ class DropViewController: UIViewController {
 
         self.ShowMapView()
         self.navBar()
+        DropAddress.delegate = self
+        PickUpLocation.text = MapViewController.Location.PickLocation
         NotificationCenter.default.addObserver(self, selector: #selector(self.GetArea(_:)), name: NSNotification.Name(rawValue: "GetArea"), object: nil)
-
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
     }
     
     func GetArea(_ notification: NSNotification) {
         
         DropLocation.text = MapViewController.Location.DropLocation
-        PickUpLocation.text = MapViewController.Location.PickLocation
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,11 +46,6 @@ class DropViewController: UIViewController {
             let searchVc:SearchViewController = segue.destination as! SearchViewController
             searchVc.place = self.PickUpLocation.text!
             searchVc.delegate = MapVC as Address?
-            self.navigationItem.backBarButtonItem = UIBarButtonItem(title: self.navigationController?.navigationItem.title , style: UIBarButtonItemStyle.plain, target: nil, action: nil)
-        }
-        else{
-            
-            self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
         }
     }
     
@@ -80,5 +77,23 @@ class DropViewController: UIViewController {
         self.navigationController?.popToRootViewController(animated: true)
     }
 
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        Drop_Address.DropAddress = self.DropAddress.text!
+        return true
+    }
+    
+    func shouldPerformSegueWithIdentifier(identifier: String!, sender: AnyObject!) -> Bool {
+        if identifier == "GoDelvo" && DropAddress.text == nil
+        {
+            return false
+        }
+            return true
+    }
+
+    
+    struct Drop_Address
+    {
+        static var DropAddress = String()
+    }
    
 }

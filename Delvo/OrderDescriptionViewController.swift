@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import Alamofire
 
 class OrderDescriptionViewController: UIViewController , UITextViewDelegate{
     
-    
+    @IBOutlet weak var ContactField: UITextField!
+    @IBOutlet weak var NameField: UITextField!
     @IBOutlet weak var PickupLabel: UILabel!
     @IBOutlet weak var DropLabel: UILabel!
     @IBOutlet weak var DescriptionLabel: UITextView!
@@ -34,8 +36,17 @@ class OrderDescriptionViewController: UIViewController , UITextViewDelegate{
     }
     
     @IBAction func GoDelivoButton(_ sender: Any) {
-    }
-
-    
-
+        
+        let myobj = ApiParsing()
+        
+        myobj.PlaceOrder(name: self.NameField.text!, phone: self.ContactField.text!, detail: self.DescriptionLabel.text!, Success: { (json) -> () in
+            
+                 print(json)
+            
+        }
+        , Failure: { (error) -> () in
+        
+                 print(error)
+        })
+        }
 }
