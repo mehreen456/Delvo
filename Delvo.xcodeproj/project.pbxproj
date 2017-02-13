@@ -35,7 +35,7 @@
 		181316F01E50ACCE00910ADB /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
 		181316F41E51A89D00910ADB /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		181316F61E51C7CA00910ADB /* DelvoMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelvoMethods.swift; sourceTree = "<group>"; };
-		1854BD781E52233A00AB9F55 /* ApiParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiParsing.swift; sourceTree = "<group>"; };
+		1854BD781E52233A00AB9F55 /* ApiParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiParsing.swift; path = ../ApiParsing.swift; sourceTree = "<group>"; };
 		18C424311E4F8D4D005E5546 /* Delvo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Delvo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18C424341E4F8D4D005E5546 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18C4243B1E4F8D4D005E5546 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -73,7 +73,6 @@
 		18C424281E4F8D4D005E5546 = {
 			isa = PBXGroup;
 			children = (
-				1854BD781E52233A00AB9F55 /* ApiParsing.swift */,
 				18C424331E4F8D4D005E5546 /* Delvo */,
 				18C424321E4F8D4D005E5546 /* Products */,
 				F3033DC40CF87A730FF97B4D /* Pods */,
@@ -103,6 +102,7 @@
 				18C424581E4FAE36005E5546 /* Geocoding.swift */,
 				181316F41E51A89D00910ADB /* SearchTableViewCell.swift */,
 				18C4245C1E4FAF99005E5546 /* SideTableCell.swift */,
+				1854BD781E52233A00AB9F55 /* ApiParsing.swift */,
 				18C4244D1E4FA222005E5546 /* SWRevealViewController */,
 				18C424621E4FB12D005E5546 /* ViewControllers */,
 				181316F61E51C7CA00910ADB /* DelvoMethods.swift */,
