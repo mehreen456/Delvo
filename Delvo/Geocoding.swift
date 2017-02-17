@@ -19,18 +19,15 @@ class Geocoding: NSObject {
         ApiObj.SearchLocations(place: place, Success: {(SearchArray) -> () in
             
             success(SearchArray)
-            
         }
-            , Failure: {(error) -> () in
+        , Failure: {(error) -> () in
                 
                 failure(error)
-                
         })
     }
     
     func GetCorrdinates(Placeid:String , success:@escaping ( _ latitude:CLLocationDegrees ,_ longitude:CLLocationDegrees ) -> (), failure: @escaping (NSError) -> ())
     {
-        
         ApiObj.GetLatLng(placeID: Placeid, Success: { (response) -> Void in
             
             let results = response["result"] as? NSDictionary
@@ -40,9 +37,6 @@ class Geocoding: NSObject {
             let lng = names?["lng"] as! CLLocationDegrees
             
             success(lat,lng)
-
-            
-            
         }, Failure: { (error) -> Void in
             
              failure(error)

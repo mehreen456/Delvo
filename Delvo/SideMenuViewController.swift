@@ -16,7 +16,6 @@ class SideMenuViewController: UIViewController ,UITableViewDelegate ,UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
 
     func numberOfSections(in ResultsTable: UITableView) -> Int {

@@ -35,20 +35,22 @@ class SearchViewController: UIViewController , UITableViewDataSource,UITableView
         self.LoaderView.isHidden=true
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationItem.title="Search Location"
+        obj.AddImageTextfield(textField: self.searchField)
     }
-    
-    func SearchPlaces(place:String)
-    {
-        startAnimating(CGSize(width:50 ,height:50) , message: "Searching ..." , messageFont: UIFont.boldSystemFont(ofSize: 15) , type:.ballClipRotatePulse , color:obj.PrimaryBlueColor() , backgroundColor: UIColor.clear)
+
+    func SearchPlaces(place:String){
+        
+        startAnimating(CGSize(width:50 ,height:50) , message: "Searching ..." , messageFont: UIFont.boldSystemFont(ofSize: 15) , type:.ballClipRotatePulse , color:obj.DarkBlueColor() , backgroundColor: UIColor.clear)
         self.LoaderView.isHidden=false
+        self.array.removeAll()
         geocodingClass.getResults(place: place, success: { (places) -> () in
 
             self.array = places
             
-            if self.array.count == 0
-            {  self.ResultsTable.isHidden=true}
-            else
-            { self.ResultsTable.isHidden=false}
+            if self.array.count == 0{
+                self.ResultsTable.isHidden=true}
+            else{
+                self.ResultsTable.isHidden=false}
             
             self.ResultsTable.reloadData()
             self.stopAnimating()
@@ -88,8 +90,8 @@ class SearchViewController: UIViewController , UITableViewDataSource,UITableView
         
         geocodingClass.GetCorrdinates(Placeid: Placeid, success: { (latitude,longitude) -> () in
             
-            if self.delegate != nil
-            {
+            if self.delegate != nil{
+                
                 self.delegate?.GetLatLng(lat: latitude, lng: longitude)
             }
             self.navigationController?.popViewController(animated: true)
@@ -102,13 +104,16 @@ class SearchViewController: UIViewController , UITableViewDataSource,UITableView
     
     func textField(_ searchField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        if ((searchField.text)?.characters.count)! > 3
-        {
+        if ((searchField.text)?.characters.count)! > 3{
+            
             self.SearchPlaces(place: searchField.text! + " karachi")
         }
         
         return true
     }
-    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view.endEditing(true)
+        return true
+    }
     
 }

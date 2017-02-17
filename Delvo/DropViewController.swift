@@ -10,12 +10,18 @@
 import UIKit
 
 class DropViewController: UIViewController , UITextFieldDelegate {
+    @IBOutlet weak var ToastView: UIView!
 
+    @IBOutlet weak var DropLocationLabel: UILabel!
+    @IBOutlet weak var GoDelvoButton: UIButton!
     @IBOutlet weak var DropAddress: UITextField!
     @IBOutlet weak var PickUpLocation: UILabel!
     @IBOutlet weak var DropLocation: UILabel!
+    @IBOutlet weak var DropView: UIView!
+    @IBOutlet weak var PickUpView: UIView!
     @IBOutlet weak var MapView: UIView!
     var MapVC: MapViewController?
+    var obj = DelvoMethods()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +32,16 @@ class DropViewController: UIViewController , UITextFieldDelegate {
         PickUpLocation.text = MapViewController.Location.PickLocation
         NotificationCenter.default.addObserver(self, selector: #selector(self.GetArea(_:)), name: NSNotification.Name(rawValue: "GetArea"), object: nil)
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DropViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        self.PickUpView.backgroundColor = obj.DarkBlueColor()
+        self.GoDelvoButton.backgroundColor = obj.ButtonColor()
+        self.ToastView.isHidden=true
+    }
+    
+    func dismissKeyboard() {
+        
+        view.endEditing(true)
     }
     
     func GetArea(_ notification: NSNotification) {
@@ -39,18 +55,28 @@ class DropViewController: UIViewController , UITextFieldDelegate {
         MapVC?.controller = "DropVc"
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        
+//       let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        if appDelegate.FirstLoad {
+//             appDelegate.FirstLoad = false }
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "Search"
-        {
+        if segue.identifier == "Search"{
+            
             let searchVc:SearchViewController = segue.destination as! SearchViewController
             searchVc.place = self.PickUpLocation.text!
             searchVc.delegate = MapVC as Address?
         }
     }
-    
-    func ShowMapView()
-    {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view.endEditing(true)
+        return true
+    }
+    func ShowMapView(){
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         MapVC = storyboard.instantiateViewController(withIdentifier: "MapVc") as? MapViewController
         addChildViewController(MapVC!)
@@ -59,8 +85,8 @@ class DropViewController: UIViewController , UITextFieldDelegate {
         MapVC?.didMove(toParentViewController:self)
     }
     
-    func navBar()
-    {
+    func navBar(){
+        
         let button = UIButton.init(type: .custom)
         button.setImage(UIImage.init(named: "Menu.png"), for: UIControlState.normal)
         button.addTarget(self.revealViewController(), action:#selector(SWRevealViewController.rightRevealToggle(_:)), for: UIControlEvents.touchUpInside)
@@ -82,18 +108,29 @@ class DropViewController: UIViewController , UITextFieldDelegate {
         return true
     }
     
-    func shouldPerformSegueWithIdentifier(identifier: String!, sender: AnyObject!) -> Bool {
-        if identifier == "GoDelvo" && DropAddress.text == nil
-        {
-            return false
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        
+        if identifier == "GoDelvo"{
+            
+            guard let text = DropAddress.text, !text.isEmpty else {
+                
+             obj.Toast(view: self.view, ToastView: self.ToastView, message:"Please enter pick address to proceed")
+                return false
+            }
+            
+            guard PickUpLocation.text != "Near by location" else {
+                
+                obj.Toast(view: self.view, ToastView: self.ToastView, message:"Please select near by place")
+                return false
+            }
+            
         }
-            return true
+        
+        return true
     }
-
     
-    struct Drop_Address
-    {
+    struct Drop_Address{
+        
         static var DropAddress = String()
     }
-   
 }

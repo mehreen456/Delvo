@@ -22,8 +22,8 @@ class ApiParsing: NSObject {
     let googlePlace = "https://maps.googleapis.com/maps/api/place/details/json"
     let GooglePlacesApi = "AIzaSyBsWLDDGbaaf042Y0yr1zktCbR4BrEWTFk"
     
-    func PlaceOrder(name:String,phone:String,detail:String , Success:@escaping (NSDictionary) -> (), Failure: @escaping (NSError) -> ())
-    {
+    func PlaceOrder(name:String,phone:String,detail:String , Success:@escaping (NSDictionary) -> (), Failure: @escaping (NSError) -> ()){
+        
         let params = self.ParamsPlaceOrder(name: name, phone: phone, detail: detail)
 
         let headers: HTTPHeaders = [
@@ -44,11 +44,10 @@ class ApiParsing: NSObject {
                     Success(json as! NSDictionary)
                 }
         }
-
     }
     
-    func GetLatLng(placeID: String , Success:@escaping (NSDictionary) -> (), Failure: @escaping (NSError) -> ())
-    {
+    func GetLatLng(placeID: String , Success:@escaping (NSDictionary) -> (), Failure: @escaping (NSError) -> ()){
+        
         Alamofire.request(
             
             URL(string: googlePlace)!,
@@ -56,7 +55,7 @@ class ApiParsing: NSObject {
             parameters: [
                 
                 "placeid": placeID,
-                "key" : GooglePlacesApi //"AIzaSyB0e-ht_K-H6bSDUMeTTK8J72rO_UdigK0"
+                "key" : GooglePlacesApi 
             ])
             .validate()
             .responseJSON { (response) -> Void in
@@ -71,8 +70,8 @@ class ApiParsing: NSObject {
         }
     }
     
-    func ParamsPlaceOrder(name:String,phone:String,detail:String) -> (NSDictionary)
-    {
+    func ParamsPlaceOrder(name:String,phone:String,detail:String) -> (NSDictionary){
+        
         let params = [
             "name": name,
             "phone": phone,
@@ -118,9 +117,10 @@ class ApiParsing: NSObject {
                         print("Data received")
                         return
                 }
-
-                for i in 0 ..< results.count
-                {
+                self.PlaceArray.removeAll()
+                
+                for i in 0 ..< results.count{
+                    
                     let dic = results[i]
                     let name = dic["description"] as? String
                     let placeid = dic["place_id"] as? String

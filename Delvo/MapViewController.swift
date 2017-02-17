@@ -10,7 +10,7 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 
-class MapViewController: UIViewController ,GMSMapViewDelegate ,Address{
+class MapViewController: UIViewController ,GMSMapViewDelegate ,Address,CLLocationManagerDelegate{
 
     @IBOutlet weak var Pointer: UIImageView!
     @IBOutlet weak var MapView: GMSMapView!
@@ -19,23 +19,42 @@ class MapViewController: UIViewController ,GMSMapViewDelegate ,Address{
     var lat: CLLocationDegrees = 24.8838999
     var long: CLLocationDegrees = 67.0546788
     var controller:String = "PickUpVc"
+    var locationManager = CLLocationManager()
+    var didFindMyLocation = false
+    var appDelegate = AppDelegate()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.Pointer.frame=MapView.camera.accessibilityFrame
-        GetMap(a: lat, b: long)
+        MapView.settings.myLocationButton=false
+        MapView.settings.compassButton=false
+        self.MapView?.isMyLocationEnabled = true
+       // GetMap(a: lat, b: long)
+        MapView.delegate = self
+        appDelegate = UIApplication.shared.delegate as! AppDelegate
+        if appDelegate.FirstLoad{
+            MapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.new, context: nil)}
+
         }
     
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
+        if !didFindMyLocation {
+            let myLocation: CLLocation = change![NSKeyValueChangeKey.newKey] as! CLLocation
+            MapView.camera = GMSCameraPosition.camera(withTarget: myLocation.coordinate, zoom: 17.0)
+            didFindMyLocation = true}
+
+        }
+
     
-    public func GetMap(a:CLLocationDegrees , b:CLLocationDegrees)
-    {
+    public func GetMap(a:CLLocationDegrees , b:CLLocationDegrees){
+        
         let camera: GMSCameraPosition = GMSCameraPosition.camera(withLatitude: a, longitude: b, zoom: 17)
         MapView.camera = camera
-        MapView.delegate = self
         MapView.isMyLocationEnabled = true
-        MapView.settings.myLocationButton=true
-        MapView.settings.compassButton=true
+        MapView.settings.myLocationButton=false
+        MapView.settings.compassButton=false
     }
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
@@ -46,9 +65,9 @@ class MapViewController: UIViewController ,GMSMapViewDelegate ,Address{
     }
     
     func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+        
         MapView.isMyLocationEnabled = true
-        if(gesture)
-        {
+        if(gesture){
             MapView.selectedMarker = nil
         }
     }
@@ -58,8 +77,7 @@ class MapViewController: UIViewController ,GMSMapViewDelegate ,Address{
         let geocoder = GMSGeocoder()
         
         geocoder.reverseGeocodeCoordinate(coordinate) { response , error in
-            if response != nil
-            {
+            if response != nil{
                 
                 if let Address = response!.firstResult() {
                     let lines = Address.lines! as [String]
@@ -98,6 +116,9 @@ class MapViewController: UIViewController ,GMSMapViewDelegate ,Address{
         
         GetMap(a: lat, b: lng)
     }
-
-   
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        if self.controller == "DropVc"{//(appDelegate.FirstLoad){
+            MapView.removeObserver(self, forKeyPath: "myLocation", context: nil)}
+    }
 }
