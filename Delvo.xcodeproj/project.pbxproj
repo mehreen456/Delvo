@@ -8,10 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		181316EF1E50A7BF00910ADB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 181316EE1E50A7BF00910ADB /* Main.storyboard */; };
-		181316F11E50ACCE00910ADB /* search.png in Resources */ = {isa = PBXBuildFile; fileRef = 181316F01E50ACCE00910ADB /* search.png */; };
 		181316F51E51A89D00910ADB /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181316F41E51A89D00910ADB /* SearchTableViewCell.swift */; };
 		181316F71E51C7CB00910ADB /* DelvoMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181316F61E51C7CA00910ADB /* DelvoMethods.swift */; };
 		1854BD791E52233A00AB9F55 /* ApiParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854BD781E52233A00AB9F55 /* ApiParsing.swift */; };
+		188E1FCC1E59B99B009508CD /* UIColor+AddColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E1FCB1E59B99B009508CD /* UIColor+AddColor.swift */; };
+		188E59281E56DD18001A5AE3 /* redbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 188E59271E56DD18001A5AE3 /* redbutton.png */; };
+		188E592A1E56DD1F001A5AE3 /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = 188E59291E56DD1F001A5AE3 /* green.png */; };
+		18AA995C1E5B02EE004EECD3 /* UIImageView+ChangeTintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AA995B1E5B02EE004EECD3 /* UIImageView+ChangeTintColor.swift */; };
 		18C424351E4F8D4D005E5546 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C424341E4F8D4D005E5546 /* AppDelegate.swift */; };
 		18C4243C1E4F8D4D005E5546 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18C4243B1E4F8D4D005E5546 /* Assets.xcassets */; };
 		18C4243F1E4F8D4D005E5546 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18C4243D1E4F8D4D005E5546 /* LaunchScreen.storyboard */; };
@@ -24,7 +27,6 @@
 		18C424591E4FAE36005E5546 /* Geocoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C424581E4FAE36005E5546 /* Geocoding.swift */; };
 		18C4245B1E4FAE9E005E5546 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C4245A1E4FAE9E005E5546 /* SideMenuViewController.swift */; };
 		18C4245D1E4FAF99005E5546 /* SideTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C4245C1E4FAF99005E5546 /* SideTableCell.swift */; };
-		18C4245F1E4FB0FD005E5546 /* ic_marker.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C4245E1E4FB0FD005E5546 /* ic_marker.png */; };
 		18C424611E4FB11A005E5546 /* Menu.png in Resources */ = {isa = PBXBuildFile; fileRef = 18C424601E4FB11A005E5546 /* Menu.png */; };
 		8CA9D12DA167A4DF86AF4026 /* Pods_Delvo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 440E8FC52CBF8C1539CC8F7C /* Pods_Delvo.framework */; };
 /* End PBXBuildFile section */
@@ -32,10 +34,16 @@
 /* Begin PBXFileReference section */
 		0D64B710A25DDD50246B318D /* Pods-Delvo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Delvo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Delvo/Pods-Delvo.release.xcconfig"; sourceTree = "<group>"; };
 		181316EE1E50A7BF00910ADB /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		181316F01E50ACCE00910ADB /* search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search.png; sourceTree = "<group>"; };
 		181316F41E51A89D00910ADB /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		181316F61E51C7CA00910ADB /* DelvoMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelvoMethods.swift; sourceTree = "<group>"; };
 		1854BD781E52233A00AB9F55 /* ApiParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiParsing.swift; path = ../ApiParsing.swift; sourceTree = "<group>"; };
+<<<<<<< HEAD
+=======
+		188E1FCB1E59B99B009508CD /* UIColor+AddColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+AddColor.swift"; path = "../UIColor+AddColor.swift"; sourceTree = "<group>"; };
+		188E59271E56DD18001A5AE3 /* redbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redbutton.png; sourceTree = "<group>"; };
+		188E59291E56DD1F001A5AE3 /* green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green.png; sourceTree = "<group>"; };
+		18AA995B1E5B02EE004EECD3 /* UIImageView+ChangeTintColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+ChangeTintColor.swift"; sourceTree = "<group>"; };
+>>>>>>> 235e9f6010fd90f788261bbea2a6dc846725772f
 		18C424311E4F8D4D005E5546 /* Delvo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Delvo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18C424341E4F8D4D005E5546 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18C4243B1E4F8D4D005E5546 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -52,7 +60,6 @@
 		18C424581E4FAE36005E5546 /* Geocoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geocoding.swift; sourceTree = "<group>"; };
 		18C4245A1E4FAE9E005E5546 /* SideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		18C4245C1E4FAF99005E5546 /* SideTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideTableCell.swift; sourceTree = "<group>"; };
-		18C4245E1E4FB0FD005E5546 /* ic_marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_marker.png; sourceTree = "<group>"; };
 		18C424601E4FB11A005E5546 /* Menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Menu.png; sourceTree = "<group>"; };
 		440E8FC52CBF8C1539CC8F7C /* Pods_Delvo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Delvo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C95A5EDFAE3A0C92D03F3C2 /* Pods-Delvo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Delvo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Delvo/Pods-Delvo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -70,9 +77,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1854BD7A1E524D4F00AB9F55 /* TableCells */ = {
+			isa = PBXGroup;
+			children = (
+				181316F41E51A89D00910ADB /* SearchTableViewCell.swift */,
+				18C4245C1E4FAF99005E5546 /* SideTableCell.swift */,
+			);
+			name = TableCells;
+			sourceTree = "<group>";
+		};
+		1854BD7B1E524E7100AB9F55 /* Classe */ = {
+			isa = PBXGroup;
+			children = (
+<<<<<<< HEAD
+=======
+				18C424581E4FAE36005E5546 /* Geocoding.swift */,
+				1854BD781E52233A00AB9F55 /* ApiParsing.swift */,
+				181316F61E51C7CA00910ADB /* DelvoMethods.swift */,
+			);
+			name = Classe;
+			sourceTree = "<group>";
+		};
+		188E1FCD1E59C284009508CD /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				188E1FCB1E59B99B009508CD /* UIColor+AddColor.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		18C424281E4F8D4D005E5546 = {
 			isa = PBXGroup;
 			children = (
+				18AA995B1E5B02EE004EECD3 /* UIImageView+ChangeTintColor.swift */,
+>>>>>>> 235e9f6010fd90f788261bbea2a6dc846725772f
 				18C424331E4F8D4D005E5546 /* Delvo */,
 				18C424321E4F8D4D005E5546 /* Products */,
 				F3033DC40CF87A730FF97B4D /* Pods */,
@@ -92,20 +130,25 @@
 			isa = PBXGroup;
 			children = (
 				18C424601E4FB11A005E5546 /* Menu.png */,
-				181316F01E50ACCE00910ADB /* search.png */,
-				18C4245E1E4FB0FD005E5546 /* ic_marker.png */,
+				188E59291E56DD1F001A5AE3 /* green.png */,
+				188E59271E56DD18001A5AE3 /* redbutton.png */,
 				18C424341E4F8D4D005E5546 /* AppDelegate.swift */,
 				18C4243B1E4F8D4D005E5546 /* Assets.xcassets */,
 				181316EE1E50A7BF00910ADB /* Main.storyboard */,
 				18C4243D1E4F8D4D005E5546 /* LaunchScreen.storyboard */,
 				18C424401E4F8D4D005E5546 /* Info.plist */,
+<<<<<<< HEAD
 				18C424581E4FAE36005E5546 /* Geocoding.swift */,
 				181316F41E51A89D00910ADB /* SearchTableViewCell.swift */,
 				18C4245C1E4FAF99005E5546 /* SideTableCell.swift */,
 				1854BD781E52233A00AB9F55 /* ApiParsing.swift */,
+=======
+				188E1FCD1E59C284009508CD /* Extensions */,
+				1854BD7B1E524E7100AB9F55 /* Classe */,
+				1854BD7A1E524D4F00AB9F55 /* TableCells */,
+>>>>>>> 235e9f6010fd90f788261bbea2a6dc846725772f
 				18C4244D1E4FA222005E5546 /* SWRevealViewController */,
 				18C424621E4FB12D005E5546 /* ViewControllers */,
-				181316F61E51C7CA00910ADB /* DelvoMethods.swift */,
 			);
 			path = Delvo;
 			sourceTree = "<group>";
@@ -185,6 +228,7 @@
 				TargetAttributes = {
 					18C424301E4F8D4D005E5546 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 6WRM2CUQGD;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
@@ -214,11 +258,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				18C424611E4FB11A005E5546 /* Menu.png in Resources */,
-				181316F11E50ACCE00910ADB /* search.png in Resources */,
+				188E59281E56DD18001A5AE3 /* redbutton.png in Resources */,
 				181316EF1E50A7BF00910ADB /* Main.storyboard in Resources */,
 				18C4243F1E4F8D4D005E5546 /* LaunchScreen.storyboard in Resources */,
+				188E592A1E56DD1F001A5AE3 /* green.png in Resources */,
 				18C4243C1E4F8D4D005E5546 /* Assets.xcassets in Resources */,
-				18C4245F1E4FB0FD005E5546 /* ic_marker.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,8 +326,10 @@
 				18C424351E4F8D4D005E5546 /* AppDelegate.swift in Sources */,
 				181316F71E51C7CB00910ADB /* DelvoMethods.swift in Sources */,
 				1854BD791E52233A00AB9F55 /* ApiParsing.swift in Sources */,
+				188E1FCC1E59B99B009508CD /* UIColor+AddColor.swift in Sources */,
 				18C424511E4FA46F005E5546 /* PickUpViewController.swift in Sources */,
 				181316F51E51A89D00910ADB /* SearchTableViewCell.swift in Sources */,
+				18AA995C1E5B02EE004EECD3 /* UIImageView+ChangeTintColor.swift in Sources */,
 				18C4244C1E4FA20C005E5546 /* SWRevealViewController.m in Sources */,
 				18C4244F1E4FA290005E5546 /* MapViewController.swift in Sources */,
 				18C424571E4FACCF005E5546 /* OrderDescriptionViewController.swift in Sources */,
@@ -347,7 +393,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -391,7 +437,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -406,7 +452,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = 6WRM2CUQGD;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/Alamofire\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/NVActivityIndicatorView\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/Toast-Swift\"",
+					"\"${PODS_ROOT}/GoogleMaps/Base/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleMaps/Maps/Frameworks\"",
+					"\"${PODS_ROOT}/GooglePlacePicker/Frameworks\"",
+					"\"${PODS_ROOT}/GooglePlaces/Frameworks\"",
+					"\"$(SRCROOT)\"",
+				);
 				INFOPLIST_FILE = Delvo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				"OTHER_LDFLAGS[arch=*]" = " $(inherited) ";
 				PRODUCT_BUNDLE_IDENTIFIER = com.attribe.Delvo;
@@ -423,7 +482,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = 6WRM2CUQGD;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/Alamofire\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/NVActivityIndicatorView\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/Toast-Swift\"",
+					"\"${PODS_ROOT}/GoogleMaps/Base/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleMaps/Maps/Frameworks\"",
+					"\"${PODS_ROOT}/GooglePlacePicker/Frameworks\"",
+					"\"${PODS_ROOT}/GooglePlaces/Frameworks\"",
+					"\"$(SRCROOT)\"",
+				);
 				INFOPLIST_FILE = Delvo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.attribe.Delvo;
 				PRODUCT_NAME = "$(TARGET_NAME)";

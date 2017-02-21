@@ -13,5 +13,6 @@ target 'Delvo' do
    pod 'GooglePlacePicker'
    pod 'GooglePlacePicker'
    pod 'NVActivityIndicatorView'
+   pod 'Toast-Swift', '~> 2.0.0'
    
 end

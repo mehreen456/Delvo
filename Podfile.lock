@@ -11,6 +11,7 @@ PODS:
   - GooglePlaces (2.1.1):
     - GoogleMaps/Base (= 2.1.1)
   - NVActivityIndicatorView (3.2)
+  - Toast-Swift (2.0.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.2.0)
@@ -18,6 +19,7 @@ DEPENDENCIES:
   - GooglePlacePicker
   - GooglePlaces
   - NVActivityIndicatorView
+  - Toast-Swift (~> 2.0.0)
 
 SPEC CHECKSUMS:
   Alamofire: aa2e09d871c9160ac53c90e83c68064a94e3dfbe
@@ -25,7 +27,8 @@ SPEC CHECKSUMS:
   GooglePlacePicker: 665f39f931f2df32f9dd3fcc45f7e8abf71e535c
   GooglePlaces: 35636d86e5020cba3856eb988c09a5491de0a65a
   NVActivityIndicatorView: 28942c18ced111a6a3ce5e6f5b27d9d40116d639
+  Toast-Swift: 5b2f8f720f7e78e48511f693df1f9c9a6e38a25a
 
-PODFILE CHECKSUM: 89e8260d0fadeda58d8bcee8db5fbc491607ccc5
+PODFILE CHECKSUM: 312f73d93508594677a1f280739bdf58ecc8a831
 
 COCOAPODS: 1.1.1

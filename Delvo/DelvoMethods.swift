@@ -1,4 +1,3 @@
-
 //
 //  DelvoMethods.swift
 //  Delvo
@@ -8,9 +7,11 @@
 //
 
 import UIKit
+import Toast_Swift
 
 class DelvoMethods: NSObject {
 
+    
     func heightForView(text:String , frame:CGRect) -> CGFloat{
         
         let label:UILabel = UILabel(frame:frame)
@@ -19,14 +20,49 @@ class DelvoMethods: NSObject {
         label.font =  UIFont(name: "Helvetica", size: 15.0)
         label.text = text
         label.sizeToFit()
-        
         return label.frame.height
     }
     
-    func PrimaryBlueColor() -> UIColor
+    func Toast(view:UIView , ToastView:UIView , message:String)
     {
-        let myColor : UIColor = UIColor( red: 0.0, green: 188.0, blue: 213.0, alpha: 1.0 )
-        return myColor
+        var style = ToastStyle()
+        style.messageColor = UIColor.white
+        style.backgroundColor = UIColor.DarkBlueColor()
+        view.makeToast(message, duration: 2.0, position: ToastView.center, style:style)
     }
     
+    func alert(message: String, title: String = "" ) -> UIViewController {
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "OK", style: .default, handler:nil)        
+        alertController.addAction(OKAction)
+        return alertController
+    }
+    
+    func DismissAlertView(alertview:UIAlertController)
+    {
+        let when = DispatchTime.now() + 5
+        DispatchQueue.main.asyncAfter(deadline: when){
+            alertview.dismiss(animated: true, completion: nil)}
+            
+    }
+    
+    func AddImageTextfield(textField:UITextField)
+    {
+        let image = UIImageView(image: UIImage(named: "SearchIcon"))
+        image.frame = CGRect(x: 0.0, y: 0.0, width: 20, height:20)
+        let paddingview = UIView()
+        paddingview.frame = CGRect(x: 0.0, y: 0.0, width: image.frame.size.width + 10, height:image.frame.size.height)
+        paddingview.addSubview(image)
+        paddingview.contentMode = UIViewContentMode.center
+        textField.rightView = paddingview
+        textField.rightViewMode = UITextFieldViewMode.always
+    }
+
+    func AddBorder(textview:UITextView){
+        
+        textview.layer.borderColor = UIColor.lightGray.cgColor
+        textview.layer.borderWidth = 1
+        textview.layer.cornerRadius = 5
+    }
 }
