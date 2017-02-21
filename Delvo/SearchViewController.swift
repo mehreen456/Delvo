@@ -40,7 +40,8 @@ class SearchViewController: UIViewController , UITableViewDataSource,UITableView
 
     func SearchPlaces(place:String){
         
-        startAnimating(CGSize(width:50 ,height:50) , message: "Searching ..." , messageFont: UIFont.boldSystemFont(ofSize: 15) , type:.ballClipRotatePulse , color:obj.DarkBlueColor() , backgroundColor: UIColor.clear)
+        startAnimating(CGSize(width:50 ,height:50) , message: "Searching ..." , messageFont: UIFont.boldSystemFont(ofSize: 15) , type:.ballClipRotatePulse , color: UIColor.DarkBlueColor()
+            , backgroundColor: UIColor.clear)
         self.LoaderView.isHidden=false
         self.array.removeAll()
         geocodingClass.getResults(place: place, success: { (places) -> () in
@@ -74,6 +75,7 @@ class SearchViewController: UIViewController , UITableViewDataSource,UITableView
         
         return cellHeight+25
     }
+    
     func tableView(_ ResultsTable: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
         let cell = ResultsTable.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchTableViewCell
@@ -111,6 +113,7 @@ class SearchViewController: UIViewController , UITableViewDataSource,UITableView
         
         return true
     }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         view.endEditing(true)
         return true

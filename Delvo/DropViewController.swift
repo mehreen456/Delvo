@@ -10,9 +10,13 @@
 import UIKit
 
 class DropViewController: UIViewController , UITextFieldDelegate {
+    
+    struct Drop_Address{
+        
+        static var DropAddress = String()
+    }
+    
     @IBOutlet weak var ToastView: UIView!
-
-    @IBOutlet weak var DropLocationLabel: UILabel!
     @IBOutlet weak var GoDelvoButton: UIButton!
     @IBOutlet weak var DropAddress: UITextField!
     @IBOutlet weak var PickUpLocation: UILabel!
@@ -20,6 +24,7 @@ class DropViewController: UIViewController , UITextFieldDelegate {
     @IBOutlet weak var DropView: UIView!
     @IBOutlet weak var PickUpView: UIView!
     @IBOutlet weak var MapView: UIView!
+    
     var MapVC: MapViewController?
     var obj = DelvoMethods()
     
@@ -28,25 +33,10 @@ class DropViewController: UIViewController , UITextFieldDelegate {
 
         self.ShowMapView()
         self.navBar()
-        DropAddress.delegate = self
-        PickUpLocation.text = MapViewController.Location.PickLocation
-        NotificationCenter.default.addObserver(self, selector: #selector(self.GetArea(_:)), name: NSNotification.Name(rawValue: "GetArea"), object: nil)
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DropViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
-        self.PickUpView.backgroundColor = obj.DarkBlueColor()
-        self.GoDelvoButton.backgroundColor = obj.ButtonColor()
-        self.ToastView.isHidden=true
-    }
-    
-    func dismissKeyboard() {
-        
-        view.endEditing(true)
-    }
-    
-    func GetArea(_ notification: NSNotification) {
-        
-        DropLocation.text = MapViewController.Location.DropLocation
+        self.addGesture()
+        self.setTextFields()
+        self.setColors()
+        self.notification()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,13 +45,33 @@ class DropViewController: UIViewController , UITextFieldDelegate {
         MapVC?.controller = "DropVc"
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    func ShowMapView(){
         
-//       let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//        if appDelegate.FirstLoad {
-//             appDelegate.FirstLoad = false }
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        MapVC = storyboard.instantiateViewController(withIdentifier: "MapVc") as? MapViewController
+        addChildViewController(MapVC!)
+        MapVC?.view.frame = self.MapView.bounds
+        MapView.addSubview((MapVC?.view)!)
+        MapVC?.didMove(toParentViewController:self)
+    }
+    
+    @IBAction func ChangePIckButton(_ sender: Any) {
+        
+        self.navigationController?.popToRootViewController(animated: true)
     }
 
+    // textfield delegate Methods
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        Drop_Address.DropAddress = self.DropAddress.text!
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        view.endEditing(true)
+        return true
+    }
+    
+   // Segue Methods
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "Search"{
@@ -71,18 +81,52 @@ class DropViewController: UIViewController , UITextFieldDelegate {
             searchVc.delegate = MapVC as Address?
         }
     }
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        view.endEditing(true)
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        
+        if identifier == "GoDelvo"{
+            
+            guard let text = DropAddress.text, !text.isEmpty else {
+                
+             obj.Toast(view: self.view, ToastView: self.ToastView, message:"Please enter drop address to proceed")
+                return false
+            }
+            
+        guard DropLocation.text != "Near by location" && DropLocation.text != "" else {
+                
+                obj.Toast(view: self.view, ToastView: self.ToastView, message:"Please select near by place")
+                return false
+            }
+        }
         return true
     }
-    func ShowMapView(){
+    
+    // Class Methods
+    func addGesture(){
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        MapVC = storyboard.instantiateViewController(withIdentifier: "MapVc") as? MapViewController
-        addChildViewController(MapVC!)
-        MapVC?.view.frame = self.MapView.bounds
-        MapView.addSubview((MapVC?.view)!)
-        MapVC?.didMove(toParentViewController:self)
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DropViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard(){
+        
+        view.endEditing(true)
+    }
+    
+    func setColors(){
+        
+        self.PickUpView.backgroundColor = UIColor.DarkBlueColor()
+        self.GoDelvoButton.backgroundColor = UIColor.ButtonColor()
+    }
+    
+    func notification(){
+    
+        NotificationCenter.default.addObserver(self, selector: #selector(self.GetArea(_:)), name: NSNotification.Name(rawValue: "GetArea"), object: nil)
+    }
+    
+    func GetArea(_ notification: NSNotification) {
+        
+        DropLocation.text = MapViewController.Location.DropLocation
     }
     
     func navBar(){
@@ -96,41 +140,14 @@ class DropViewController: UIViewController , UITextFieldDelegate {
         self.navigationItem.title = "Drop Location"
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
     }
     
-    @IBAction func ChangePIckButton(_ sender: Any) {
+    func setTextFields(){
         
-        self.navigationController?.popToRootViewController(animated: true)
-    }
-
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        Drop_Address.DropAddress = self.DropAddress.text!
-        return true
-    }
-    
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        
-        if identifier == "GoDelvo"{
-            
-            guard let text = DropAddress.text, !text.isEmpty else {
-                
-             obj.Toast(view: self.view, ToastView: self.ToastView, message:"Please enter pick address to proceed")
-                return false
-            }
-            
-            guard PickUpLocation.text != "Near by location" else {
-                
-                obj.Toast(view: self.view, ToastView: self.ToastView, message:"Please select near by place")
-                return false
-            }
-            
-        }
-        
-        return true
-    }
-    
-    struct Drop_Address{
-        
-        static var DropAddress = String()
+        DropAddress.delegate = self
+        PickUpLocation.text = MapViewController.Location.PickLocation
+        DropLocation.text = MapViewController.Location.DropLocation
+        self.ToastView.isHidden=true
     }
 }

@@ -11,12 +11,14 @@ import Alamofire
 
 class OrderDescriptionViewController: UIViewController , UITextViewDelegate, UITextFieldDelegate{
     
+    @IBOutlet weak var EditIcon: UIImageView!
     @IBOutlet weak var DoneButton: UIButton!
     @IBOutlet weak var ContactField: UITextField!
     @IBOutlet weak var NameField: UITextField!
     @IBOutlet weak var PickupLabel: UILabel!
     @IBOutlet weak var DropLabel: UILabel!
     @IBOutlet weak var DescriptionLabel: UITextView!
+    
     var frameorigin:CGRect?
     let obj = DelvoMethods()
     var status:NSInteger = 100
@@ -28,7 +30,9 @@ class OrderDescriptionViewController: UIViewController , UITextViewDelegate, UIT
         self.DescriptionLabel.delegate=self
         DropLabel.text = MapViewController.Location.DropLocation
         PickupLabel.text = MapViewController.Location.PickLocation
-        
+
+        EditIcon.ChangeTintColor(color:UIColor.DarkBlueColor())
+        EditIcon.backgroundColor = UIColor.clear
         self.navigationItem.title = "Place Order"
         self.navigationController?.navigationBar.tintColor = UIColor.white
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PickUpViewController.dismissKeyboard))
@@ -37,7 +41,9 @@ class OrderDescriptionViewController: UIViewController , UITextViewDelegate, UIT
         self.frameorigin = self.view.frame
         NameField.delegate = self
         ContactField.delegate = self
-        self.DoneButton.backgroundColor = obj.ButtonColor()
+        self.DoneButton.backgroundColor = UIColor.ButtonColor()
+        DescriptionLabel.text = "\n Enter your order description here ..."
+        obj.AddBorder(textview: self.DescriptionLabel)
     }
     
     @IBAction func GoDelivoButton(_ sender: Any) {
@@ -48,9 +54,9 @@ class OrderDescriptionViewController: UIViewController , UITextViewDelegate, UIT
             
              let meta = json["meta"] as! NSDictionary
              self.status = meta["status"] as! NSInteger
+            
              if self.status == 200{
-    
-                 self.ShowAlert()
+                self.ShowAlert()
              }
              else{
              
@@ -65,6 +71,7 @@ class OrderDescriptionViewController: UIViewController , UITextViewDelegate, UIT
         
                  print(error)
         })
+        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -88,19 +95,17 @@ class OrderDescriptionViewController: UIViewController , UITextViewDelegate, UIT
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         
-        if DescriptionLabel.text == "Enter your order description here ..."{
-            DescriptionLabel.text = " "
+        if DescriptionLabel.text == "\n Enter your order description here ..."{
+            DescriptionLabel.text = "\n "
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         
-        if DescriptionLabel.text == " "{
-            DescriptionLabel.text = "Enter your order description here ..."
+        if DescriptionLabel.text == "\n " || DescriptionLabel.text == "\n" {
+            DescriptionLabel.text = "\n Enter your order description here ..."
         }
     }
-    
-    
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
@@ -129,6 +134,7 @@ class OrderDescriptionViewController: UIViewController , UITextViewDelegate, UIT
         }
         alertController.addAction(OKAction)
         self.present(alertController, animated: true, completion: nil)
+        
         let when = DispatchTime.now() + 5
         DispatchQueue.main.asyncAfter(deadline: when){
             alertController.dismiss(animated: true, completion: nil)

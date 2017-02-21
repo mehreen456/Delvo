@@ -25,28 +25,34 @@ class MapViewController: UIViewController ,GMSMapViewDelegate ,Address,CLLocatio
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        locationManager.startUpdatingLocation()
+        self.locationManager.delegate = self
         self.Pointer.frame=MapView.camera.accessibilityFrame
         MapView.settings.myLocationButton=false
         MapView.settings.compassButton=false
         self.MapView?.isMyLocationEnabled = true
-       // GetMap(a: lat, b: long)
+        GetMap(a: lat, b: long)
         MapView.delegate = self
-        appDelegate = UIApplication.shared.delegate as! AppDelegate
-        if appDelegate.FirstLoad{
-            MapView.addObserver(self, forKeyPath: "myLocation", options: NSKeyValueObservingOptions.new, context: nil)}
-
+        
         }
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status:  CLAuthorizationStatus) {
         
-        if !didFindMyLocation {
-            let myLocation: CLLocation = change![NSKeyValueChangeKey.newKey] as! CLLocation
-            MapView.camera = GMSCameraPosition.camera(withTarget: myLocation.coordinate, zoom: 17.0)
-            didFindMyLocation = true}
-
+        if status == CLAuthorizationStatus.authorizedWhenInUse {
+            MapView.isMyLocationEnabled = true
         }
-
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        let location = locations.last
+        let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom: 17.0)
+        self.MapView?.animate(to: camera)
+        self.locationManager.stopUpdatingLocation()
+    }
     
     public func GetMap(a:CLLocationDegrees , b:CLLocationDegrees){
         
@@ -67,7 +73,9 @@ class MapViewController: UIViewController ,GMSMapViewDelegate ,Address,CLLocatio
     func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
         
         MapView.isMyLocationEnabled = true
+        
         if(gesture){
+        
             MapView.selectedMarker = nil
         }
     }
@@ -78,27 +86,26 @@ class MapViewController: UIViewController ,GMSMapViewDelegate ,Address,CLLocatio
         
         geocoder.reverseGeocodeCoordinate(coordinate) { response , error in
             if response != nil{
-                
-                if let Address = response!.firstResult() {
-                    let lines = Address.lines! as [String]
-                    print(lines)
+            
+            if let Address = response!.firstResult() {
+                let lines = Address.lines! as [String]
                     
-                    let address = lines.joined(separator: ",")
-                    if self.controller == "PickUpVc"{
-                        Location.PickLocation = address
-                        Location.PickLat = coordinate.latitude
-                        Location.PickLng = coordinate.longitude
-                    }
+                let address = lines.joined(separator: ",")
+                if self.controller == "PickUpVc"{
                         
-                    else{
-                        Location.DropLocation = address
-                        Location.DropLat = coordinate.latitude
-                        Location.DropLng = coordinate.longitude
-                    }
+                    Location.PickLocation = address
+                    Location.PickLat = coordinate.latitude
+                    Location.PickLng = coordinate.longitude
+                }
+                        
+                else{
+                        
+                    Location.DropLocation = address
+                    Location.DropLat = coordinate.latitude
+                    Location.DropLng = coordinate.longitude
+                }
                     
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "GetArea"), object: nil)
-                    
-                    print(address)}
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "GetArea"), object: nil)}
             }}
     }
     
@@ -117,8 +124,4 @@ class MapViewController: UIViewController ,GMSMapViewDelegate ,Address,CLLocatio
         GetMap(a: lat, b: lng)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        if self.controller == "DropVc"{//(appDelegate.FirstLoad){
-            MapView.removeObserver(self, forKeyPath: "myLocation", context: nil)}
-    }
 }

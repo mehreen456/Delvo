@@ -53,6 +53,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>App Access data</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Allow Location</string>
 </dict>

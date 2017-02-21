@@ -8,8 +8,13 @@
 
 import UIKit
 
-class PickUpViewController: UIViewController , UITextFieldDelegate {
+class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UITextFieldDelegate {
 
+    struct Pick_Address{
+        
+        static var PickAddress = String()
+    }
+    
     @IBOutlet weak var ToastView: UIView!
     @IBOutlet weak var PickAddress: UITextField!
     @IBOutlet weak var SideMenuButton: UIBarButtonItem!
@@ -17,15 +22,15 @@ class PickUpViewController: UIViewController , UITextFieldDelegate {
     @IBOutlet weak var PickUpLocation: UILabel!
     @IBOutlet weak var ProceedButton: UIButton!
     @IBOutlet weak var PickUpView: UIView!
-    
     var MapVC: MapViewController?
     let obj = DelvoMethods()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navBar()
         self.ShowMapView()
+        self.navBar()
+        self.revealViewController().delegate = self
         PickAddress.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(self.GetArea(_:)), name: NSNotification.Name(rawValue: "GetArea"), object: nil)
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PickUpViewController.dismissKeyboard))
@@ -59,18 +64,17 @@ class PickUpViewController: UIViewController , UITextFieldDelegate {
         }
     }
     
-
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
        
             if identifier == "Proceed"{
                 
                 guard let text = PickAddress.text, !text.isEmpty else {
-                    
+                    MapVC?.locationManager.startUpdatingLocation()
                     obj.Toast(view: self.view, ToastView: self.ToastView, message:"Please enter pick address to proceed")
                     return false
                 }
                 
-                guard PickUpLocation.text != "Near by location" else {
+                guard PickUpLocation.text != "Near by location" && PickUpLocation.text != "" else {
                     
                     obj.Toast(view: self.view, ToastView: self.ToastView, message:"Please select near by place")
                     return false
@@ -89,6 +93,15 @@ class PickUpViewController: UIViewController , UITextFieldDelegate {
         MapVC?.didMove(toParentViewController: self)
     }
     
+    func revealController(_ revealController: SWRevealViewController!, animateTo position: FrontViewPosition) {
+        if revealController.frontViewPosition == FrontViewPosition.leftSide{
+            self.MapVC?.MapView.isUserInteractionEnabled = false
+            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
+        }
+        else{
+            self.MapVC?.MapView.isUserInteractionEnabled = true }
+    }
+    
     func navBar(){
         
         if self.revealViewController() != nil {
@@ -96,12 +109,11 @@ class PickUpViewController: UIViewController , UITextFieldDelegate {
             SideMenuButton.target = self.revealViewController()
             SideMenuButton.action = #selector(SWRevealViewController.rightRevealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
-            self.navigationController?.navigationBar.barTintColor = obj.PrimaryBlueColor()
+            self.navigationController?.navigationBar.barTintColor = UIColor.PrimaryBlueColor()
         }
         
-        self.ProceedButton.backgroundColor = obj.ButtonColor()
+        self.ProceedButton.backgroundColor = UIColor.ButtonColor()
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
@@ -115,8 +127,4 @@ class PickUpViewController: UIViewController , UITextFieldDelegate {
         return true
     }
     
-    struct Pick_Address{
-        
-        static var PickAddress = String()
-    }
 }

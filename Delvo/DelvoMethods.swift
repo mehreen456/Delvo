@@ -27,33 +27,14 @@ class DelvoMethods: NSObject {
     {
         var style = ToastStyle()
         style.messageColor = UIColor.white
-        style.backgroundColor = self.DarkBlueColor()
+        style.backgroundColor = UIColor.DarkBlueColor()
         view.makeToast(message, duration: 2.0, position: ToastView.center, style:style)
-    }
-    
-    func PrimaryBlueColor() -> UIColor
-    {
-        let myColor : UIColor = UIColor( red: 14.0/255.0, green: 190.0/255.0, blue: 214.0/255.0, alpha: 1.0 )
-        return myColor
-    }
-    
-    func DarkBlueColor() -> UIColor
-    {
-        let myColor : UIColor = UIColor( red: 32.0/255.0, green: 136.0/255.0, blue: 171.0/255.0, alpha: 1.0 )
-        return myColor
-    }
-    
-    func ButtonColor() -> UIColor
-    {
-        let myColor : UIColor = UIColor( red: 4.0/255.0, green: 189.0/255.0, blue: 214.0/255.0, alpha: 1.0 )
-        return myColor
     }
     
     func alert(message: String, title: String = "" ) -> UIViewController {
         
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let OKAction = UIAlertAction(title: "OK", style: .default, handler:nil)        
-        
         alertController.addAction(OKAction)
         return alertController
     }
@@ -78,4 +59,10 @@ class DelvoMethods: NSObject {
         textField.rightViewMode = UITextFieldViewMode.always
     }
 
+    func AddBorder(textview:UITextView){
+        
+        textview.layer.borderColor = UIColor.lightGray.cgColor
+        textview.layer.borderWidth = 1
+        textview.layer.cornerRadius = 5
+    }
 }
