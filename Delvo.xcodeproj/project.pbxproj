@@ -37,10 +37,13 @@
 		181316F41E51A89D00910ADB /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		181316F61E51C7CA00910ADB /* DelvoMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelvoMethods.swift; sourceTree = "<group>"; };
 		1854BD781E52233A00AB9F55 /* ApiParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiParsing.swift; path = ../ApiParsing.swift; sourceTree = "<group>"; };
+<<<<<<< HEAD
+=======
 		188E1FCB1E59B99B009508CD /* UIColor+AddColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+AddColor.swift"; path = "../UIColor+AddColor.swift"; sourceTree = "<group>"; };
 		188E59271E56DD18001A5AE3 /* redbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redbutton.png; sourceTree = "<group>"; };
 		188E59291E56DD1F001A5AE3 /* green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green.png; sourceTree = "<group>"; };
 		18AA995B1E5B02EE004EECD3 /* UIImageView+ChangeTintColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+ChangeTintColor.swift"; sourceTree = "<group>"; };
+>>>>>>> 235e9f6010fd90f788261bbea2a6dc846725772f
 		18C424311E4F8D4D005E5546 /* Delvo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Delvo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18C424341E4F8D4D005E5546 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18C4243B1E4F8D4D005E5546 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -86,6 +89,8 @@
 		1854BD7B1E524E7100AB9F55 /* Classe */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
+=======
 				18C424581E4FAE36005E5546 /* Geocoding.swift */,
 				1854BD781E52233A00AB9F55 /* ApiParsing.swift */,
 				181316F61E51C7CA00910ADB /* DelvoMethods.swift */,
@@ -105,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				18AA995B1E5B02EE004EECD3 /* UIImageView+ChangeTintColor.swift */,
+>>>>>>> 235e9f6010fd90f788261bbea2a6dc846725772f
 				18C424331E4F8D4D005E5546 /* Delvo */,
 				18C424321E4F8D4D005E5546 /* Products */,
 				F3033DC40CF87A730FF97B4D /* Pods */,
@@ -131,9 +137,16 @@
 				181316EE1E50A7BF00910ADB /* Main.storyboard */,
 				18C4243D1E4F8D4D005E5546 /* LaunchScreen.storyboard */,
 				18C424401E4F8D4D005E5546 /* Info.plist */,
+<<<<<<< HEAD
+				18C424581E4FAE36005E5546 /* Geocoding.swift */,
+				181316F41E51A89D00910ADB /* SearchTableViewCell.swift */,
+				18C4245C1E4FAF99005E5546 /* SideTableCell.swift */,
+				1854BD781E52233A00AB9F55 /* ApiParsing.swift */,
+=======
 				188E1FCD1E59C284009508CD /* Extensions */,
 				1854BD7B1E524E7100AB9F55 /* Classe */,
 				1854BD7A1E524D4F00AB9F55 /* TableCells */,
+>>>>>>> 235e9f6010fd90f788261bbea2a6dc846725772f
 				18C4244D1E4FA222005E5546 /* SWRevealViewController */,
 				18C424621E4FB12D005E5546 /* ViewControllers */,
 			);
