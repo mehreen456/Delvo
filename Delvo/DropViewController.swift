@@ -9,7 +9,7 @@
 
 import UIKit
 
-class DropViewController: UIViewController , UITextFieldDelegate {
+class DropViewController: UIViewController ,SWRevealViewControllerDelegate, UITextFieldDelegate {
     
     struct Drop_Address{
         
@@ -33,7 +33,7 @@ class DropViewController: UIViewController , UITextFieldDelegate {
 
         self.ShowMapView()
         self.navBar()
-        self.addGesture()
+        obj.AddGesture(controller: self)
         self.setTextFields()
         self.setColors()
         self.notification()
@@ -42,7 +42,13 @@ class DropViewController: UIViewController , UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(true)
+        self.revealViewController().delegate = self
         MapVC?.controller = "DropVc"
+    }
+    
+    func dismissKeyboard() {
+        
+        view.endEditing(true)
     }
     
     func ShowMapView(){
@@ -67,8 +73,19 @@ class DropViewController: UIViewController , UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        view.endEditing(true)
+        self.dismissKeyboard()
         return true
+    }
+    
+    func revealController(_ revealController: SWRevealViewController!, animateTo position: FrontViewPosition) {
+        
+        if revealController.frontViewPosition == FrontViewPosition.leftSide{
+            self.MapVC?.MapView.isUserInteractionEnabled = false
+            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+        else{
+            self.MapVC?.MapView.isUserInteractionEnabled = true }
     }
     
    // Segue Methods
@@ -102,16 +119,6 @@ class DropViewController: UIViewController , UITextFieldDelegate {
     }
     
     // Class Methods
-    func addGesture(){
-        
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(DropViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
-    }
-    
-    func dismissKeyboard(){
-        
-        view.endEditing(true)
-    }
     
     func setColors(){
         

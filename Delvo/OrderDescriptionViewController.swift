@@ -35,8 +35,7 @@ class OrderDescriptionViewController: UIViewController , UITextViewDelegate, UIT
         self.ContactField.inputAccessoryView = obj.AddDoneButton(controller: self)
         self.navigationItem.title = "Place Order"
         self.navigationController?.navigationBar.tintColor = UIColor.white
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PickUpViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
+        obj.AddGesture(controller: self)
         origin = self.view.frame.origin.y
         self.frameorigin = self.view.frame
         NameField.delegate = self

@@ -30,11 +30,9 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UI
         
         self.ShowMapView()
         self.navBar()
-        self.revealViewController().delegate = self
         PickAddress.delegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(self.GetArea(_:)), name: NSNotification.Name(rawValue: "GetArea"), object: nil)
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PickUpViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
+        obj.AddGesture(controller: self)
         self.ToastView.isHidden = true
     }
     
@@ -51,6 +49,7 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UI
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(true)
+        self.revealViewController().delegate = self
         MapVC?.controller = "PickUpVc"
     }
     
@@ -94,9 +93,11 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UI
     }
     
     func revealController(_ revealController: SWRevealViewController!, animateTo position: FrontViewPosition) {
+        
         if revealController.frontViewPosition == FrontViewPosition.leftSide{
             self.MapVC?.MapView.isUserInteractionEnabled = false
             self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
         else{
             self.MapVC?.MapView.isUserInteractionEnabled = true }
@@ -108,7 +109,6 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UI
             
             SideMenuButton.target = self.revealViewController()
             SideMenuButton.action = #selector(SWRevealViewController.rightRevealToggle(_:))
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
             self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
             self.navigationController?.navigationBar.barTintColor = UIColor.PrimaryBlueColor()
         }
@@ -123,7 +123,7 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UI
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        view.endEditing(true)
+        self.dismissKeyboard()
         return true
     }
 }

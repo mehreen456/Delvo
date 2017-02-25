@@ -105,5 +105,11 @@ class DelvoMethods: NSObject {
         keyboardDoneButtonView.items = [doneButton]
         return keyboardDoneButtonView
     }
+    
+    func AddGesture(controller:UIViewController){
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: controller, action: #selector(PickUpViewController.dismissKeyboard))
+        controller.view.addGestureRecognizer(tap)
+    }
 
 }
