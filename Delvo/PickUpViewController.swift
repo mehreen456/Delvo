@@ -39,7 +39,7 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UI
     }
     
     func dismissKeyboard() {
-       
+        
         view.endEditing(true)
     }
     
@@ -65,22 +65,22 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UI
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-       
-            if identifier == "Proceed"{
-                
-                guard let text = PickAddress.text, !text.isEmpty else {
-                    MapVC?.locationManager.startUpdatingLocation()
-                    obj.Toast(view: self.view, ToastView: self.ToastView, message:"Please enter pick address to proceed")
-                    return false
-                }
-                
-                guard PickUpLocation.text != "Near by location" && PickUpLocation.text != "" else {
-                    
-                    obj.Toast(view: self.view, ToastView: self.ToastView, message:"Please select near by place")
-                    return false
-                }
+        
+        if identifier == "Proceed"{
+            
+            guard let text = PickAddress.text, !text.isEmpty else {
+                MapVC?.locationManager.startUpdatingLocation()
+                obj.Toast(view: self.view, ToastView: self.ToastView, message:"Please enter pick address to proceed")
+                return false
             }
-            return true
+            
+            guard PickUpLocation.text != "Near by location" && PickUpLocation.text != "" else {
+                
+                obj.Toast(view: self.view, ToastView: self.ToastView, message:"Please select near by place")
+                return false
+            }
+        }
+        return true
     }
     
     func ShowMapView(){
@@ -121,10 +121,9 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UI
         Pick_Address.PickAddress = self.PickAddress.text!
         return true
     }
- 
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-          view.endEditing(true)
+        view.endEditing(true)
         return true
     }
-    
 }

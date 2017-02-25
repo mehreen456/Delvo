@@ -23,16 +23,16 @@ class OrderDescriptionViewController: UIViewController , UITextViewDelegate, UIT
     let obj = DelvoMethods()
     var status:NSInteger = 100
     var origin:CGFloat?
-    
+    let Description = "\n Enter your order description here ..."
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.DescriptionLabel.delegate=self
         DropLabel.text = MapViewController.Location.DropLocation
         PickupLabel.text = MapViewController.Location.PickLocation
-
         EditIcon.ChangeTintColor(color:UIColor.DarkBlueColor())
         EditIcon.backgroundColor = UIColor.clear
+        self.ContactField.inputAccessoryView = obj.AddDoneButton(controller: self)
         self.navigationItem.title = "Place Order"
         self.navigationController?.navigationBar.tintColor = UIColor.white
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PickUpViewController.dismissKeyboard))
@@ -42,45 +42,47 @@ class OrderDescriptionViewController: UIViewController , UITextViewDelegate, UIT
         NameField.delegate = self
         ContactField.delegate = self
         self.DoneButton.backgroundColor = UIColor.ButtonColor()
-        DescriptionLabel.text = "\n Enter your order description here ..."
+        DescriptionLabel.text = Description
         obj.AddBorder(textview: self.DescriptionLabel)
     }
     
     @IBAction func GoDelivoButton(_ sender: Any) {
         
+        self.view.frame.origin.y = self.origin!
+        if !obj.validate(phoneNumber: self.ContactField.text!) && !self.ContactField.text!.isEmpty {
+            self.obj.alert(message: "Invalid PhoneNo", controller: self)
+            return
+        }
+        
         let myobj = ApiParsing()
         
         myobj.PlaceOrder(name: self.NameField.text!, phone: self.ContactField.text!, detail: self.DescriptionLabel.text!, Success: { (json) -> () in
             
-             let meta = json["meta"] as! NSDictionary
-             self.status = meta["status"] as! NSInteger
+            if json{
+               
+                self.obj.ShowAlert(controller: self)}
+        }
             
-             if self.status == 200{
-                self.ShowAlert()
-             }
-             else{
-             
-                let Message = meta["message"]
-                let alertview = self.obj.alert(message:Message as! String, title: "Failed")
-                self.present(alertview, animated: true, completion: nil)
-                self.obj.DismissAlertView(alertview: alertview as! UIAlertController)
-             }
+        , failure: { (message) -> () in
+                
+            self.obj.alert(message:message ,title: "Failed",controller: self)}
             
-            }
         , Failure: { (error) -> () in
         
-                 print(error)
+            print(error)
         })
         
     }
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         if textField == self.NameField{
+            
             frameorigin?.origin.y = self.origin!-30
             self.ContactField.becomeFirstResponder()}
         
-        else if textField == self.ContactField{
+         else if textField == self.ContactField {
+            
             frameorigin?.origin.y = (frameorigin?.origin.y)!-40
             self.DescriptionLabel.becomeFirstResponder()}
         
@@ -95,16 +97,18 @@ class OrderDescriptionViewController: UIViewController , UITextViewDelegate, UIT
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         
-        if DescriptionLabel.text == "\n Enter your order description here ..."{
+        self.view.frame.origin.y =  (frameorigin?.origin.y)! - 170
+        if DescriptionLabel.text == Description{
             DescriptionLabel.text = "\n "
         }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         
-        if DescriptionLabel.text == "\n " || DescriptionLabel.text == "\n" {
-            DescriptionLabel.text = "\n Enter your order description here ..."
+        if DescriptionLabel.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).isEmpty{
+            DescriptionLabel.text = Description
         }
+        self.view.frame.origin.y = self.origin!
     }
 
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -122,23 +126,5 @@ class OrderDescriptionViewController: UIViewController , UITextViewDelegate, UIT
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         
            return false
-    }
-    
-    func ShowAlert()
-    {
-        let alertController = UIAlertController(title: "Success" , message: "Your order has been placed. You will soon recive a conformation call", preferredStyle: .alert)
-        let OKAction = UIAlertAction(title: "OK", style:.default) { (_) -> Void in
-            
-            self.performSegue(withIdentifier: "Done", sender: self)
-            
-        }
-        alertController.addAction(OKAction)
-        self.present(alertController, animated: true, completion: nil)
-        
-        let when = DispatchTime.now() + 5
-        DispatchQueue.main.asyncAfter(deadline: when){
-            alertController.dismiss(animated: true, completion: nil)
-            self.performSegue(withIdentifier: "Done", sender: self)
-        }
     }
 }

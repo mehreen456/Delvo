@@ -31,12 +31,13 @@ class DelvoMethods: NSObject {
         view.makeToast(message, duration: 2.0, position: ToastView.center, style:style)
     }
     
-    func alert(message: String, title: String = "" ) -> UIViewController {
+    func alert(message: String, title: String = "" , controller:UIViewController) {
         
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let OKAction = UIAlertAction(title: "OK", style: .default, handler:nil)        
+        let OKAction = UIAlertAction(title: "OK", style: .default, handler:nil)
         alertController.addAction(OKAction)
-        return alertController
+        controller.present(alertController, animated: true, completion: nil)
+        self.DismissAlertView(alertview: alertController)
     }
     
     func DismissAlertView(alertview:UIAlertController)
@@ -44,11 +45,10 @@ class DelvoMethods: NSObject {
         let when = DispatchTime.now() + 5
         DispatchQueue.main.asyncAfter(deadline: when){
             alertview.dismiss(animated: true, completion: nil)}
-            
     }
     
-    func AddImageTextfield(textField:UITextField)
-    {
+    func AddImageTextfield(textField:UITextField){
+        
         let image = UIImageView(image: UIImage(named: "SearchIcon"))
         image.frame = CGRect(x: 0.0, y: 0.0, width: 20, height:20)
         let paddingview = UIView()
@@ -65,4 +65,45 @@ class DelvoMethods: NSObject {
         textview.layer.borderWidth = 1
         textview.layer.cornerRadius = 5
     }
+
+    func ShowAlert(controller:UIViewController){
+        
+        let alertController = UIAlertController(title: "Success" , message: "Your order has been placed. You will soon recive a conformation call", preferredStyle: .alert)
+        
+        let OKAction = UIAlertAction(title: "OK", style:.default) { (_) -> Void in
+            
+            controller.performSegue(withIdentifier: "Done", sender: self)}
+        
+        alertController.addAction(OKAction)
+        controller.present(alertController, animated: true, completion: nil)
+        
+        let when = DispatchTime.now() + 5
+        DispatchQueue.main.asyncAfter(deadline: when){
+            alertController.dismiss(animated: true, completion: nil)
+            controller.performSegue(withIdentifier: "Done", sender: self)}
+    }
+    
+    func validate(phoneNumber: String) -> Bool {
+        
+        let PHONE_REGEX = "^(0)[0-9]{10}$"
+        
+        let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
+        
+        let result =  phoneTest.evaluate(with: phoneNumber)
+        
+        return result
+    }
+
+    func AddDoneButton(controller: UIViewController) -> UIToolbar{
+        
+        let keyboardDoneButtonView = UIToolbar.init()
+        keyboardDoneButtonView.sizeToFit()
+        let doneButton = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.done,
+                                              target: controller,
+                                              action:#selector(PickUpViewController.dismissKeyboard))
+        
+        keyboardDoneButtonView.items = [doneButton]
+        return keyboardDoneButtonView
+    }
+
 }

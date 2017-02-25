@@ -22,7 +22,7 @@ class ApiParsing: NSObject {
     let googlePlace = "https://maps.googleapis.com/maps/api/place/details/json"
     let GooglePlacesApi = "AIzaSyBsWLDDGbaaf042Y0yr1zktCbR4BrEWTFk"
     
-    func PlaceOrder(name:String,phone:String,detail:String , Success:@escaping (NSDictionary) -> (), Failure: @escaping (NSError) -> ()){
+    func PlaceOrder(name:String,phone:String,detail:String , Success:@escaping (Bool) -> (),failure: @escaping (String) -> () ,Failure: @escaping (NSError) -> ()){
         
         let params = self.ParamsPlaceOrder(name: name, phone: phone, detail: detail)
 
@@ -37,11 +37,21 @@ class ApiParsing: NSObject {
                 
                 if response.result.error != nil
                 {
-                    Failure(response.result.error! as NSError)
-                }
-                if let json = response.result.value {
+                    Failure(response.result.error! as NSError)}
+                
+                if let result = response.result.value {
                     
-                    Success(json as! NSDictionary)
+                    let json = result as! NSDictionary
+                    let meta = json["meta"] as! NSDictionary
+                    let status = meta["status"] as! NSInteger
+                    
+                    if status == 200{
+                        Success(true)}
+                    
+                    else{
+                        
+                        let Message = meta["message"]
+                        failure(Message as! String)}
                 }
         }
     }
@@ -68,25 +78,6 @@ class ApiParsing: NSObject {
                 let values = response.result.value
                 Success(values as! NSDictionary)
         }
-    }
-    
-    func ParamsPlaceOrder(name:String,phone:String,detail:String) -> (NSDictionary){
-        
-        let params = [
-            "name": name,
-            "phone": phone,
-            "pick_address": PickUpViewController.Pick_Address.PickAddress,
-            "pick_nearby":  MapViewController.Location.PickLocation,
-            "pick_lat": MapViewController.Location.PickLat,
-            "pick_lng":  MapViewController.Location.PickLng,
-            "drop_address": DropViewController.Drop_Address.DropAddress,
-            "drop_nearby":  MapViewController.Location.DropLocation,
-            "drop_lat":  MapViewController.Location.DropLat,
-            "drop_lng":  MapViewController.Location.DropLng,
-            "detail": detail
-            ] as [String : Any]
-
-        return params as (NSDictionary)
     }
     
     func SearchLocations(place: String , Success:@escaping (Array <(name:String,id:String)>) -> (), Failure: @escaping (NSError) -> ())    {
@@ -131,4 +122,24 @@ class ApiParsing: NSObject {
                 Success(self.PlaceArray)
         }
     }
+    
+    func ParamsPlaceOrder(name:String,phone:String,detail:String) -> (NSDictionary){
+        
+        let params = [
+            "name": name,
+            "phone": phone,
+            "pick_address": PickUpViewController.Pick_Address.PickAddress,
+            "pick_nearby":  MapViewController.Location.PickLocation,
+            "pick_lat": MapViewController.Location.PickLat,
+            "pick_lng":  MapViewController.Location.PickLng,
+            "drop_address": DropViewController.Drop_Address.DropAddress,
+            "drop_nearby":  MapViewController.Location.DropLocation,
+            "drop_lat":  MapViewController.Location.DropLat,
+            "drop_lng":  MapViewController.Location.DropLng,
+            "detail": detail
+            ] as [String : Any]
+        
+        return params as (NSDictionary)
+    }
+
 }

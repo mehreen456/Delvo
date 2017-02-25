@@ -26,6 +26,7 @@ class MapViewController: UIViewController ,GMSMapViewDelegate ,Address,CLLocatio
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        GetMap(a: lat, b: long)
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
@@ -34,10 +35,9 @@ class MapViewController: UIViewController ,GMSMapViewDelegate ,Address,CLLocatio
         MapView.settings.myLocationButton=false
         MapView.settings.compassButton=false
         self.MapView?.isMyLocationEnabled = true
-        GetMap(a: lat, b: long)
         MapView.delegate = self
         
-        }
+    }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status:  CLAuthorizationStatus) {
         
@@ -75,7 +75,7 @@ class MapViewController: UIViewController ,GMSMapViewDelegate ,Address,CLLocatio
         MapView.isMyLocationEnabled = true
         
         if(gesture){
-        
+            
             MapView.selectedMarker = nil
         }
     }
@@ -86,26 +86,26 @@ class MapViewController: UIViewController ,GMSMapViewDelegate ,Address,CLLocatio
         
         geocoder.reverseGeocodeCoordinate(coordinate) { response , error in
             if response != nil{
-            
-            if let Address = response!.firstResult() {
-                let lines = Address.lines! as [String]
+                
+                if let Address = response!.firstResult() {
+                    let lines = Address.lines! as [String]
                     
-                let address = lines.joined(separator: ",")
-                if self.controller == "PickUpVc"{
+                    let address = lines.joined(separator: ",")
+                    if self.controller == "PickUpVc"{
                         
-                    Location.PickLocation = address
-                    Location.PickLat = coordinate.latitude
-                    Location.PickLng = coordinate.longitude
-                }
+                        Location.PickLocation = address
+                        Location.PickLat = coordinate.latitude
+                        Location.PickLng = coordinate.longitude
+                    }
                         
-                else{
+                    else{
                         
-                    Location.DropLocation = address
-                    Location.DropLat = coordinate.latitude
-                    Location.DropLng = coordinate.longitude
-                }
+                        Location.DropLocation = address
+                        Location.DropLat = coordinate.latitude
+                        Location.DropLng = coordinate.longitude
+                    }
                     
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "GetArea"), object: nil)}
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "GetArea"), object: nil)}
             }}
     }
     
@@ -123,5 +123,4 @@ class MapViewController: UIViewController ,GMSMapViewDelegate ,Address,CLLocatio
         
         GetMap(a: lat, b: lng)
     }
-    
 }
