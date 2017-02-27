@@ -120,7 +120,6 @@ class OrderDescriptionViewController: UIViewController , UITextViewDelegate, UIT
         NameField.delegate = self
         ContactField.delegate = self
         self.DescriptionLabel.delegate=self
-        
     }
     
     func setOrigin(){
@@ -150,6 +149,7 @@ class OrderDescriptionViewController: UIViewController , UITextViewDelegate, UIT
     func dismissKeyboard() {
         
         view.endEditing(true)
+        self.view.frame.origin.y = origin!
     }
 
 }
