@@ -46,27 +46,12 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate, UITe
         MapVC?.controller = "DropVc"
     }
     
-    func dismissKeyboard() {
-        
-        view.endEditing(true)
-    }
-    
-    func ShowMapView(){
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        MapVC = storyboard.instantiateViewController(withIdentifier: "MapVc") as? MapViewController
-        addChildViewController(MapVC!)
-        MapVC?.view.frame = self.MapView.bounds
-        MapView.addSubview((MapVC?.view)!)
-        MapVC?.didMove(toParentViewController:self)
-    }
-    
     @IBAction func ChangePIckButton(_ sender: Any) {
         
         self.navigationController?.popToRootViewController(animated: true)
     }
 
-    // textfield delegate Methods
+    // Mark ~ Delegate Methods
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         Drop_Address.DropAddress = self.DropAddress.text!
         return true
@@ -157,4 +142,20 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate, UITe
         DropLocation.text = MapViewController.Location.DropLocation
         self.ToastView.isHidden=true
     }
+    
+    func dismissKeyboard() {
+        
+        view.endEditing(true)
+    }
+    
+    func ShowMapView(){
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        MapVC = storyboard.instantiateViewController(withIdentifier: "MapVc") as? MapViewController
+        addChildViewController(MapVC!)
+        MapVC?.view.frame = self.MapView.bounds
+        MapView.addSubview((MapVC?.view)!)
+        MapVC?.didMove(toParentViewController:self)
+    }
+
 }

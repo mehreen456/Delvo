@@ -36,16 +36,6 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UI
         self.ToastView.isHidden = true
     }
     
-    func dismissKeyboard() {
-        
-        view.endEditing(true)
-    }
-    
-    func GetArea(_ notification: NSNotification) {
-        
-        PickUpLocation.text = MapViewController.Location.PickLocation
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(true)
@@ -53,6 +43,7 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UI
         MapVC?.controller = "PickUpVc"
     }
     
+    // Mark ~ Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "Search"
@@ -82,6 +73,7 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UI
         return true
     }
     
+    // Mark ~ Controller Methods
     func ShowMapView(){
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -90,17 +82,6 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UI
         MapVC?.view.frame = self.Mapview.bounds
         Mapview.addSubview((MapVC?.view)!)
         MapVC?.didMove(toParentViewController: self)
-    }
-    
-    func revealController(_ revealController: SWRevealViewController!, animateTo position: FrontViewPosition) {
-        
-        if revealController.frontViewPosition == FrontViewPosition.leftSide{
-            self.MapVC?.MapView.isUserInteractionEnabled = false
-            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-        }
-        else{
-            self.MapVC?.MapView.isUserInteractionEnabled = true }
     }
     
     func navBar(){
@@ -114,6 +95,28 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UI
         }
         
         self.ProceedButton.backgroundColor = UIColor.ButtonColor()
+    }
+    
+    func dismissKeyboard() {
+        
+        view.endEditing(true)
+    }
+    
+    func GetArea(_ notification: NSNotification) {
+        
+        PickUpLocation.text = MapViewController.Location.PickLocation
+    }
+    
+    // Mark ~ Delegate Methods
+    func revealController(_ revealController: SWRevealViewController!, animateTo position: FrontViewPosition) {
+        
+        if revealController.frontViewPosition == FrontViewPosition.leftSide{
+            self.MapVC?.MapView.isUserInteractionEnabled = false
+            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+        else{
+            self.MapVC?.MapView.isUserInteractionEnabled = true }
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {

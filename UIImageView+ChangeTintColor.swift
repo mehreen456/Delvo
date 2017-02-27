@@ -16,4 +16,15 @@ extension UIImageView{
         self.image = templateImage
         self.tintColor = color
     }
+    
+    func getImageWithColor(color: UIColor, size: CGSize) -> UIImage
+    {
+        let rect = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: size.width, height: size.height))
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        color.setFill()
+        UIRectFill(rect)
+        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return image
+    }
 }

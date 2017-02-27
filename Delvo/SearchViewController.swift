@@ -63,6 +63,7 @@ class SearchViewController: UIViewController , UITableViewDataSource,UITableView
             print(error) })
     }
     
+    // Mark ~ TableView Delegate Methods
     func numberOfSections(in ResultsTable: UITableView) -> Int {
         return 1
     }
@@ -104,6 +105,7 @@ class SearchViewController: UIViewController , UITableViewDataSource,UITableView
         })
     }
     
+    // Mark ~ TextField Delegate Methods
     func textField(_ searchField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         if ((searchField.text)?.characters.count)! > 3{

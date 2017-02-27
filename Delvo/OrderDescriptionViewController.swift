@@ -24,25 +24,16 @@ class OrderDescriptionViewController: UIViewController , UITextViewDelegate, UIT
     var status:NSInteger = 100
     var origin:CGFloat?
     let Description = "\n Enter your order description here ..."
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.DescriptionLabel.delegate=self
-        DropLabel.text = MapViewController.Location.DropLocation
-        PickupLabel.text = MapViewController.Location.PickLocation
-        EditIcon.ChangeTintColor(color:UIColor.DarkBlueColor())
-        EditIcon.backgroundColor = UIColor.clear
-        self.ContactField.inputAccessoryView = obj.AddDoneButton(controller: self)
-        self.navigationItem.title = "Place Order"
-        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navController()
+        self.setOrigin()
+        self.setOutlets()
+        self.setDelegate()
         obj.AddGesture(controller: self)
-        origin = self.view.frame.origin.y
-        self.frameorigin = self.view.frame
-        NameField.delegate = self
-        ContactField.delegate = self
-        self.DoneButton.backgroundColor = UIColor.ButtonColor()
-        DescriptionLabel.text = Description
-        obj.AddBorder(textview: self.DescriptionLabel)
+
     }
     
     @IBAction func GoDelivoButton(_ sender: Any) {
@@ -72,7 +63,8 @@ class OrderDescriptionViewController: UIViewController , UITextViewDelegate, UIT
         })
         
     }
-
+    
+    // Mark ~ Textfiels Delegate Methods
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         if textField == self.NameField{
@@ -87,11 +79,6 @@ class OrderDescriptionViewController: UIViewController , UITextViewDelegate, UIT
         
         self.view.frame = frameorigin!
         return true
-    }
-    
-    func dismissKeyboard() {
-        
-        view.endEditing(true)
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -126,4 +113,43 @@ class OrderDescriptionViewController: UIViewController , UITextViewDelegate, UIT
         
            return false
     }
+    
+    // Mark ~ Controller's Method
+    func setDelegate(){
+        
+        NameField.delegate = self
+        ContactField.delegate = self
+        self.DescriptionLabel.delegate=self
+        
+    }
+    
+    func setOrigin(){
+        
+        origin = self.view.frame.origin.y
+        self.frameorigin = self.view.frame
+    }
+    func navController(){
+        
+        self.navigationItem.title = "Place Order"
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+    }
+    
+    func setOutlets(){
+        
+        DropLabel.text = MapViewController.Location.DropLocation
+        PickupLabel.text = MapViewController.Location.PickLocation
+        EditIcon.ChangeTintColor(color:UIColor.DarkBlueColor())
+        //  EditIcon.image = EditIcon.getImageWithColor(color: UIColor.DarkBlueColor(), size: (EditIcon.image?.size)!)
+        EditIcon.backgroundColor = UIColor.clear
+        self.ContactField.inputAccessoryView = obj.AddDoneButton(controller: self)
+        self.DoneButton.backgroundColor = UIColor.ButtonColor()
+        DescriptionLabel.text = Description
+        obj.AddBorder(textview: self.DescriptionLabel)
+    }
+    
+    func dismissKeyboard() {
+        
+        view.endEditing(true)
+    }
+
 }
