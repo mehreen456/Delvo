@@ -20,7 +20,8 @@ class OrderDescriptionViewController: UIViewController , UITextViewDelegate, UIT
     @IBOutlet weak var DescriptionLabel: UITextView!
     
     var frameorigin:CGRect?
-    let obj = DelvoMethods()
+    let obj = OrderDescClassMethods()
+    let delvoMethods = DelvoMethods()
     var status:NSInteger = 100
     var origin:CGFloat?
     let Description = "\n Enter your order description here ..."
@@ -32,7 +33,7 @@ class OrderDescriptionViewController: UIViewController , UITextViewDelegate, UIT
         self.setOrigin()
         self.setOutlets()
         self.setDelegate()
-        obj.AddGesture(controller: self)
+        delvoMethods.AddGesture(controller: self)
 
     }
     

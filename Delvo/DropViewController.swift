@@ -28,11 +28,20 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate, UITe
     var MapVC: MapViewController?
     var obj = DelvoMethods()
     
+    let ToastMsgDrop = "Please enter drop address to proceed"
+    let ToastMsgNearBy = "Please select near by place"
+    let DefaultText = "Near by location"
+    let GoDelvoSegue = "GoDelvo"
+    let SearchSegue = "Search"
+    let TitleVc = "Drop Location"
+    let NotificationName = "GetArea"
+    let MapVcIdentifier = "DropVc"
+   
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.ShowMapView()
-        self.navBar()
+        MapVC = obj.ShowMapView(controller: self,Mapview:self.MapView)
+        obj.navBar(controller: self, Title: TitleVc)
         obj.AddGesture(controller: self)
         self.setTextFields()
         self.setColors()
@@ -43,7 +52,7 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate, UITe
         
         super.viewWillAppear(true)
         self.revealViewController().delegate = self
-        MapVC?.controller = "DropVc"
+        MapVC?.controller = MapVcIdentifier
     }
     
     @IBAction func ChangePIckButton(_ sender: Any) {
@@ -52,6 +61,7 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate, UITe
     }
 
     // Mark ~ Delegate Methods
+    
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         Drop_Address.DropAddress = self.DropAddress.text!
         return true
@@ -66,17 +76,17 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate, UITe
         
         if revealController.frontViewPosition == FrontViewPosition.leftSide{
             self.MapVC?.MapView.isUserInteractionEnabled = false
-            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+            obj.AddTapPanGesture(controller: self)
         }
         else{
             self.MapVC?.MapView.isUserInteractionEnabled = true }
     }
     
    // Segue Methods
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "Search"{
+        if segue.identifier == SearchSegue{
             
             let searchVc:SearchViewController = segue.destination as! SearchViewController
             searchVc.place = self.PickUpLocation.text!
@@ -86,17 +96,17 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate, UITe
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         
-        if identifier == "GoDelvo"{
+        if identifier == GoDelvoSegue{
             
             guard let text = DropAddress.text, !text.isEmpty else {
                 
-             obj.Toast(view: self.view, ToastView: self.ToastView, message:"Please enter drop address to proceed")
+             obj.Toast(view: self.view, ToastView: self.ToastView, message: ToastMsgDrop)
                 return false
             }
             
-        guard DropLocation.text != "Near by location" && DropLocation.text != "" else {
+        guard DropLocation.text != DefaultText  && DropLocation.text != "" else {
                 
-                obj.Toast(view: self.view, ToastView: self.ToastView, message:"Please select near by place")
+                obj.Toast(view: self.view, ToastView: self.ToastView, message:ToastMsgNearBy)
                 return false
             }
         }
@@ -113,7 +123,7 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate, UITe
     
     func notification(){
     
-        NotificationCenter.default.addObserver(self, selector: #selector(self.GetArea(_:)), name: NSNotification.Name(rawValue: "GetArea"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.GetArea(_:)), name: NSNotification.Name(rawValue: NotificationName), object: nil)
     }
     
     func GetArea(_ notification: NSNotification) {
@@ -121,19 +131,6 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate, UITe
         DropLocation.text = MapViewController.Location.DropLocation
     }
     
-    func navBar(){
-        
-        let button = UIButton.init(type: .custom)
-        button.setImage(UIImage.init(named: "Menu.png"), for: UIControlState.normal)
-        button.addTarget(self.revealViewController(), action:#selector(SWRevealViewController.rightRevealToggle(_:)), for: UIControlEvents.touchUpInside)
-        button.frame = CGRect.init(x: 0, y: 0, width: 30, height: 30)
-        let barButton = UIBarButtonItem.init(customView: button)
-        self.navigationItem.rightBarButtonItem = barButton
-        self.navigationItem.title = "Drop Location"
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
-    }
     
     func setTextFields(){
         
@@ -147,15 +144,4 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate, UITe
         
         view.endEditing(true)
     }
-    
-    func ShowMapView(){
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        MapVC = storyboard.instantiateViewController(withIdentifier: "MapVc") as? MapViewController
-        addChildViewController(MapVC!)
-        MapVC?.view.frame = self.MapView.bounds
-        MapView.addSubview((MapVC?.view)!)
-        MapVC?.didMove(toParentViewController:self)
-    }
-
 }

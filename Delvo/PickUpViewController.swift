@@ -22,31 +22,43 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UI
     @IBOutlet weak var PickUpLocation: UILabel!
     @IBOutlet weak var ProceedButton: UIButton!
     @IBOutlet weak var PickUpView: UIView!
+    
     var MapVC: MapViewController?
     let obj = DelvoMethods()
+    
+    let ToastMsgPickUp = "Please enter pick address to proceed"
+    let ToastMsgNearBy = "Please select near by place"
+    let DefaultText = "Near by location"
+    let ProceedSegue = "Proceed"
+    let SearchSegue = "Search"
+    let TitleVc = "PickUp"
+    let NotificationName = "GetArea"
+    let MapVcIdentifier = "PickUpVc"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.ShowMapView()
-        self.navBar()
+        MapVC = obj.ShowMapView(controller: self,Mapview:self.Mapview)
+        obj.navBar(controller: self,Title:TitleVc )
         PickAddress.delegate = self
-        NotificationCenter.default.addObserver(self, selector: #selector(self.GetArea(_:)), name: NSNotification.Name(rawValue: "GetArea"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.GetArea(_:)), name: NSNotification.Name(rawValue:NotificationName), object: nil)
         obj.AddGesture(controller: self)
         self.ToastView.isHidden = true
+        self.ProceedButton.backgroundColor = UIColor.ButtonColor()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(true)
         self.revealViewController().delegate = self
-        MapVC?.controller = "PickUpVc"
+        MapVC?.controller = MapVcIdentifier
     }
     
     // Mark ~ Segue
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if segue.identifier == "Search"
+        if segue.identifier == SearchSegue
         {
             let searchVc:SearchViewController = segue.destination as! SearchViewController
             searchVc.place = self.PickUpLocation.text!
@@ -56,17 +68,17 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UI
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         
-        if identifier == "Proceed"{
+        if identifier == ProceedSegue {
             
             guard let text = PickAddress.text, !text.isEmpty else {
                 MapVC?.locationManager.startUpdatingLocation()
-                obj.Toast(view: self.view, ToastView: self.ToastView, message:"Please enter pick address to proceed")
+                obj.Toast(view: self.view, ToastView: self.ToastView, message:ToastMsgPickUp)
                 return false
             }
             
-            guard PickUpLocation.text != "Near by location" && PickUpLocation.text != "" else {
+            guard PickUpLocation.text !=  DefaultText && PickUpLocation.text != "" else {
                 
-                obj.Toast(view: self.view, ToastView: self.ToastView, message:"Please select near by place")
+                obj.Toast(view: self.view, ToastView: self.ToastView, message:ToastMsgNearBy)
                 return false
             }
         }
@@ -74,28 +86,6 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UI
     }
     
     // Mark ~ Controller Methods
-    func ShowMapView(){
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        MapVC = storyboard.instantiateViewController(withIdentifier: "MapVc")  as? MapViewController
-        addChildViewController(MapVC!)
-        MapVC?.view.frame = self.Mapview.bounds
-        Mapview.addSubview((MapVC?.view)!)
-        MapVC?.didMove(toParentViewController: self)
-    }
-    
-    func navBar(){
-        
-        if self.revealViewController() != nil {
-            
-            SideMenuButton.target = self.revealViewController()
-            SideMenuButton.action = #selector(SWRevealViewController.rightRevealToggle(_:))
-            self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
-            self.navigationController?.navigationBar.barTintColor = UIColor.PrimaryBlueColor()
-        }
-        
-        self.ProceedButton.backgroundColor = UIColor.ButtonColor()
-    }
     
     func dismissKeyboard() {
         
@@ -108,12 +98,12 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UI
     }
     
     // Mark ~ Delegate Methods
+    
     func revealController(_ revealController: SWRevealViewController!, animateTo position: FrontViewPosition) {
         
         if revealController.frontViewPosition == FrontViewPosition.leftSide{
             self.MapVC?.MapView.isUserInteractionEnabled = false
-            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+            obj.AddTapPanGesture(controller: self)
         }
         else{
             self.MapVC?.MapView.isUserInteractionEnabled = true }

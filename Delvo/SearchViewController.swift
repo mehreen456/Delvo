@@ -74,7 +74,7 @@ class SearchViewController: UIViewController , UITableViewDataSource,UITableView
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return cellHeight+25
+        return cellHeight+30
     }
     
     func tableView(_ ResultsTable: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{

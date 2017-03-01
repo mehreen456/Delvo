@@ -14,6 +14,7 @@
 		188E1FCC1E59B99B009508CD /* UIColor+AddColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E1FCB1E59B99B009508CD /* UIColor+AddColor.swift */; };
 		188E59281E56DD18001A5AE3 /* redbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 188E59271E56DD18001A5AE3 /* redbutton.png */; };
 		188E592A1E56DD1F001A5AE3 /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = 188E59291E56DD1F001A5AE3 /* green.png */; };
+		189289EA1E66E07400892ACC /* OrderDescClassMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189289E91E66E07400892ACC /* OrderDescClassMethods.swift */; };
 		18AA995C1E5B02EE004EECD3 /* UIImageView+ChangeTintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AA995B1E5B02EE004EECD3 /* UIImageView+ChangeTintColor.swift */; };
 		18C424351E4F8D4D005E5546 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C424341E4F8D4D005E5546 /* AppDelegate.swift */; };
 		18C4243C1E4F8D4D005E5546 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18C4243B1E4F8D4D005E5546 /* Assets.xcassets */; };
@@ -40,7 +41,8 @@
 		188E1FCB1E59B99B009508CD /* UIColor+AddColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+AddColor.swift"; path = "../UIColor+AddColor.swift"; sourceTree = "<group>"; };
 		188E59271E56DD18001A5AE3 /* redbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redbutton.png; sourceTree = "<group>"; };
 		188E59291E56DD1F001A5AE3 /* green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green.png; sourceTree = "<group>"; };
-		18AA995B1E5B02EE004EECD3 /* UIImageView+ChangeTintColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+ChangeTintColor.swift"; sourceTree = "<group>"; };
+		189289E91E66E07400892ACC /* OrderDescClassMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDescClassMethods.swift; sourceTree = "<group>"; };
+		18AA995B1E5B02EE004EECD3 /* UIImageView+ChangeTintColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImageView+ChangeTintColor.swift"; path = "../UIImageView+ChangeTintColor.swift"; sourceTree = "<group>"; };
 		18C424311E4F8D4D005E5546 /* Delvo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Delvo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18C424341E4F8D4D005E5546 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18C4243B1E4F8D4D005E5546 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 				18C424581E4FAE36005E5546 /* Geocoding.swift */,
 				1854BD781E52233A00AB9F55 /* ApiParsing.swift */,
 				181316F61E51C7CA00910ADB /* DelvoMethods.swift */,
+				189289E91E66E07400892ACC /* OrderDescClassMethods.swift */,
 			);
 			name = Classe;
 			sourceTree = "<group>";
@@ -97,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				188E1FCB1E59B99B009508CD /* UIColor+AddColor.swift */,
+				18AA995B1E5B02EE004EECD3 /* UIImageView+ChangeTintColor.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -104,7 +108,6 @@
 		18C424281E4F8D4D005E5546 = {
 			isa = PBXGroup;
 			children = (
-				18AA995B1E5B02EE004EECD3 /* UIImageView+ChangeTintColor.swift */,
 				18C424331E4F8D4D005E5546 /* Delvo */,
 				18C424321E4F8D4D005E5546 /* Products */,
 				F3033DC40CF87A730FF97B4D /* Pods */,
@@ -319,6 +322,7 @@
 				18AA995C1E5B02EE004EECD3 /* UIImageView+ChangeTintColor.swift in Sources */,
 				18C4244C1E4FA20C005E5546 /* SWRevealViewController.m in Sources */,
 				18C4244F1E4FA290005E5546 /* MapViewController.swift in Sources */,
+				189289EA1E66E07400892ACC /* OrderDescClassMethods.swift in Sources */,
 				18C424571E4FACCF005E5546 /* OrderDescriptionViewController.swift in Sources */,
 				18C4245B1E4FAE9E005E5546 /* SideMenuViewController.swift in Sources */,
 				18C4245D1E4FAF99005E5546 /* SideTableCell.swift in Sources */,
