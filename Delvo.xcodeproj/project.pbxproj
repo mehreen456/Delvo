@@ -10,7 +10,12 @@
 		181316EF1E50A7BF00910ADB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 181316EE1E50A7BF00910ADB /* Main.storyboard */; };
 		181316F51E51A89D00910ADB /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181316F41E51A89D00910ADB /* SearchTableViewCell.swift */; };
 		181316F71E51C7CB00910ADB /* DelvoMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181316F61E51C7CA00910ADB /* DelvoMethods.swift */; };
+		181E64061E70076300918739 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181E64051E70076300918739 /* Model.swift */; };
 		1854BD791E52233A00AB9F55 /* ApiParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854BD781E52233A00AB9F55 /* ApiParsing.swift */; };
+		1888D3681E681539009FEBA0 /* MyOrders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1888D3671E681539009FEBA0 /* MyOrders.storyboard */; };
+		1888D36C1E68192A009FEBA0 /* MyOrdersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1888D36B1E68192A009FEBA0 /* MyOrdersVC.swift */; };
+		1888D36F1E68295B009FEBA0 /* MyOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1888D36D1E68295B009FEBA0 /* MyOrderCell.swift */; };
+		1888D3701E68295B009FEBA0 /* MyOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1888D36E1E68295B009FEBA0 /* MyOrderCell.xib */; };
 		188E1FCC1E59B99B009508CD /* UIColor+AddColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E1FCB1E59B99B009508CD /* UIColor+AddColor.swift */; };
 		188E59281E56DD18001A5AE3 /* redbutton.png in Resources */ = {isa = PBXBuildFile; fileRef = 188E59271E56DD18001A5AE3 /* redbutton.png */; };
 		188E592A1E56DD1F001A5AE3 /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = 188E59291E56DD1F001A5AE3 /* green.png */; };
@@ -37,7 +42,12 @@
 		181316EE1E50A7BF00910ADB /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		181316F41E51A89D00910ADB /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		181316F61E51C7CA00910ADB /* DelvoMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelvoMethods.swift; sourceTree = "<group>"; };
+		181E64051E70076300918739 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		1854BD781E52233A00AB9F55 /* ApiParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiParsing.swift; path = ../ApiParsing.swift; sourceTree = "<group>"; };
+		1888D3671E681539009FEBA0 /* MyOrders.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyOrders.storyboard; sourceTree = "<group>"; };
+		1888D36B1E68192A009FEBA0 /* MyOrdersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyOrdersVC.swift; sourceTree = "<group>"; };
+		1888D36D1E68295B009FEBA0 /* MyOrderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyOrderCell.swift; sourceTree = "<group>"; };
+		1888D36E1E68295B009FEBA0 /* MyOrderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyOrderCell.xib; sourceTree = "<group>"; };
 		188E1FCB1E59B99B009508CD /* UIColor+AddColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+AddColor.swift"; path = "../UIColor+AddColor.swift"; sourceTree = "<group>"; };
 		188E59271E56DD18001A5AE3 /* redbutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redbutton.png; sourceTree = "<group>"; };
 		188E59291E56DD1F001A5AE3 /* green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green.png; sourceTree = "<group>"; };
@@ -92,8 +102,29 @@
 				1854BD781E52233A00AB9F55 /* ApiParsing.swift */,
 				181316F61E51C7CA00910ADB /* DelvoMethods.swift */,
 				189289E91E66E07400892ACC /* OrderDescClassMethods.swift */,
+				181E64051E70076300918739 /* Model.swift */,
 			);
 			name = Classe;
+			sourceTree = "<group>";
+		};
+		1888D3611E681451009FEBA0 /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				18C4245A1E4FAE9E005E5546 /* SideMenuViewController.swift */,
+				1888D3621E681460009FEBA0 /* MyOrders */,
+			);
+			name = SideMenu;
+			sourceTree = "<group>";
+		};
+		1888D3621E681460009FEBA0 /* MyOrders */ = {
+			isa = PBXGroup;
+			children = (
+				1888D3671E681539009FEBA0 /* MyOrders.storyboard */,
+				1888D36B1E68192A009FEBA0 /* MyOrdersVC.swift */,
+				1888D36D1E68295B009FEBA0 /* MyOrderCell.swift */,
+				1888D36E1E68295B009FEBA0 /* MyOrderCell.xib */,
+			);
+			name = MyOrders;
 			sourceTree = "<group>";
 		};
 		188E1FCD1E59C284009508CD /* Extensions */ = {
@@ -156,12 +187,12 @@
 		18C424621E4FB12D005E5546 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				1888D3611E681451009FEBA0 /* SideMenu */,
 				18C4244E1E4FA290005E5546 /* MapViewController.swift */,
 				18C424501E4FA46F005E5546 /* PickUpViewController.swift */,
 				18C424521E4FA738005E5546 /* DropViewController.swift */,
 				18C424541E4FA899005E5546 /* SearchViewController.swift */,
 				18C424561E4FACCF005E5546 /* OrderDescriptionViewController.swift */,
-				18C4245A1E4FAE9E005E5546 /* SideMenuViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -247,7 +278,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1888D3681E681539009FEBA0 /* MyOrders.storyboard in Resources */,
 				18C424611E4FB11A005E5546 /* Menu.png in Resources */,
+				1888D3701E68295B009FEBA0 /* MyOrderCell.xib in Resources */,
 				188E59281E56DD18001A5AE3 /* redbutton.png in Resources */,
 				181316EF1E50A7BF00910ADB /* Main.storyboard in Resources */,
 				18C4243F1E4F8D4D005E5546 /* LaunchScreen.storyboard in Resources */,
@@ -311,6 +344,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1888D36C1E68192A009FEBA0 /* MyOrdersVC.swift in Sources */,
 				18C424591E4FAE36005E5546 /* Geocoding.swift in Sources */,
 				18C424551E4FA899005E5546 /* SearchViewController.swift in Sources */,
 				18C424351E4F8D4D005E5546 /* AppDelegate.swift in Sources */,
@@ -326,6 +360,8 @@
 				18C424571E4FACCF005E5546 /* OrderDescriptionViewController.swift in Sources */,
 				18C4245B1E4FAE9E005E5546 /* SideMenuViewController.swift in Sources */,
 				18C4245D1E4FAF99005E5546 /* SideTableCell.swift in Sources */,
+				181E64061E70076300918739 /* Model.swift in Sources */,
+				1888D36F1E68295B009FEBA0 /* MyOrderCell.swift in Sources */,
 				18C424531E4FA738005E5546 /* DropViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

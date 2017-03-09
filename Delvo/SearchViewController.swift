@@ -64,6 +64,7 @@ class SearchViewController: UIViewController , UITableViewDataSource,UITableView
     }
     
     // Mark ~ TableView Delegate Methods
+    
     func numberOfSections(in ResultsTable: UITableView) -> Int {
         return 1
     }
@@ -76,6 +77,7 @@ class SearchViewController: UIViewController , UITableViewDataSource,UITableView
         
         return cellHeight+30
     }
+    
     
     func tableView(_ ResultsTable: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
@@ -91,13 +93,15 @@ class SearchViewController: UIViewController , UITableViewDataSource,UITableView
         
         let Placeid = self.array[indexPath.row].id
         
+        self.navigationController?.popViewController(animated: true)
+        
         geocodingClass.GetCorrdinates(Placeid: Placeid, success: { (latitude,longitude) -> () in
             
             if self.delegate != nil{
                 
                 self.delegate?.GetLatLng(lat: latitude, lng: longitude)
             }
-            self.navigationController?.popViewController(animated: true)
+           
         },
                                       
          failure: { (error) -> () in
@@ -106,6 +110,7 @@ class SearchViewController: UIViewController , UITableViewDataSource,UITableView
     }
     
     // Mark ~ TextField Delegate Methods
+    
     func textField(_ searchField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         if ((searchField.text)?.characters.count)! > 3{

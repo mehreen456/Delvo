@@ -81,6 +81,4 @@ class DelvoMethods: NSObject {
         controller.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
     }
 
-
-
 }

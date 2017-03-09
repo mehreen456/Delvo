@@ -12,10 +12,11 @@ class SideMenuViewController: UIViewController ,UITableViewDelegate ,UITableView
 
     @IBOutlet weak var MenuTable: UITableView!
     var array = ["Home" , "My Orders" , "Profile Settings" , "SignOut"]
+    let cellIdentifier = "SideMenuCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
     }
 
     func numberOfSections(in ResultsTable: UITableView) -> Int {
@@ -28,7 +29,7 @@ class SideMenuViewController: UIViewController ,UITableViewDelegate ,UITableView
     
     func tableView(_ ResultsTable: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
-        let cell = MenuTable.dequeueReusableCell(withIdentifier: "SideMenuCell", for: indexPath) as! SideTableCell
+        let cell = MenuTable.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! SideTableCell
         
         let string = array[indexPath.row] as String
         cell.TextLabel.text = string
@@ -36,8 +37,15 @@ class SideMenuViewController: UIViewController ,UITableViewDelegate ,UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        
+       
+        if array[indexPath.row] == "My Orders"{
+        self.revealViewController().rightRevealToggle(animated: true)
+        let storyboard = UIStoryboard(name: "MyOrders", bundle: Bundle.main)
+        let destination = storyboard.instantiateViewController(withIdentifier: "Orders") as! MyOrdersVC
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.navController.pushViewController(destination, animated: true)
+            
+        }
     }
     
 

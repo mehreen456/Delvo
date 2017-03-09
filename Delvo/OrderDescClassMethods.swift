@@ -55,11 +55,8 @@ class OrderDescClassMethods: NSObject {
     func validate(phoneNumber: String) -> Bool {
         
         let PHONE_REGEX = "^(0)[0-9]{10}$"
-        
         let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
-        
         let result =  phoneTest.evaluate(with: phoneNumber)
-        
         return result
     }
     
@@ -75,5 +72,8 @@ class OrderDescClassMethods: NSObject {
         return keyboardDoneButtonView
     }
 
-    
+    func EmptyUserDefaults(){
+        
+         UserDefaults.standard.removeObject(forKey: "MyOrder")
+    }
 }

@@ -11,10 +11,7 @@ import UIKit
 
 class DropViewController: UIViewController ,SWRevealViewControllerDelegate, UITextFieldDelegate {
     
-    struct Drop_Address{
-        
-        static var DropAddress = String()
-    }
+    
     
     @IBOutlet weak var ToastView: UIView!
     @IBOutlet weak var GoDelvoButton: UIButton!
@@ -128,15 +125,15 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate, UITe
     
     func GetArea(_ notification: NSNotification) {
         
-        DropLocation.text = MapViewController.Location.DropLocation
+        DropLocation.text = Location.DropLocation
     }
-    
     
     func setTextFields(){
         
         DropAddress.delegate = self
-        PickUpLocation.text = MapViewController.Location.PickLocation
-        DropLocation.text = MapViewController.Location.DropLocation
+        PickUpLocation.text = Location.PickLocation
+        DropLocation.text = Location.DropLocation
+
         self.ToastView.isHidden=true
     }
     

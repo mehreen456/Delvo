@@ -24,7 +24,10 @@ class OrderDescriptionViewController: UIViewController , UITextViewDelegate, UIT
     let delvoMethods = DelvoMethods()
     var status:NSInteger = 100
     var origin:CGFloat?
+    
     let Description = "\n Enter your order description here ..."
+    let PhoneValidationError = "Invalid PhoneNo"
+    let FailureMsg = "Failed"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,29 +37,31 @@ class OrderDescriptionViewController: UIViewController , UITextViewDelegate, UIT
         self.setOutlets()
         self.setDelegate()
         delvoMethods.AddGesture(controller: self)
-
+        
     }
     
     @IBAction func GoDelivoButton(_ sender: Any) {
         
         self.view.frame.origin.y = self.origin!
         if !obj.validate(phoneNumber: self.ContactField.text!) && !self.ContactField.text!.isEmpty {
-            self.obj.alert(message: "Invalid PhoneNo", controller: self)
+            self.obj.alert(message: PhoneValidationError, controller: self)
             return
         }
         
         let myobj = ApiParsing()
-        
-        myobj.PlaceOrder(name: self.NameField.text!, phone: self.ContactField.text!, detail: self.DescriptionLabel.text!, Success: { (json) -> () in
+        let details = self.DescriptionLabel.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+
+        myobj.PlaceOrder(name: self.NameField.text!, phone: self.ContactField.text!, detail:details, Success: { (json) -> () in
             
             if json{
                
-                self.obj.ShowAlert(controller: self)}
+                self.obj.ShowAlert(controller: self)
+            }
         }
             
         , failure: { (message) -> () in
                 
-            self.obj.alert(message:message ,title: "Failed",controller: self)}
+            self.obj.alert(message:message ,title: self.FailureMsg ,controller: self)}
             
         , Failure: { (error) -> () in
         
@@ -136,10 +141,10 @@ class OrderDescriptionViewController: UIViewController , UITextViewDelegate, UIT
     
     func setOutlets(){
         
-        DropLabel.text = MapViewController.Location.DropLocation
-        PickupLabel.text = MapViewController.Location.PickLocation
+        DropLabel.text = Location.DropLocation
+        PickupLabel.text = Location.PickLocation
+
         EditIcon.ChangeTintColor(color:UIColor.DarkBlueColor())
-        //  EditIcon.image = EditIcon.getImageWithColor(color: UIColor.DarkBlueColor(), size: (EditIcon.image?.size)!)
         EditIcon.backgroundColor = UIColor.clear
         self.ContactField.inputAccessoryView = obj.AddDoneButton(controller: self)
         self.DoneButton.backgroundColor = UIColor.ButtonColor()

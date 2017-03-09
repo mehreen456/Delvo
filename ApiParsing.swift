@@ -45,7 +45,9 @@ class ApiParsing: NSObject {
                     let status = meta["status"] as! NSInteger
                     
                     if status == 200{
-                        Success(true)}
+                        Success(true)
+                    self.SaveOrders(data: params)
+                    }
                     
                     else{
                         
@@ -127,18 +129,41 @@ class ApiParsing: NSObject {
         let params = [
             "name": name,
             "phone": phone,
-            "pick_address": PickUpViewController.Pick_Address.PickAddress,
-            "pick_nearby":  MapViewController.Location.PickLocation,
-            "pick_lat": MapViewController.Location.PickLat,
-            "pick_lng":  MapViewController.Location.PickLng,
-            "drop_address": DropViewController.Drop_Address.DropAddress,
-            "drop_nearby":  MapViewController.Location.DropLocation,
-            "drop_lat":  MapViewController.Location.DropLat,
-            "drop_lng":  MapViewController.Location.DropLng,
+            "pick_address": Pick_Address.PickAddress,
+            "pick_nearby":  Location.PickLocation,
+            "pick_lat": Location.PickLat,
+            "pick_lng":  Location.PickLng,
+            "drop_address": Drop_Address.DropAddress,
+            "drop_nearby":  Location.DropLocation,
+            "drop_lat":  Location.DropLat,
+            "drop_lng":  Location.DropLng,
             "detail": detail
             ] as [String : Any]
         
         return params as (NSDictionary)
     }
 
+    func SaveOrders(data:NSDictionary){
+        
+        let currentTime = DateFormatter.localizedString(from: NSDate() as Date, dateStyle: .medium, timeStyle: .medium)
+
+        let userInfo = [
+            "pick_address":data.value(forKey: "pick_address"),
+            "drop_address": data.value(forKey: "drop_address"),
+            "detail": data.value(forKey:"detail"),
+            "Date": currentTime
+        ]
+        var array:[NSDictionary] = []
+        
+        if UserDefaults.standard.object(forKey:  "MyOrder") == nil{
+            array.append(userInfo as NSDictionary)
+            UserDefaults.standard.setValue(array, forKey: "MyOrder")
+        }
+        else{
+            
+            array = UserDefaults.standard.value(forKey: "MyOrder") as! [NSDictionary]
+            array.append(userInfo as NSDictionary)
+            UserDefaults.standard.setValue(array, forKey: "MyOrder")
+        }
+    }
 }

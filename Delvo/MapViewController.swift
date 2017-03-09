@@ -12,6 +12,8 @@ import GooglePlaces
 
 class MapViewController: UIViewController ,GMSMapViewDelegate ,Address,CLLocationManagerDelegate{
 
+    
+    
     @IBOutlet weak var Pointer: UIImageView!
     @IBOutlet weak var MapView: GMSMapView!
     
@@ -22,22 +24,18 @@ class MapViewController: UIViewController ,GMSMapViewDelegate ,Address,CLLocatio
     var locationManager = CLLocationManager()
     var didFindMyLocation = false
     var appDelegate = AppDelegate()
+    let GeocodingObj = Geocoding()
     
     override func viewDidLoad() {
+       
         super.viewDidLoad()
         
+        self.setLocationManager()
         GetMap(a: lat, b: long)
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
-        locationManager.startUpdatingLocation()
-        self.locationManager.delegate = self
-        self.Pointer.frame=MapView.camera.accessibilityFrame
-        MapView.settings.myLocationButton=false
-        MapView.settings.compassButton=false
-        self.MapView?.isMyLocationEnabled = true
-        MapView.delegate = self
-        
+        self.setMapView()
     }
+    
+    // MArk ~ LocationManagerDelegates
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status:  CLAuthorizationStatus) {
         
@@ -54,20 +52,13 @@ class MapViewController: UIViewController ,GMSMapViewDelegate ,Address,CLLocatio
         self.locationManager.stopUpdatingLocation()
     }
     
-    public func GetMap(a:CLLocationDegrees , b:CLLocationDegrees){
-        
-        let camera: GMSCameraPosition = GMSCameraPosition.camera(withLatitude: a, longitude: b, zoom: 17)
-        MapView.camera = camera
-        MapView.isMyLocationEnabled = true
-        MapView.settings.myLocationButton=false
-        MapView.settings.compassButton=false
-    }
+    // MArk ~ MapViewDelegates
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
         
         MapView.camera=position
         MapView.isMyLocationEnabled = true
-        getAddressFromGeocodeCoordinate(coordinate: position.target)
+        self.getAddress(coordinates: position.target)
     }
     
     func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
@@ -80,47 +71,52 @@ class MapViewController: UIViewController ,GMSMapViewDelegate ,Address,CLLocatio
         }
     }
     
-    func getAddressFromGeocodeCoordinate(coordinate: CLLocationCoordinate2D) {
-        
-        let geocoder = GMSGeocoder()
-        
-        geocoder.reverseGeocodeCoordinate(coordinate) { response , error in
-            if response != nil{
-                
-                if let Address = response!.firstResult() {
-                    let lines = Address.lines! as [String]
-                    
-                    let address = lines.joined(separator: ",")
-                    if self.controller == "PickUpVc"{
-                        
-                        Location.PickLocation = address
-                        Location.PickLat = coordinate.latitude
-                        Location.PickLng = coordinate.longitude
-                    }
-                        
-                    else{
-                        
-                        Location.DropLocation = address
-                        Location.DropLat = coordinate.latitude
-                        Location.DropLng = coordinate.longitude
-                    }
-                    
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "GetArea"), object: nil)}
-            }}
-    }
+    // Mark ~ GetAddressFromCorrdinate
     
-    struct Location{
+    func getAddress(coordinates: CLLocationCoordinate2D){
         
-        static var PickLocation = String()
-        static var PickLat = Double()
-        static var PickLng = Double()
-        static var DropLocation = String()
-        static var DropLat = Double()
-        static var DropLng = Double()
+        GeocodingObj.getAddressFromGeocodeCoordinate(coordinate: coordinates ,controller: self.controller , success: { (success) -> () in
+            
+        }, failure: { (error) -> () in
+            
+            print(error)
+        })
     }
+
+    // Mark ~ SetMapPointerToCorrdinate
     
     func GetLatLng(lat: CLLocationDegrees, lng: CLLocationDegrees) {
         
         GetMap(a: lat, b: lng)
     }
+    
+    public func GetMap(a:CLLocationDegrees , b:CLLocationDegrees){
+        
+        let camera: GMSCameraPosition = GMSCameraPosition.camera(withLatitude: a, longitude: b, zoom: 17)
+        MapView.camera = camera
+        MapView.isMyLocationEnabled = true
+        MapView.settings.myLocationButton=false
+        MapView.settings.compassButton=false
+    }
+    
+    // Mark ~ Class Methods
+    
+    func setMapView(){
+        
+        self.Pointer.frame=MapView.camera.accessibilityFrame
+        MapView.settings.myLocationButton=false
+        MapView.settings.compassButton=false
+        self.MapView?.isMyLocationEnabled = true
+        MapView.delegate = self
+    }
+    
+    func setLocationManager(){
+        
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        locationManager.startUpdatingLocation()
+        self.locationManager.delegate = self
+        
+    }
+
 }

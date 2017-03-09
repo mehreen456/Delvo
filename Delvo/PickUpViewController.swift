@@ -10,10 +10,6 @@ import UIKit
 
 class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UITextFieldDelegate {
 
-    struct Pick_Address{
-        
-        static var PickAddress = String()
-    }
     
     @IBOutlet weak var ToastView: UIView!
     @IBOutlet weak var PickAddress: UITextField!
@@ -38,13 +34,14 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        MapVC = obj.ShowMapView(controller: self,Mapview:self.Mapview)
-        obj.navBar(controller: self,Title:TitleVc )
-        PickAddress.delegate = self
-        NotificationCenter.default.addObserver(self, selector: #selector(self.GetArea(_:)), name: NSNotification.Name(rawValue:NotificationName), object: nil)
-        obj.AddGesture(controller: self)
-        self.ToastView.isHidden = true
-        self.ProceedButton.backgroundColor = UIColor.ButtonColor()
+        self.setview()
+        self.notification()
+        obj.AddGesture(controller:self)
+        obj.navBar(controller:self,Title:TitleVc )
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.navController = self.navigationController!
+        let objOD = OrderDescClassMethods()
+      //  objOD.EmptyUserDefaults()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,14 +84,29 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UI
     
     // Mark ~ Controller Methods
     
+    func setview(){
+        
+        MapVC = obj.ShowMapView(controller: self,Mapview:self.Mapview)
+        PickAddress.delegate = self
+        self.ToastView.isHidden = true
+        self.ProceedButton.backgroundColor = UIColor.ButtonColor()
+        
+    }
+
     func dismissKeyboard() {
         
         view.endEditing(true)
     }
     
-    func GetArea(_ notification: NSNotification) {
+    func notification(){
         
-        PickUpLocation.text = MapViewController.Location.PickLocation
+        NotificationCenter.default.addObserver(self, selector: #selector(self.GetArea(_:)), name: NSNotification.Name(rawValue:NotificationName), object: nil)
+    }
+    
+    func GetArea(_ notification: NSNotification) {
+       
+        
+        PickUpLocation.text = Location.PickLocation
     }
     
     // Mark ~ Delegate Methods
