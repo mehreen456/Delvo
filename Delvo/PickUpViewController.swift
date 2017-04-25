@@ -7,21 +7,20 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
-class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UITextFieldDelegate {
-
+class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate {
     
     @IBOutlet weak var ToastView: UIView!
-    @IBOutlet weak var PickAddress: UITextField!
-    @IBOutlet weak var SideMenuButton: UIBarButtonItem!
     @IBOutlet weak var Mapview: UIView!
+    @IBOutlet weak var AddButtonView: UIView!
     @IBOutlet weak var PickUpLocation: UILabel!
-    @IBOutlet weak var ProceedButton: UIButton!
     @IBOutlet weak var PickUpView: UIView!
     
     var MapVC: MapViewController?
     let obj = DelvoMethods()
-    
+    let objOD = OrderDescClassMethods()
     let ToastMsgPickUp = "Please enter pick address to proceed"
     let ToastMsgNearBy = "Please select near by place"
     let DefaultText = "Near by location"
@@ -30,18 +29,25 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UI
     let TitleVc = "PickUp"
     let NotificationName = "GetArea"
     let MapVcIdentifier = "PickUpVc"
+    let diposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        AddButtonView.addBorder()
         self.setview()
         self.notification()
         obj.AddGesture(controller:self)
-        obj.navBar(controller:self,Title:TitleVc )
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.navController = self.navigationController!
-        let objOD = OrderDescClassMethods()
-      //  objOD.EmptyUserDefaults()
+        self.revealViewController().rightViewRevealWidth = self.view.frame.width - 55
+        obj.navBar(controller:self,Title:TitleVc)
+        
+//        self.PickAddress.rx.text.asObservable().subscribe(onNext: {
+//            text in
+//            
+//            Pick_Detail.PickAddress = self.PickAddress.text!
+//        
+//        }).addDisposableTo(diposeBag)
+        
+       // objOD.EmptyUserDefaults()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,12 +73,12 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UI
         
         if identifier == ProceedSegue {
             
-            guard let text = PickAddress.text, !text.isEmpty else {
-                MapVC?.locationManager.startUpdatingLocation()
-                obj.Toast(view: self.view, ToastView: self.ToastView, message:ToastMsgPickUp)
-                return false
-            }
-            
+//            guard let text = PickAddress.text, !text.isEmpty else {
+//                MapVC?.locationManager.startUpdatingLocation()
+//                obj.Toast(view: self.view, ToastView: self.ToastView, message:ToastMsgPickUp)
+//                return false
+//            }
+           
             guard PickUpLocation.text !=  DefaultText && PickUpLocation.text != "" else {
                 
                 obj.Toast(view: self.view, ToastView: self.ToastView, message:ToastMsgNearBy)
@@ -83,14 +89,10 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UI
     }
     
     // Mark ~ Controller Methods
-    
     func setview(){
         
         MapVC = obj.ShowMapView(controller: self,Mapview:self.Mapview)
-        PickAddress.delegate = self
         self.ToastView.isHidden = true
-        self.ProceedButton.backgroundColor = UIColor.ButtonColor()
-        
     }
 
     func dismissKeyboard() {
@@ -100,17 +102,14 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UI
     
     func notification(){
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.GetArea(_:)), name: NSNotification.Name(rawValue:NotificationName), object: nil)
-    }
+        NotificationCenter.default.addObserver(self, selector: #selector(self.GetArea(_:)), name: NSNotification.Name(rawValue:NotificationName), object: nil)}
     
     func GetArea(_ notification: NSNotification) {
        
-        
         PickUpLocation.text = Location.PickLocation
     }
     
     // Mark ~ Delegate Methods
-    
     func revealController(_ revealController: SWRevealViewController!, animateTo position: FrontViewPosition) {
         
         if revealController.frontViewPosition == FrontViewPosition.leftSide{
@@ -119,16 +118,5 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate, UI
         }
         else{
             self.MapVC?.MapView.isUserInteractionEnabled = true }
-    }
-    
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        
-        Pick_Address.PickAddress = self.PickAddress.text!
-        return true
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.dismissKeyboard()
-        return true
     }
 }

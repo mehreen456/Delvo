@@ -1,5 +1,3 @@
-
-
 //
 //  OrderDescClassMethods.swift
 //  Delvo
@@ -23,7 +21,7 @@ class OrderDescClassMethods: NSObject {
     
     func DismissAlertView(alertview:UIAlertController)
     {
-        let when = DispatchTime.now() + 5
+        let when = DispatchTime.now() + 3
         DispatchQueue.main.asyncAfter(deadline: when){
             alertview.dismiss(animated: true, completion: nil)}
     }
@@ -35,29 +33,33 @@ class OrderDescClassMethods: NSObject {
         textview.layer.cornerRadius = 5
     }
     
-    func ShowAlert(controller:UIViewController){
+    func ShowAlert(controller:UIViewController, identifier:String, message:String){
         
-        let alertController = UIAlertController(title: "Success" , message: "Your order has been placed. You will soon recive a conformation call", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Success" , message: message, preferredStyle: .alert)
         
-        let OKAction = UIAlertAction(title: "OK", style:.default) { (_) -> Void in
-            
-            controller.performSegue(withIdentifier: "Done", sender: self)}
-        
+        let OKAction = UIAlertAction(title: "OK", style:.default,handler:nil)
         alertController.addAction(OKAction)
         controller.present(alertController, animated: true, completion: nil)
         
         let when = DispatchTime.now() + 5
         DispatchQueue.main.asyncAfter(deadline: when){
             alertController.dismiss(animated: true, completion: nil)
-            controller.performSegue(withIdentifier: "Done", sender: self)}
+            controller.performSegue(withIdentifier: identifier, sender: self)}
     }
     
     func validate(phoneNumber: String) -> Bool {
         
-        let PHONE_REGEX = "^(0)[0-9]{10}$"
+        let PHONE_REGEX = "^(92)[0-9]{10}$"
         let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
         let result =  phoneTest.evaluate(with: phoneNumber)
         return result
+    }
+    
+    func isValidEmail(email:String) -> Bool {
+        
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: email)
     }
     
     func AddDoneButton(controller: UIViewController) -> UIToolbar{
@@ -66,8 +68,8 @@ class OrderDescClassMethods: NSObject {
         keyboardDoneButtonView.sizeToFit()
         let doneButton = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.done,
                                               target: controller,
-                                              action:#selector(PickUpViewController.dismissKeyboard))
-        
+                                            action:#selector(PickUpViewController.dismissKeyboard))
+        doneButton.tintColor = UIColor.white
         keyboardDoneButtonView.items = [doneButton]
         return keyboardDoneButtonView
     }

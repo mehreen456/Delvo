@@ -8,13 +8,15 @@ import UIKit
 import Alamofire
 import GooglePlaces
 import NVActivityIndicatorView
+import RxSwift
+import RxCocoa
 
 protocol Address {
     
     func GetLatLng(lat: CLLocationDegrees , lng: CLLocationDegrees)
 }
 
-class SearchViewController: UIViewController , UITableViewDataSource,UITableViewDelegate ,UITextFieldDelegate , NVActivityIndicatorViewable{
+class SearchViewController: UIViewController ,UITextFieldDelegate , NVActivityIndicatorViewable{
 
     @IBOutlet weak var LoaderView: UIView!
     @IBOutlet weak var ResultsTable: UITableView!
@@ -22,11 +24,13 @@ class SearchViewController: UIViewController , UITableViewDataSource,UITableView
 
     var delegate:Address?
     var place : String = " "
-    var array:[(name:String,id:String)] = []
+    var array:[SearchResult] = []
     var geocodingClass = Geocoding()
     var cellHeight:CGFloat = 25
     let obj = DelvoMethods()
-    
+    let disposeBag = DisposeBag()
+    let dataSource = Variable<[SearchResult]>([])
+   
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -36,8 +40,64 @@ class SearchViewController: UIViewController , UITableViewDataSource,UITableView
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationItem.title="Search Location"
         obj.AddImageTextfield(textField: self.searchField)
+        self.searchResultTabel()
+        self.SearchTextField()
+        _ = self.ResultsTable.rx.setDelegate(self)
+        dataSource.value = self.array
+        
     }
+    
+    func searchResultTabel(){
+        
+        dataSource.asObservable().bindTo(ResultsTable.rx.items(cellIdentifier: "SearchCell")){ row,Searchplace,cell in
+            
+            if let C_cell = cell as? SearchTableViewCell{
+                
+                C_cell.LocationLabel.text = Searchplace.place
+                self.cellHeight = self.obj.heightForView(text: (C_cell.LocationLabel?.text)!, frame:C_cell.LocationLabel.frame)
+               
+            }
+            
+            }.addDisposableTo(disposeBag)
 
+        ResultsTable.rx.modelSelected(SearchResult.self).subscribe(onNext:{ menuItem in
+            
+            let Placeid = menuItem.placeId
+            
+            _ = self.navigationController?.popViewController(animated: true)
+            
+            
+            self.geocodingClass.GetCorrdinates(Placeid: Placeid, success: { (latitude,longitude) -> () in
+                
+                if self.delegate != nil{
+                    
+                    self.delegate?.GetLatLng(lat: latitude, lng: longitude)
+                }
+                
+            },
+                                               
+              failure: { (error) -> () in
+                print(error)
+            })
+            
+        }).addDisposableTo(disposeBag)
+        
+        ResultsTable.alwaysBounceVertical = false
+    }
+    
+    func SearchTextField(){
+        
+        self.searchField.rx.text.asObservable().subscribe(onNext: {
+            text in
+            
+            if (text?.characters.count)! > 3{
+                
+                self.SearchPlaces(place: text! + " karachi")
+            }
+            
+        }).addDisposableTo(disposeBag)
+    }
+    
     func SearchPlaces(place:String){
         
         startAnimating(CGSize(width:50 ,height:50) , message: "Searching ..." , messageFont: UIFont.boldSystemFont(ofSize: 15) , type:.ballClipRotatePulse , color: UIColor.DarkBlueColor()
@@ -47,83 +107,25 @@ class SearchViewController: UIViewController , UITableViewDataSource,UITableView
         geocodingClass.getResults(place: place, success: { (places) -> () in
 
             self.array = places
-            
+            self.dataSource.value = self.array
             if self.array.count == 0{
                 self.ResultsTable.isHidden=true}
             else{
                 self.ResultsTable.isHidden=false}
             
-            self.ResultsTable.reloadData()
             self.stopAnimating()
             self.LoaderView.isHidden=true
         },
-                                  
         failure: { (error) -> () in
             
             print(error) })
     }
-    
-    // Mark ~ TableView Delegate Methods
-    
-    func numberOfSections(in ResultsTable: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ ResultsTable: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.array.count
-    }
-    
+}
+
+extension SearchViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
+      
         return cellHeight+30
-    }
-    
-    
-    func tableView(_ ResultsTable: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         
-        let cell = ResultsTable.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath) as! SearchTableViewCell
-        
-        cell.LocationLabel?.text = self.array[indexPath.row].name
-        cellHeight = obj.heightForView(text: (cell.LocationLabel?.text)!, frame:cell.LocationLabel.frame)
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let Placeid = self.array[indexPath.row].id
-        
-        self.navigationController?.popViewController(animated: true)
-        
-        geocodingClass.GetCorrdinates(Placeid: Placeid, success: { (latitude,longitude) -> () in
-            
-            if self.delegate != nil{
-                
-                self.delegate?.GetLatLng(lat: latitude, lng: longitude)
-            }
-           
-        },
-                                      
-         failure: { (error) -> () in
-                print(error)
-        })
-    }
-    
-    // Mark ~ TextField Delegate Methods
-    
-    func textField(_ searchField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        if ((searchField.text)?.characters.count)! > 3{
-            
-            self.SearchPlaces(place: searchField.text! + " karachi")
-        }
-        
-        return true
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        view.endEditing(true)
-        return true
-    }
-    
+           }
 }

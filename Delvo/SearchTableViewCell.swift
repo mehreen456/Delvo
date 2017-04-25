@@ -7,13 +7,20 @@
 //
 
 import UIKit
+import RxSwift
 
 class SearchTableViewCell: UITableViewCell {
 
     @IBOutlet weak var LocationLabel: UILabel!
+    var disposeBagCell:DisposeBag = DisposeBag()
+    
+    override func prepareForReuse() {
+        disposeBagCell = DisposeBag()
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+       
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

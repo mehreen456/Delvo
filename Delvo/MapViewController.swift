@@ -11,8 +11,6 @@ import GoogleMaps
 import GooglePlaces
 
 class MapViewController: UIViewController ,GMSMapViewDelegate ,Address,CLLocationManagerDelegate{
-
-    
     
     @IBOutlet weak var Pointer: UIImageView!
     @IBOutlet weak var MapView: GMSMapView!
@@ -104,6 +102,20 @@ class MapViewController: UIViewController ,GMSMapViewDelegate ,Address,CLLocatio
     func setMapView(){
         
         self.Pointer.frame=MapView.camera.accessibilityFrame
+        
+        do {
+            
+            if let styleURL = Bundle.main.url(forResource: "MapStyle", withExtension: "json") {
+                MapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
+            }
+            else {
+                NSLog("Unable to find style.json")
+            }
+        }
+        catch {
+             NSLog("One or more of the map styles failed to load. \(error)")
+        }
+        
         MapView.settings.myLocationButton=false
         MapView.settings.compassButton=false
         self.MapView?.isMyLocationEnabled = true

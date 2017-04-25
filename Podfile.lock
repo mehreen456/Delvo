@@ -11,6 +11,9 @@ PODS:
   - GooglePlaces (2.1.1):
     - GoogleMaps/Base (= 2.1.1)
   - NVActivityIndicatorView (3.2)
+  - RxCocoa (3.2.0):
+    - RxSwift (~> 3.1)
+  - RxSwift (3.2.0)
   - Toast-Swift (2.0.0)
 
 DEPENDENCIES:
@@ -19,6 +22,8 @@ DEPENDENCIES:
   - GooglePlacePicker
   - GooglePlaces
   - NVActivityIndicatorView
+  - RxCocoa (~> 3.0)
+  - RxSwift (~> 3.0)
   - Toast-Swift (~> 2.0.0)
 
 SPEC CHECKSUMS:
@@ -27,8 +32,10 @@ SPEC CHECKSUMS:
   GooglePlacePicker: 665f39f931f2df32f9dd3fcc45f7e8abf71e535c
   GooglePlaces: 35636d86e5020cba3856eb988c09a5491de0a65a
   NVActivityIndicatorView: 28942c18ced111a6a3ce5e6f5b27d9d40116d639
+  RxCocoa: ccdf43101a70407097a29082f648ba1676075b30
+  RxSwift: 46574f70d416b7923c237195939cc488a7fbf3a0
   Toast-Swift: 5b2f8f720f7e78e48511f693df1f9c9a6e38a25a
 
-PODFILE CHECKSUM: 312f73d93508594677a1f280739bdf58ecc8a831
+PODFILE CHECKSUM: 76c060fc257566336f4c4ee1d6e05f741dd93516
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.0

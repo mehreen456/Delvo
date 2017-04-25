@@ -17,7 +17,7 @@ class DelvoMethods: NSObject {
         let label:UILabel = UILabel(frame:frame)
         label.numberOfLines = 0
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
-        label.font =  UIFont(name: "Helvetica", size: 15.0)
+        label.font =  UIFont(name: "Helvetica", size: 17.0)
         label.text = text
         label.sizeToFit()
         return label.frame.height
@@ -30,7 +30,6 @@ class DelvoMethods: NSObject {
         style.backgroundColor = UIColor.DarkBlueColor()
         view.makeToast(message, duration: 2.0, position: ToastView.center, style:style)
     }
-    
        
     func AddImageTextfield(textField:UITextField){
         
@@ -46,8 +45,8 @@ class DelvoMethods: NSObject {
     
     func AddTapPanGesture(controller:UIViewController){
         
-        controller.view.addGestureRecognizer(controller.revealViewController().tapGestureRecognizer())
-        controller.view.addGestureRecognizer(controller.revealViewController().panGestureRecognizer())
+       controller.view.addGestureRecognizer(controller.revealViewController().tapGestureRecognizer())
+       controller.view.addGestureRecognizer(controller.revealViewController().panGestureRecognizer())
     }
 
     func AddGesture(controller:UIViewController){
@@ -70,15 +69,44 @@ class DelvoMethods: NSObject {
     func navBar(controller:UIViewController,Title:String){
         
         let button = UIButton.init(type: .custom)
-        button.setImage(UIImage.init(named: "Menu.png"), for: UIControlState.normal)
+        button.setImage(UIImage.init(named: "MenuButton"), for: UIControlState.normal)
         button.addTarget(controller.revealViewController(), action:#selector(SWRevealViewController.rightRevealToggle(_:)), for: UIControlEvents.touchUpInside)
-        button.frame = CGRect.init(x: 0, y: 0, width: 30, height: 30)
+        button.frame = CGRect.init(x: 0, y: 0, width:25, height:17)
         let barButton = UIBarButtonItem.init(customView: button)
+        button.tintColor = UIColor.white
         controller.navigationItem.rightBarButtonItem = barButton
         controller.navigationItem.title = Title
         controller.navigationController?.navigationBar.tintColor = UIColor.white
         controller.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
-        controller.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
+       
     }
 
+    func drawLine(startPoint:CGPoint ,endPoint:CGPoint, view:UIView) {
+        
+        let line = CAShapeLayer()
+        let linePath = UIBezierPath()
+        linePath.move(to: startPoint)
+        linePath.addLine(to: endPoint)
+        let dashes:[CGFloat] = [4, 2]
+        linePath.setLineDash(dashes, count: 2, phase: 0)
+        line.path = linePath.cgPath
+        line.strokeColor = UIColor.lightGray.cgColor
+        line.lineWidth = 1
+        line.lineJoin = kCALineJoinRound
+        view.layer.addSublayer(line)
+    }
+    
+    func AddBorder(height:CGFloat , view:UIView){
+        
+        view.layer.cornerRadius = 15
+        view.layer.shadowColor = UIColor.lightGray.cgColor
+        view.layer.shadowOffset = CGSize(width: 3, height: 3)
+        view.layer.shadowOpacity = 0.7
+        view.layer.shadowRadius = 4.0
+        view.layer.masksToBounds = true
+        let border = CALayer()
+        border.frame = CGRect(x: 0, y: 0, width:7, height: height+5)
+        border.backgroundColor = UIColor.DarkBlueColor().cgColor
+        view.layer.addSublayer(border)
+    }
 }

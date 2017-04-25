@@ -9,17 +9,13 @@
 
 import UIKit
 
-class DropViewController: UIViewController ,SWRevealViewControllerDelegate, UITextFieldDelegate {
-    
-    
-    
+
+class DropViewController: UIViewController ,SWRevealViewControllerDelegate {
+  
     @IBOutlet weak var ToastView: UIView!
     @IBOutlet weak var GoDelvoButton: UIButton!
-    @IBOutlet weak var DropAddress: UITextField!
-    @IBOutlet weak var PickUpLocation: UILabel!
     @IBOutlet weak var DropLocation: UILabel!
     @IBOutlet weak var DropView: UIView!
-    @IBOutlet weak var PickUpView: UIView!
     @IBOutlet weak var MapView: UIView!
     
     var MapVC: MapViewController?
@@ -33,7 +29,7 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate, UITe
     let TitleVc = "Drop Location"
     let NotificationName = "GetArea"
     let MapVcIdentifier = "DropVc"
-   
+        
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -41,8 +37,8 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate, UITe
         obj.navBar(controller: self, Title: TitleVc)
         obj.AddGesture(controller: self)
         self.setTextFields()
-        self.setColors()
         self.notification()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,20 +50,10 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate, UITe
     
     @IBAction func ChangePIckButton(_ sender: Any) {
         
-        self.navigationController?.popToRootViewController(animated: true)
+       _ =  self.navigationController?.popToRootViewController(animated: true)
     }
 
     // Mark ~ Delegate Methods
-    
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        Drop_Address.DropAddress = self.DropAddress.text!
-        return true
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.dismissKeyboard()
-        return true
-    }
     
     func revealController(_ revealController: SWRevealViewController!, animateTo position: FrontViewPosition) {
         
@@ -86,7 +72,7 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate, UITe
         if segue.identifier == SearchSegue{
             
             let searchVc:SearchViewController = segue.destination as! SearchViewController
-            searchVc.place = self.PickUpLocation.text!
+            searchVc.place = self.DropLocation.text!
             searchVc.delegate = MapVC as Address?
         }
     }
@@ -94,12 +80,6 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate, UITe
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         
         if identifier == GoDelvoSegue{
-            
-            guard let text = DropAddress.text, !text.isEmpty else {
-                
-             obj.Toast(view: self.view, ToastView: self.ToastView, message: ToastMsgDrop)
-                return false
-            }
             
         guard DropLocation.text != DefaultText  && DropLocation.text != "" else {
                 
@@ -111,12 +91,6 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate, UITe
     }
     
     // Class Methods
-    
-    func setColors(){
-        
-        self.PickUpView.backgroundColor = UIColor.DarkBlueColor()
-        self.GoDelvoButton.backgroundColor = UIColor.ButtonColor()
-    }
     
     func notification(){
     
@@ -130,10 +104,7 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate, UITe
     
     func setTextFields(){
         
-        DropAddress.delegate = self
-        PickUpLocation.text = Location.PickLocation
         DropLocation.text = Location.DropLocation
-
         self.ToastView.isHidden=true
     }
     

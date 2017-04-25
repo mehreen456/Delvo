@@ -1,3 +1,7 @@
+
+
+
+
 //
 //  UserSetPasswordVc.swift
 //  Delvo
@@ -10,26 +14,36 @@ import UIKit
 
 class UserSetPasswordVc: UIViewController {
 
+    var UserName = ""
+    var UserContact = ""
+    var UserEmail = ""
+    var ImageData:NSData? = nil
+    let obj = OrderDescClassMethods()
+    
+    @IBOutlet weak var ConfirmPassword: UITextField!
+    @IBOutlet weak var Password: UITextField!
+  
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-}
+    @IBAction func DoneButton(_ sender: Any) {
+       
+        if ConfirmPassword.text != Password.text {
+            self.obj.alert(message: "Password doesn't match", controller: self)
+            return
+        }
+        if  UserName != "" && UserContact != "" && Password.text != "" && UserEmail != "" {
+            
+            let userProfile:[String : AnyObject] = [
+                
+                "Name": UserName as AnyObject,
+                "Contact": UserContact as AnyObject,
+                "Password": Password.text as AnyObject,
+                "Email": UserEmail as AnyObject,
+                "Image": ImageData!,
+                ]
+            
+            UserDefaults.standard.setValue(userProfile, forKey: "User")}
+        }
+   }

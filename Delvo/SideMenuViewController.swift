@@ -7,46 +7,109 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
-class SideMenuViewController: UIViewController ,UITableViewDelegate ,UITableViewDataSource {
+class SideMenuViewController: UIViewController {
 
     @IBOutlet weak var MenuTable: UITableView!
-    var array = ["Home" , "My Orders" , "Profile Settings" , "SignOut"]
+    @IBOutlet weak var UserNameLabel: UILabel!
+    @IBOutlet weak var LogoImage: UIImageView!
+  
     let cellIdentifier = "SideMenuCell"
+    let delvoMethod = DelvoMethods()
+    let Menu = Observable.just([
+        
+        SideMenuItems(item:"Home",image:UIImage(named:"Home")!),
+        SideMenuItems(item:"My Orders",image:UIImage(named:"Orders")!),
+        SideMenuItems(item:"Profile",image:UIImage(named:"Profile")!),
+        SideMenuItems(item:"Sign Out",image:UIImage(named:"SignOut")!)
+       
+        ])
     
+    let disposeBag = DisposeBag()
+    var array:NSDictionary = [:]
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if (UserDefaults.standard.value(forKey: "User")) != nil{
+            
+           array =  UserDefaults.standard.value(forKey: "User") as! NSDictionary
+           UserNameLabel.text = array["Name"] as! String?
+        }
+        
+       self.TableData()
+       self.notification()
+    }
+    
+    func notification(){
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.GetArea(_:)), name: NSNotification.Name(rawValue:"UpdateInfo"), object: nil)}
+    
+    func GetArea(_ notification: NSNotification) {
+        
+        array =  UserDefaults.standard.value(forKey: "User") as! NSDictionary
+        UserNameLabel.text = array.value(forKey: "Name") as! String?
     }
 
-    func numberOfSections(in ResultsTable: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ ResultsTable: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return array.count
-    }
-    
-    func tableView(_ ResultsTable: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+    func TableData(){
         
-        let cell = MenuTable.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! SideTableCell
-        
-        let string = array[indexPath.row] as String
-        cell.TextLabel.text = string
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       
-        if array[indexPath.row] == "My Orders"{
-        self.revealViewController().rightRevealToggle(animated: true)
-        let storyboard = UIStoryboard(name: "MyOrders", bundle: Bundle.main)
-        let destination = storyboard.instantiateViewController(withIdentifier: "Orders") as! MyOrdersVC
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.navController.pushViewController(destination, animated: true)
+        Menu.bindTo(MenuTable.rx.items(cellIdentifier: cellIdentifier)){ row,menuItem,cell in
             
+            if let C_cell = cell as? SideTableCell{
+                
+                C_cell.TextLabel.text = menuItem.item
+                C_cell.ImageView.image = menuItem.image
+            }
+            
+            }.addDisposableTo(disposeBag)
+        
+        
+        delvoMethod.drawLine(startPoint: CGPoint(x:LogoImage.frame.origin.x - 10 , y: LogoImage.frame.origin.y + LogoImage.frame.size.height + 5), endPoint:  CGPoint(x:LogoImage.frame.origin.x + LogoImage.frame.size.width , y: LogoImage.frame.origin.y + LogoImage.frame.size.height + 5), view: self.view)
+        
+        MenuTable.rx.modelSelected(SideMenuItems.self).subscribe(onNext:{ menuItem in
+            
+            
+            if menuItem.item == "Home"{
+                self.performSegue(withIdentifier: "Home", sender: self)
+            }
+                
+            else if menuItem.item == "Sign Out"{
+                
+                UserDefaults.standard.removeObject(forKey: "UserToken")
+                self.performSegue(withIdentifier: "SignIn", sender: self)
+            }
+                
+            else{
+                
+                self.revealViewController().rightRevealToggle(animated: true)
+                var destination = UIViewController()
+               
+                if menuItem.item == "My Orders"{
+                    
+                    let storyboard = UIStoryboard(name:"MyOrders", bundle: Bundle.main)
+                    destination = storyboard.instantiateViewController(withIdentifier: "Orders") as! MyOrdersVC
+                }
+                
+                else{
+                    
+                    let storyboard = UIStoryboard(name:"MyProfile", bundle: Bundle.main)
+                    destination = storyboard.instantiateViewController(withIdentifier: "Profile") as! MyProfileVc
+                }
+             
+                let nVC = self.revealViewController().frontViewController as! UINavigationController
+                nVC.pushViewController(destination, animated: true)
+            }
+            
+        }).addDisposableTo(disposeBag)
+        MenuTable.alwaysBounceVertical = false
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        
+        if let row = MenuTable.indexPathForSelectedRow {
+            self.MenuTable.deselectRow(at: row, animated: false)
         }
     }
-    
-
 }

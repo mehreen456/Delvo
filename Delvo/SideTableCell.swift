@@ -11,6 +11,7 @@ import UIKit
 
 class SideTableCell: UITableViewCell {
 
+    @IBOutlet weak var ImageView: UIImageView!
     @IBOutlet weak var TextLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()

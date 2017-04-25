@@ -1,3 +1,6 @@
+
+
+
 //
 //  SearchModel.swift
 //  Delvo
@@ -8,6 +11,14 @@
 
 import UIKit
 
-class SearchModel: NSObject {
-
+struct SearchResult{
+    
+    let place:String
+    let placeId: String
+    
+    init(place:String ,id: String ){
+        
+        self.place = place
+        self.placeId = id
+    }
 }

@@ -10,28 +10,26 @@ import UIKit
 
 class MyOrderCell: UITableViewCell {
 
-    @IBOutlet weak var Pick: UILabel!
+    @IBOutlet weak var CellView: UIView!
+    @IBOutlet weak var DateLabel: UILabel!
     @IBOutlet weak var PickUpLabel: UILabel!
     @IBOutlet weak var DropLabel: UILabel!
     @IBOutlet weak var TimeLabel: UILabel!
     @IBOutlet weak var OrderLabel: UILabel!
-    @IBOutlet weak var Drop: UILabel!
-    @IBOutlet weak var Order: UILabel!
-    @IBOutlet weak var Time: UILabel!
+    @IBOutlet weak var UserContact: UILabel!
+    @IBOutlet weak var UserName: UILabel!
+    @IBOutlet weak var GreenCircle: UIImageView!
+    @IBOutlet weak var LineView: UIView!
   
+    @IBOutlet weak var RedCircle: UIImageView!
+    let delvoMethods = DelvoMethods()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        PickUpLabel.textColor = UIColor.DarkBlueColor()
-        DropLabel.textColor = UIColor.DarkBlueColor()
-        TimeLabel.textColor = UIColor.DarkBlueColor()
-        OrderLabel.textColor = UIColor.DarkBlueColor()
-        Drop.textColor = UIColor.DarkBlueColor()
-        Order.textColor = UIColor.DarkBlueColor()
-        Time.textColor = UIColor.DarkBlueColor()
-        Pick.textColor = UIColor.DarkBlueColor()
         
-        // Initialization code
+        self.delvoMethods.drawLine(startPoint: CGPoint(x: contentView.frame.origin.x + 20 , y:  UserContact.frame.origin.y +  UserContact.frame.size.height + 5), endPoint:  CGPoint(x:contentView.frame.origin.x + CellView.frame.size.width - 20 , y: UserContact.frame.origin.y +  UserContact.frame.size.height + 5), view: CellView)
+   
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

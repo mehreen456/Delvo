@@ -8,6 +8,16 @@
 
 import UIKit
 
-class SideMenuDataModel: NSObject {
-
+struct SideMenuItems {
+    
+    let item:String
+    let image: UIImage?
+    
+    init(item:String ,image: UIImage ){
+        
+        self.item = item
+        self.image = image
+        
+    }
 }
+

@@ -1,3 +1,4 @@
+
 //
 //  MyProfileVc.swift
 //  Delvo
@@ -7,29 +8,85 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
-class MyProfileVc: UIViewController {
-
+class MyProfileVc: UIViewController ,UINavigationControllerDelegate,UIImagePickerControllerDelegate {
+    
+    @IBOutlet weak var UserEmail: UITextField!
+    @IBOutlet weak var UserContact: UITextField!
+    @IBOutlet weak var UserName: UITextField!
+    @IBOutlet weak var UserImg: UIImageView!
+    let disposeBag = DisposeBag()
+    var UserInfo:[String : AnyObject] = [ : ]
+   
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        showInfo()
+        ShowImg()
+        textfields()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
+       
+            UserImg.image = image
+            UserInfo["Image"] = UIImagePNGRepresentation(image)! as NSData
+        }
+        self.dismiss(animated: true, completion: nil)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func ShowImg(){
+        
+          UserImg.GetCircularImage()
     }
-    */
-
+    
+    func showInfo(){
+        
+        if UserDefaults.standard.object(forKey: "User") != nil{
+            
+            UserInfo = UserDefaults.standard.value(forKey: "User") as? [String : AnyObject] ?? [ : ]
+            UserName.text = UserInfo["Name"] as! String?
+            UserEmail.text = UserInfo["Email"] as! String?
+            UserContact.text = UserInfo["Contact"] as! String?
+            let imageData = UserInfo["Image"] as! NSData?
+            self.UserImg.image = UIImage(data: imageData as! Data)
+        }
+    }
+    
+    func textfields(){
+        
+        self.UserName.rx.text.asObservable().subscribe(onNext: {
+            text in
+             self.UserInfo["Name"] = text as AnyObject?}).addDisposableTo(disposeBag)
+        
+        self.UserEmail.rx.text.asObservable().subscribe(onNext: {
+            text in
+            self.UserInfo["Email"] = text as AnyObject?}).addDisposableTo(disposeBag)
+       
+        self.UserContact.rx.text.asObservable().subscribe(onNext: {
+            text in
+            self.UserInfo["Contact"] = text as AnyObject?}).addDisposableTo(disposeBag)
+    }
+    
+    @IBAction func CancelButton(_ sender: Any) {
+        
+    }
+    
+    @IBAction func SaveButton(_ sender: Any) {
+        
+        UserDefaults.standard.setValue(UserInfo, forKey: "User")
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "UpdateInfo"), object: nil)
+    }
+    
+    @IBAction func UploadImg(_ sender: Any) {
+        
+        let image = UIImagePickerController()
+        image.delegate = self
+        image.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        image.allowsEditing = false
+        self.present(image,animated: true)
+    }
+    
 }

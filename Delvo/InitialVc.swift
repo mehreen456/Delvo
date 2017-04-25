@@ -1,3 +1,4 @@
+
 //
 //  InitialVc.swift
 //  Delvo
@@ -13,23 +14,23 @@ class InitialVc: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-    }
+        var destination = UIViewController()
+       // UserDefaults.standard.removeObject(forKey: "User")
+        if UserDefaults.standard.value(forKey: "UserToken") != nil{
+            
+            let storyboard = UIStoryboard(name:"Main", bundle: Bundle.main)
+            destination = storyboard.instantiateViewController(withIdentifier: "SelectPlan") as! CollectionViewController
+            
+        }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        else{
+            
+            let storyboard = UIStoryboard(name:"Main", bundle: Bundle.main)
+            destination = storyboard.instantiateViewController(withIdentifier: "SignIn") as! UserSignIn
+        }
+       // self.navigationController?.pushViewController(destination, animated: false)
+        present(destination, animated: false, completion: nil)
+        
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

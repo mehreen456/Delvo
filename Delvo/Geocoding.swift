@@ -11,10 +11,9 @@ import GoogleMaps
 
 class Geocoding: NSObject {
 
-    var PlaceArray:[(name:String,id:String)] = []
     let ApiObj = ApiParsing()
     
-    func getResults(place:String , success:@escaping ( Array <(name:String,id:String)>) -> (), failure: @escaping (NSError) -> ())     {
+    func getResults(place:String , success:@escaping ([SearchResult]) -> (), failure: @escaping (NSError) -> ())     {
         
         ApiObj.SearchLocations(place: place, Success: {(SearchArray) -> () in
             

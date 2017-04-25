@@ -21,23 +21,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Google Maps" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gEL-9O-EWV">
-                                <rect key="frame" x="137" y="323" width="101.5" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="G40-d2-oT6">
+                                <rect key="frame" x="57" y="231" width="260" height="205"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="205" id="5b0-Nd-jCa"/>
+                                    <constraint firstAttribute="width" constant="260" id="8zb-GG-4Bc"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="gEL-9O-EWV" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="lqR-5m-ASI"/>
-                            <constraint firstItem="gEL-9O-EWV" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="wX7-O5-xyv"/>
+                            <constraint firstItem="G40-d2-oT6" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="8Zs-Ge-iC6"/>
+                            <constraint firstItem="G40-d2-oT6" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="9k2-zS-ITc"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="119" y="193"/>
+            <point key="canvasLocation" x="117.59999999999999" y="192.95352323838082"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Logo" width="260" height="125"/>
+    </resources>
 </document>

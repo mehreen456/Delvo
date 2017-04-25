@@ -10,4 +10,12 @@ import UIKit
 
 class PlanCollectionCell: UICollectionViewCell {
     
+    @IBOutlet weak var PlanImage: UIImageView!
+    @IBOutlet weak var PlanName: UILabel!
+       
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+    
+    }
 }

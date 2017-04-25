@@ -1,3 +1,6 @@
+
+
+
 //
 //  VerifyUser.swift
 //  Delvo
@@ -10,26 +13,62 @@ import UIKit
 
 class VerifyUser: UIViewController {
 
+    @IBOutlet weak var PinTextField: UITextField!
+    let obj = OrderDescClassMethods()
+    let myobj = ApiParsing()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        self.PinTextField.inputAccessoryView = obj.AddDoneButton(controller: self)
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        return false    }
+
+    @IBAction func Login(_ sender: Any) {
+        
+        myobj.VerifyPin( phone: UserInfo.Phone, password: UserInfo.Password, pin: self.PinTextField.text!, Success: { (token,message) -> () in
+            
+            let UserToken = token
+            UserDefaults.standard.setValue(UserToken, forKey: "UserToken")
+            
+            let userProfile:[String : AnyObject] = [
+                
+                "Name": UserInfo.Name as AnyObject,
+                "Contact": UserInfo.Phone as AnyObject,
+                "Password": UserInfo.Password as AnyObject,
+                "Email": UserInfo.Email as AnyObject,
+                "Image": UserInfo.image as AnyObject,
+                ]
+            
+            UserDefaults.standard.setValue(userProfile, forKey: "User")
+            self.performSegue(withIdentifier: "SignUp", sender: self)
+        }
+            , failure: { (message) -> () in
+                
+                self.obj.alert(message:message ,title: "Failed" ,controller: self)
+        }
+            , Failure: { (error) -> () in
+                
+                self.obj.alert(message:"Can't get respose" ,title: "Failed" ,controller: self)
+        })
+
     }
-    
+    @IBAction func ResendCodeButton(_ sender: Any) {
+        
+        myobj.ResendPin( phone: UserInfo.Phone, password: UserInfo.Password, Success: { (message) -> () in
+            
+             self.obj.alert(message:message ,title: "Sent" ,controller: self)
+        }
+            , failure: { (message) -> () in
+                
+                self.obj.alert(message:message ,title: "Failed" ,controller: self)
+        }
+            , Failure: { (error) -> () in
+                
+                self.obj.alert(message:"Can't get respose" ,title: "Failed" ,controller: self)
+        })
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
     }
-    */
-
 }
