@@ -153,8 +153,8 @@ class OrderDescriptionViewController: UIViewController , UITextViewDelegate, UIT
     
     func setOutlets(){
         
-        DropLabel.text = Location.DropLocation
-        PickupLabel.text = Location.PickLocation
+       // DropLabel.text = Location.DropLocation
+     //   PickupLabel.text = Location.PickLocation
         self.ContactField.inputAccessoryView = obj.AddDoneButton(controller: self)
         DescriptionLabel.text = Description
         obj.AddBorder(textview: self.DescriptionLabel)

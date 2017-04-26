@@ -40,13 +40,6 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate {
         self.revealViewController().rightViewRevealWidth = self.view.frame.width - 55
         obj.navBar(controller:self,Title:TitleVc)
         
-//        self.PickAddress.rx.text.asObservable().subscribe(onNext: {
-//            text in
-//            
-//            Pick_Detail.PickAddress = self.PickAddress.text!
-//        
-//        }).addDisposableTo(diposeBag)
-        
        // objOD.EmptyUserDefaults()
     }
     
@@ -106,7 +99,7 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate {
     
     func GetArea(_ notification: NSNotification) {
        
-        PickUpLocation.text = Location.PickLocation
+        PickUpLocation.text = Pick_Detail.PickLocation
     }
     
     // Mark ~ Delegate Methods

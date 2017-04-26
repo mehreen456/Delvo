@@ -328,11 +328,11 @@ class ApiParsing: NSObject {
             "name": name,
             "phone": phone,
             "pick_address": Pick_Detail.PickAddress,
-            "pick_nearby": Location.PickLocation,
+          //  "pick_nearby": Location.PickLocation,
             "pick_lat": Location.PickLat,
             "pick_lng": Location.PickLng,
             "drop_address": Drop_Detail.DropAddress,
-            "drop_nearby": Location.DropLocation,
+       //     "drop_nearby": Location.DropLocation,
             "drop_lat": Location.DropLat,
             "drop_lng": Location.DropLng,
             "detail": detail

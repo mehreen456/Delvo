@@ -57,14 +57,14 @@ class Geocoding: NSObject {
 
                     if controller == "PickUpVc"{
                         
-                        Location.PickLocation = address
+                        Pick_Detail.PickLocation = address
                         Location.PickLat = coordinate.latitude
                         Location.PickLng = coordinate.longitude
                     }
                         
                     else{
                         
-                        Location.DropLocation = address
+                        Drop_Detail.DropLocation = address
                         Location.DropLat = coordinate.latitude
                         Location.DropLng = coordinate.longitude
                     }

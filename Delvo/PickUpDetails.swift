@@ -28,11 +28,11 @@ class PickUpDetails: UIViewController  {
   
     let DatePicker = UIDatePicker()
     let TimePicker = UIDatePicker()
-    let diposeBag = DisposeBag()
     let DefaultText = "PickUp Details"
     let obj = OrderDescClassMethods()
     let PhoneValidationError = "Invalid PhoneNo"
     let DMobj = DelvoMethods()
+    let diposeBag = DisposeBag()
     let Description = "PickUp Details"
     var frameorigin:CGRect?
     var origin:CGFloat?
@@ -41,7 +41,6 @@ class PickUpDetails: UIViewController  {
         super.viewDidLoad()
      
         PickUpDetail.delegate = self
-      //  self.setTextFields()
         self.ToastView.isHidden = true
         self.AmountView.isHidden = true
         self.PickUpAmount.isHidden = true
@@ -49,6 +48,7 @@ class PickUpDetails: UIViewController  {
         self.setOrigin()
         DMobj.AddGesture(controller: self)
         self.SenderContact.inputAccessoryView = obj.AddDoneButton(controller: self)
+        self.PickUpAmount.inputAccessoryView = obj.AddDoneButton(controller: self)
         self.TimePickerMethod()
         self.DatePickerMethod()
     }
@@ -61,63 +61,19 @@ class PickUpDetails: UIViewController  {
         self.SenderAddress.text = Pick_Detail.PickAddress
         self.PickUpTime.text = Pick_Detail.PickUpTime
         self.PickUpDate.text = Pick_Detail.PickUpDate
-        self.PickUpDetail.text = Pick_Detail.PickUpDetail
-        self.PickUpAmount.text = Pick_Detail.PickUpAmount
         
+        if Pick_Detail.PickUpAmount != ""{
+            self.PickUpDetail.text = Pick_Detail.PickUpDetail
+        }
+        if Pick_Detail.PickUpAmount != ""{
+            self.AmountView.isHidden = false
+            self.PickUpAmount.isHidden = false
+            self.CheckButton.setImage(UIImage(named:"PayCheck"), for: .normal)
+            self.PickUpAmount.text = Pick_Detail.PickUpAmount
+        }
+        self.setTextFields()
     }
-    func setTextFields(){
-        
-        self.SenderName.rx.text.asObservable().subscribe(onNext: {
-            text in
-            
-            Pick_Detail.PickName = self.SenderName.text!
-            
-        }).addDisposableTo(diposeBag)
-      
-        self.SenderAddress.rx.text.asObservable().subscribe(onNext: {
-            text in
-            
-            Pick_Detail.PickAddress = self.SenderAddress.text!
-            print(Pick_Detail.PickName)
-            
-        }).addDisposableTo(diposeBag)
-        
-        self.SenderContact.rx.text.asObservable().subscribe(onNext: {
-            text in
-            
-            Pick_Detail.PickContact = self.SenderContact.text!
-            
-        }).addDisposableTo(diposeBag)
-        
-        self.PickUpTime.rx.text.asObservable().subscribe(onNext: {
-            text in
-            
-            Pick_Detail.PickUpTime = self.PickUpTime.text!
-            
-        }).addDisposableTo(diposeBag)
-        
-        self.PickUpDate.rx.text.asObservable().subscribe(onNext: {
-            text in
-            
-            Pick_Detail.PickUpDate = self.PickUpDate.text!
-            
-        }).addDisposableTo(diposeBag)
-        
-        self.PickUpAmount.rx.text.asObservable().subscribe(onNext: {
-            text in
-            
-            Pick_Detail.PickUpAmount = self.PickUpAmount.text!
-            
-        }).addDisposableTo(diposeBag)
-        
-        self.PickUpDetail.rx.text.asObservable().subscribe(onNext: {
-            text in
-            
-            Pick_Detail.PickUpDetail = self.PickUpDetail.text!
-            
-        }).addDisposableTo(diposeBag)
-    }
-    
+       
     @IBAction func CheckButton(_ sender: Any) {
         
         if CheckButton.image(for: .normal) == UIImage(named:"PayUncheck"){
@@ -160,6 +116,59 @@ class PickUpDetails: UIViewController  {
         self.frameorigin = self.view.frame
     }
 
+    func setTextFields(){
+        
+        self.SenderName.rx.text.asObservable().subscribe(onNext: {
+            text in
+            
+            Pick_Detail.PickName = self.SenderName.text!
+            
+        }).addDisposableTo(diposeBag)
+        
+        self.SenderAddress.rx.text.asObservable().subscribe(onNext: {
+            text in
+            
+            Pick_Detail.PickAddress = self.SenderAddress.text!
+            
+            
+        }).addDisposableTo(diposeBag)
+        
+        self.SenderContact.rx.text.asObservable().subscribe(onNext: {
+            text in
+            
+            Pick_Detail.PickContact = self.SenderContact.text!
+            
+        }).addDisposableTo(diposeBag)
+        
+        self.PickUpTime.rx.text.asObservable().subscribe(onNext: {
+            text in
+            
+            Pick_Detail.PickUpTime = self.PickUpTime.text!
+            
+        }).addDisposableTo(diposeBag)
+        
+        self.PickUpDate.rx.text.asObservable().subscribe(onNext: {
+            text in
+            
+            Pick_Detail.PickUpDate = self.PickUpDate.text!
+            
+        }).addDisposableTo(diposeBag)
+        
+        self.PickUpAmount.rx.text.asObservable().subscribe(onNext: {
+            text in
+            
+            Pick_Detail.PickUpAmount = self.PickUpAmount.text!
+            
+        }).addDisposableTo(diposeBag)
+        
+        self.PickUpDetail.rx.text.asObservable().subscribe(onNext: {
+            text in
+            
+            Pick_Detail.PickUpDetail = self.PickUpDetail.text!
+            
+        }).addDisposableTo(diposeBag)
+    }
+    
     func setDelegate(){
         
         self.SenderName.delegate = self
@@ -204,6 +213,8 @@ class PickUpDetails: UIViewController  {
         toolbar.sizeToFit()
         DatePicker.datePickerMode = .date
         DatePicker.backgroundColor = UIColor.PrimaryBlueColor()
+        DatePicker.minimumDate = NSDate() as Date
+
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(DonePressedDate))
         toolbar.setItems([doneButton], animated: false)
         PickUpDate.inputAccessoryView = toolbar
@@ -269,29 +280,6 @@ extension PickUpDetails: UITextFieldDelegate, UITextViewDelegate{
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        
-        if textField == self.SenderName{
-            Pick_Detail.PickName = self.SenderName.text!
-        }
-        if textField == self.SenderContact{
-           Pick_Detail.PickContact = self.SenderContact.text!
-        }
-        
-        if textField == self.SenderAddress{
-            Pick_Detail.PickAddress = self.SenderAddress.text!
-        }
-            
-        else if textField == self.PickUpTime {
-             Pick_Detail.PickUpTime = self.PickUpTime.text!
-        }
-            
-        else if textField == self.PickUpDate {
-            Pick_Detail.PickUpDate = self.PickUpDate.text!
-        }
-            
-        else if textField == self.PickUpAmount {
-           Pick_Detail.PickUpAmount = self.PickUpAmount.text!
-        }
         
         self.view.frame.origin.y = self.origin!
         return true

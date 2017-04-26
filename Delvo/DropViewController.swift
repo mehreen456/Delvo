@@ -9,7 +9,6 @@
 
 import UIKit
 
-
 class DropViewController: UIViewController ,SWRevealViewControllerDelegate {
   
     @IBOutlet weak var ToastView: UIView!
@@ -29,7 +28,8 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate {
     let TitleVc = "Drop Location"
     let NotificationName = "GetArea"
     let MapVcIdentifier = "DropVc"
-        
+    var delegate:Address?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,7 +38,6 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate {
         obj.AddGesture(controller: self)
         self.setTextFields()
         self.notification()
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,6 +45,9 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate {
         super.viewWillAppear(true)
         self.revealViewController().delegate = self
         MapVC?.controller = MapVcIdentifier
+        if Drop_Detail.DropLocation != ""{
+            MapVC?.GetMap(a: Location.DropLat, b: Location.DropLng)
+        }
     }
     
     @IBAction func ChangePIckButton(_ sender: Any) {
@@ -99,12 +101,12 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate {
     
     func GetArea(_ notification: NSNotification) {
         
-        DropLocation.text = Location.DropLocation
+        DropLocation.text = Drop_Detail.DropLocation
     }
     
     func setTextFields(){
         
-        DropLocation.text = Location.DropLocation
+        DropLocation.text = Drop_Detail.DropLocation
         self.ToastView.isHidden=true
     }
     

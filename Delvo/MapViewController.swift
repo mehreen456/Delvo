@@ -10,7 +10,7 @@ import UIKit
 import GoogleMaps
 import GooglePlaces
 
-class MapViewController: UIViewController ,GMSMapViewDelegate ,Address,CLLocationManagerDelegate{
+class MapViewController: UIViewController ,GMSMapViewDelegate,Address,CLLocationManagerDelegate{
     
     @IBOutlet weak var Pointer: UIImageView!
     @IBOutlet weak var MapView: GMSMapView!
@@ -105,7 +105,7 @@ class MapViewController: UIViewController ,GMSMapViewDelegate ,Address,CLLocatio
         
         do {
             
-            if let styleURL = Bundle.main.url(forResource: "MapStyle", withExtension: "json") {
+            if let styleURL = Bundle.main.url(forResource: "map_style", withExtension: "json") {
                 MapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
             }
             else {

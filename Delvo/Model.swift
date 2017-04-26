@@ -10,6 +10,7 @@ import UIKit
 
 struct Pick_Detail{
     
+    static var PickLocation = String()
     static var PickAddress = String()
     static var PickName = String()
     static var PickContact = String()
@@ -23,6 +24,7 @@ struct Pick_Detail{
 
 struct Drop_Detail{
     
+    static var DropLocation = String()
     static var DropAddress = String()
     static var DropName = String()
     static var DropContact = String()
@@ -34,10 +36,8 @@ struct Drop_Detail{
 
 struct Location{
     
-    static var PickLocation = String()
     static var PickLat = Double()
     static var PickLng = Double()
-    static var DropLocation = String()
     static var DropLat = Double()
     static var DropLng = Double()
 }

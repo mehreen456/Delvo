@@ -72,8 +72,8 @@ class SearchViewController: UIViewController ,UITextFieldDelegate , NVActivityIn
                 if self.delegate != nil{
                     
                     self.delegate?.GetLatLng(lat: latitude, lng: longitude)
-                }
                 
+                }
             },
                                                
               failure: { (error) -> () in
