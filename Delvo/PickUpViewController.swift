@@ -65,12 +65,6 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate {
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         
         if identifier == ProceedSegue {
-            
-//            guard let text = PickAddress.text, !text.isEmpty else {
-//                MapVC?.locationManager.startUpdatingLocation()
-//                obj.Toast(view: self.view, ToastView: self.ToastView, message:ToastMsgPickUp)
-//                return false
-//            }
            
             guard PickUpLocation.text !=  DefaultText && PickUpLocation.text != "" else {
                 

@@ -28,9 +28,7 @@ class InitialVc: UIViewController {
             let storyboard = UIStoryboard(name:"Main", bundle: Bundle.main)
             destination = storyboard.instantiateViewController(withIdentifier: "SignIn") as! UserSignIn
         }
-       // self.navigationController?.pushViewController(destination, animated: false)
         present(destination, animated: false, completion: nil)
-        
+       
     }
-
 }

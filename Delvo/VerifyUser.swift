@@ -31,18 +31,9 @@ class VerifyUser: UIViewController {
         myobj.VerifyPin( phone: UserInfo.Phone, password: UserInfo.Password, pin: self.PinTextField.text!, Success: { (token,message) -> () in
             
             let UserToken = token
+            self.getProfile(U_token:token)
             UserDefaults.standard.setValue(UserToken, forKey: "UserToken")
             
-            let userProfile:[String : AnyObject] = [
-                
-                "Name": UserInfo.Name as AnyObject,
-                "Contact": UserInfo.Phone as AnyObject,
-                "Password": UserInfo.Password as AnyObject,
-                "Email": UserInfo.Email as AnyObject,
-                "Image": UserInfo.image as AnyObject,
-                ]
-            
-            UserDefaults.standard.setValue(userProfile, forKey: "User")
             self.performSegue(withIdentifier: "SignUp", sender: self)
         }
             , failure: { (message) -> () in
@@ -70,5 +61,34 @@ class VerifyUser: UIViewController {
                 self.obj.alert(message:"Can't get respose" ,title: "Failed" ,controller: self)
         })
 
+    }
+    @IBAction func GoBack(_ sender: Any) {
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func dismissKeyboard() {
+        
+        view.endEditing(true)
+
+    }
+    
+    func getProfile(U_token:String){
+        
+        myobj.MyProfile(token: U_token , Success: { (json) -> () in
+            
+            if json{
+                
+                
+            }
+        }
+            , failure: { (message) -> () in
+                
+                self.obj.alert(message:message ,title: "Faliure" ,controller: self)}
+            
+            , Failure: { (error) -> () in
+                
+                print(error)
+        })
     }
 }

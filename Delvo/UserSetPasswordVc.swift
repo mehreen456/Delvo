@@ -39,7 +39,6 @@ class UserSetPasswordVc: UIViewController {
                 
                 "Name": UserName as AnyObject,
                 "Contact": UserContact as AnyObject,
-                "Password": Password.text as AnyObject,
                 "Email": UserEmail as AnyObject,
                 "Image": ImageData!,
                 ]

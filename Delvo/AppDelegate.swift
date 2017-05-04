@@ -23,7 +23,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GMSServices.provideAPIKey("AIzaSyCKkj5lpWzV8PtOUWNiEc1kMLYZoOvqgVw")
         GMSPlacesClient.provideAPIKey("AIzaSyD8ASiQpYssjrbd1MPD-euek93_AGIuQFs")
         
-        UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]){ (granted, error) in }
+        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]){ (granted, error) in }
+        } else {
+            // Fallback on earlier versions
+        }
+      //  UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]){ (granted, error) in }
+
         application.registerForRemoteNotifications()
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)

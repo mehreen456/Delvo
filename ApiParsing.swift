@@ -25,6 +25,7 @@ class ApiParsing: NSObject {
     let UserSignUpApi = "http://138.197.112.122/consumer_api/v1/signup"
     let verifyPinApi = "http://138.197.112.122/consumer_api/v1/verify_pin"
     let resendPinApi = "http://138.197.112.122/consumer_api/v1/resend_pin"
+    let GetProfileInfoApi = "http://138.197.112.122/consumer_api/v1/my_profile"
     
     func PlaceOrder(name:String,phone:String,detail:String , Success:@escaping (Bool) -> (),failure: @escaping (String) -> () ,Failure: @escaping (NSError) -> ()){
         
@@ -61,6 +62,51 @@ class ApiParsing: NSObject {
                 }
         }
     }
+    
+    func MyProfile(token:String, Success:@escaping (Bool) -> (),failure: @escaping (String) -> () ,Failure: @escaping (NSError) -> ()){
+        
+        let headers: HTTPHeaders = [
+            
+            "Authorization":token
+        ]
+        
+        Alamofire.request(GetProfileInfoApi, method: .get, parameters: nil , encoding: JSONEncoding.default, headers: headers)
+            .responseJSON { response in
+                
+                if response.result.error != nil
+                {
+                    Failure(response.result.error! as NSError)}
+                
+                if let result = response.result.value {
+                    
+                    let status = response.response?.statusCode
+                    let json = result as! NSDictionary
+                    
+                    if status == 200{
+                        
+                        
+                        let imageData:NSData = UIImagePNGRepresentation(UIImage(named:"ProfileImg")!)! as NSData
+                      
+                        let userProfile:[String : AnyObject] = [
+                            
+                            "Name": json["name"] as AnyObject,
+                            "Contact": json["phone"] as AnyObject,
+                            "Email": json["email"] as AnyObject,
+                            "Image": imageData as AnyObject
+                            ]
+                        
+                        UserDefaults.standard.setValue(userProfile, forKey: "User")
+                        Success(true)
+                    }
+                        
+                    else{
+                        
+                        let Message = json["message"]
+                        failure(Message as! String)}
+                }
+        }
+    }
+
     
     func VerifyUser(phone:String,password:String , Success:@escaping (String) -> (),failure: @escaping (String,Int) -> () ,Failure: @escaping (NSError) -> ()){
         
@@ -272,9 +318,10 @@ class ApiParsing: NSObject {
     
     func UserInfo(Phone:String,Password:String) -> (NSDictionary){
         
+        let num = "92" + Phone
         let params = [
             
-            "phone": Phone,
+            "phone": num,
             "password": Password
             ] as [String : Any]
         
@@ -283,9 +330,10 @@ class ApiParsing: NSObject {
     
     func HiddenInfo(Phone:String,Password:String) -> (NSDictionary){
         
+        let num = "92" + Phone
         let params = [
             
-            "hidden_phone": Phone,
+            "hidden_phone": num,
             "hidden_password": Password
             ] as [String : Any]
         
@@ -295,10 +343,11 @@ class ApiParsing: NSObject {
     
     func UserSignUpInfo(name:String,phone:String,email:String,password:String,password_confirmation:String) -> (NSDictionary){
         
+        let num = "92" + phone
         let params = [
             
             "name": name,
-            "phone": phone,
+            "phone": num,
             "email": email,
             "password": password,
             "password_confirmation": password_confirmation,
@@ -310,9 +359,10 @@ class ApiParsing: NSObject {
     
     func VerifyPin(phone:String,password:String,pin:String) -> (NSDictionary){
         
+        let num = "92" + phone
         let params = [
             
-            "hidden_phone": phone,
+            "hidden_phone": num,
             "hidden_password": password,
             "pin": pin
             
@@ -323,6 +373,7 @@ class ApiParsing: NSObject {
 
     
     func ParamsPlaceOrder(name:String,phone:String,detail:String) -> (NSDictionary){
+        
         
         let params = [
             "name": name,

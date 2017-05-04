@@ -114,4 +114,10 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate {
         
         view.endEditing(true)
     }
+    @IBAction func GoToPick(_ sender: Any) {
+       _ = self.navigationController?.popToRootViewController(animated: true)
+    }
+    @IBAction func GoToPickDetail(_ sender: Any) {
+       _ = self.navigationController?.popViewController(animated: true)
+    }
 }

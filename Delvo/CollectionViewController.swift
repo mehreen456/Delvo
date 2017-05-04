@@ -50,6 +50,8 @@ class CollectionViewController: UIViewController , UICollectionViewDelegateFlowL
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width
         let cellWidth = (width - 30) / 2
-        return CGSize(width: cellWidth, height:160)
+        let height = collectionView.bounds.height
+        let cellheight = (height - 20) / 3
+        return CGSize(width: cellWidth, height:cellheight)
     }
 }

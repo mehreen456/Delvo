@@ -26,6 +26,11 @@ class DropDetailsVc: UIViewController  {
     @IBOutlet weak var DropButtonView: UIView!
     @IBOutlet weak var ContactView: UIView!
     @IBOutlet weak var CheckButton: UIButton!
+    
+    @IBAction func AddDropButton(_ sender: Any) {
+        
+      ComapareDates()
+    }
    
     var frameorigin:CGRect?
     var origin:CGFloat?
@@ -190,6 +195,12 @@ class DropDetailsVc: UIViewController  {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         TimePicker.datePickerMode = .time
+        let calendar = Calendar.current
+        let formatter = DateFormatter()
+        formatter.dateFormat="h:mm a"
+        let TimeA = formatter.date(from: Pick_Detail.PickUpTime)
+        let date:Date = calendar.date(byAdding: .minute, value: 30, to: TimeA!)!
+        TimePicker.date = date
         TimePicker.backgroundColor = UIColor.PrimaryBlueColor()
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(DonePressedTime))
         toolbar.setItems([doneButton], animated: false)
@@ -202,6 +213,7 @@ class DropDetailsVc: UIViewController  {
         let dateFormater = DateFormatter()
         dateFormater.dateStyle = .none
         dateFormater.timeStyle = .medium
+        dateFormater.dateFormat="h:mm a"
         DropTime.text = dateFormater.string(for: TimePicker.date)
         self.view.endEditing(true)
     }
@@ -211,7 +223,12 @@ class DropDetailsVc: UIViewController  {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         DatePicker.datePickerMode = .date
-        DatePicker.minimumDate = NSDate() as Date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy"
+        dateFormatter.locale = Locale.init(identifier: "en_GB")
+        let dateA:Date = dateFormatter.date(from: Pick_Detail.PickUpDate)!
+        DatePicker.minimumDate = dateA
+        DatePicker.date = dateA
         DatePicker.backgroundColor = UIColor.PrimaryBlueColor()
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(DonePressedDate))
         toolbar.setItems([doneButton], animated: false)
@@ -224,11 +241,75 @@ class DropDetailsVc: UIViewController  {
         let dateFormater = DateFormatter()
         dateFormater.dateStyle = .medium
         dateFormater.timeStyle = .none
+        dateFormater.dateFormat = "MM-dd-yyyy"
         DatePicker.minimumDate = Date()
         DropDate.text = dateFormater.string(for: DatePicker.date)
         self.view.endEditing(true)
     }
+    
+    func ComapareDates(){
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM-dd-yyyy"
+        dateFormatter.locale = Locale.init(identifier: "en_GB")
+        
+        let dateA = dateFormatter.date(from: Pick_Detail.PickUpDate)
+        print(dateA! as Date)
+        
+        let dateB = dateFormatter.date(from: Drop_Detail.DropDate)
+        print(dateB! as Date)
+       
+        if dateA! > dateB!{
+            
+            self.obj.alert(message: "Invalid Date. Please Change PickUp Date.", controller: self)
+            return
+        }
+        
+        if dateA! == dateB!{
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat="h:mm a"
+            let TimeA = formatter.date(from: Pick_Detail.PickUpTime)
+            let TimeB = formatter.date(from: Drop_Detail.DropTime)
+            
+            let calendar = NSCalendar.current
+            let components: DateComponents = calendar.dateComponents([.hour, .minute, .second], from: TimeA!, to: TimeB!)
+            
+            if TimeA! >= TimeB! {
+                
+                self.obj.alert(message: "Invalid Time. Drop time can not be less than pickup time.", controller: self)
+                return
+            }
+            
+            else{
+                
+                if components.hour! == 0{
+                  
+                    if  components.minute! < 30 {
+                        
+                        self.obj.alert(message: "Invalid Time. Can't deliver order before 30 minutes.", controller: self)
+                        return
+                    }
 
+                }
+
+            }
+        }
+    }
+    
+    @IBAction func GoToPickLoc(_ sender: Any) {
+         _ = self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    @IBAction func GoToPickDetail(_ sender: Any) {
+        
+        let viewControllers: [UIViewController] =  self.navigationController!.viewControllers as [UIViewController]
+        self.navigationController!.popToViewController(viewControllers[viewControllers.count
+            - 3], animated: true)    }
+    
+    @IBAction func GoToDropLoc(_ sender: Any) {
+        _ = self.navigationController?.popViewController(animated: true)
+    }
 }
 
 extension DropDetailsVc: UITextFieldDelegate, UITextViewDelegate{

@@ -37,19 +37,15 @@ class OrderDescClassMethods: NSObject {
         
         let alertController = UIAlertController(title: "Success" , message: message, preferredStyle: .alert)
         
-        let OKAction = UIAlertAction(title: "OK", style:.default,handler:nil)
+        let OKAction = UIAlertAction(title: "OK", style:.default,handler:{ action in controller.performSegue(withIdentifier: identifier, sender: self)})
         alertController.addAction(OKAction)
         controller.present(alertController, animated: true, completion: nil)
         
-        let when = DispatchTime.now() + 5
-        DispatchQueue.main.asyncAfter(deadline: when){
-            alertController.dismiss(animated: true, completion: nil)
-            controller.performSegue(withIdentifier: identifier, sender: self)}
     }
     
     func validate(phoneNumber: String) -> Bool {
         
-        let PHONE_REGEX = "^(92)[0-9]{10}$"
+        let PHONE_REGEX = "^[0-9]{10}$"
         let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
         let result =  phoneTest.evaluate(with: phoneNumber)
         return result
@@ -61,6 +57,13 @@ class OrderDescClassMethods: NSObject {
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: email)
     }
+    
+    func isValidPassword(password:String) -> Bool {
+        
+       
+        return true
+    }
+
     
     func AddDoneButton(controller: UIViewController) -> UIToolbar{
         

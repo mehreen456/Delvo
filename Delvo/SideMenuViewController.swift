@@ -18,6 +18,8 @@ class SideMenuViewController: UIViewController {
   
     let cellIdentifier = "SideMenuCell"
     let delvoMethod = DelvoMethods()
+    let obj = OrderDescClassMethods()
+    
     let Menu = Observable.just([
         
         SideMenuItems(item:"Home",image:UIImage(named:"Home")!),
@@ -34,13 +36,14 @@ class SideMenuViewController: UIViewController {
         super.viewDidLoad()
         
         if (UserDefaults.standard.value(forKey: "User")) != nil{
-            
-           array =  UserDefaults.standard.value(forKey: "User") as! NSDictionary
-           UserNameLabel.text = array["Name"] as! String?
+           
+           self.array =  UserDefaults.standard.value(forKey: "User") as! NSDictionary
+           self.UserNameLabel.text = self.array["Name"] as! String?
         }
         
        self.TableData()
        self.notification()
+       
     }
     
     func notification(){
@@ -65,7 +68,6 @@ class SideMenuViewController: UIViewController {
             
             }.addDisposableTo(disposeBag)
         
-        
         delvoMethod.drawLine(startPoint: CGPoint(x:LogoImage.frame.origin.x - 10 , y: LogoImage.frame.origin.y + LogoImage.frame.size.height + 5), endPoint:  CGPoint(x:LogoImage.frame.origin.x + LogoImage.frame.size.width , y: LogoImage.frame.origin.y + LogoImage.frame.size.height + 5), view: self.view)
         
         MenuTable.rx.modelSelected(SideMenuItems.self).subscribe(onNext:{ menuItem in
@@ -78,6 +80,7 @@ class SideMenuViewController: UIViewController {
             else if menuItem.item == "Sign Out"{
                 
                 UserDefaults.standard.removeObject(forKey: "UserToken")
+                UserDefaults.standard.removeObject(forKey: "User")
                 self.performSegue(withIdentifier: "SignIn", sender: self)
             }
                 
@@ -112,4 +115,5 @@ class SideMenuViewController: UIViewController {
             self.MenuTable.deselectRow(at: row, animated: false)
         }
     }
-}
+    
+    }

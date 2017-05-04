@@ -62,7 +62,7 @@ class PickUpDetails: UIViewController  {
         self.PickUpTime.text = Pick_Detail.PickUpTime
         self.PickUpDate.text = Pick_Detail.PickUpDate
         
-        if Pick_Detail.PickUpAmount != ""{
+        if Pick_Detail.PickUpDetail != ""{
             self.PickUpDetail.text = Pick_Detail.PickUpDetail
         }
         if Pick_Detail.PickUpAmount != ""{
@@ -98,7 +98,7 @@ class PickUpDetails: UIViewController  {
             DMobj.Toast(view: self.view, ToastView: self.ToastView, message:"Please fill the fields.")
             return false
         }
-        
+                
         if !obj.validate(phoneNumber: self.SenderContact.text!) {
             self.obj.alert(message: PhoneValidationError, controller: self)
             ContactView.addRedBorder()
@@ -191,6 +191,7 @@ class PickUpDetails: UIViewController  {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         TimePicker.datePickerMode = .time
+        TimePicker.minimumDate = NSDate() as Date
         TimePicker.backgroundColor = UIColor.PrimaryBlueColor()
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(DonePressedTime))
         toolbar.setItems([doneButton], animated: false)
@@ -203,6 +204,7 @@ class PickUpDetails: UIViewController  {
         let dateFormater = DateFormatter()
         dateFormater.dateStyle = .none
         dateFormater.timeStyle = .medium
+        dateFormater.dateFormat = "h:mm a"
         PickUpTime.text = dateFormater.string(for: TimePicker.date)
         self.view.endEditing(true)
     }
@@ -226,8 +228,13 @@ class PickUpDetails: UIViewController  {
         let dateFormater = DateFormatter()
         dateFormater.dateStyle = .medium
         dateFormater.timeStyle = .none
+        dateFormater.dateFormat = "MM-dd-yyyy"
         PickUpDate.text = dateFormater.string(for: DatePicker.date)
         self.view.endEditing(true)
+    }
+    @IBAction func GoToPickLoc(_ sender: Any) {
+        
+        _ = self.navigationController?.popViewController(animated: true)
     }
 
 }

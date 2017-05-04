@@ -15,12 +15,12 @@ class UserSignIn: UIViewController {
     @IBOutlet weak var OrLabel: UILabel!
     @IBOutlet weak var UserEmail: UITextField!
     @IBOutlet weak var UserPassword: UITextField!
-    @IBOutlet weak var ToastView: UIView!
     @IBOutlet weak var LoginView: UIView!
     @IBOutlet weak var LineView: UIView!
     @IBOutlet weak var FBView: UIView!
     @IBOutlet weak var EmailView: UIView!
     @IBOutlet weak var UContactView: UIView!
+    @IBOutlet weak var UPasswordView: UIView!
     let obj = OrderDescClassMethods()
     let myobj = ApiParsing()
     let DMobj = DelvoMethods()
@@ -33,18 +33,9 @@ class UserSignIn: UIViewController {
         UserPassword.delegate = self
         DMobj.AddGesture(controller:self)
         self.UserEmail.inputAccessoryView = obj.AddDoneButton(controller: self)
-        self.navigationController?.navigationBar.tintColor = UIColor.white
         self.AddLines()
+        UserPassword.isSecureTextEntry = true
     }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewDidAppear(true)
-//        self.navigationController?.navigationBar.isHidden = true
-//    }
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewDidDisappear(true)
-//        self.navigationController?.navigationBar.isHidden = false
-//    }
     
     @IBAction func SignInButton(_ sender: Any) {
         
@@ -59,11 +50,22 @@ class UserSignIn: UIViewController {
             else{
                 
                 UContactView.removeBorder()}
+
+            if (UserPassword.text?.characters.count)! < 6 {
+                
+                UPasswordView.addRedBorder()
+                self.obj.alert(message: "Password must be atleast 6 digits long", controller: self)
+            }
+                
+            else{
+                
+                UPasswordView.removeBorder()}
             
             myobj.VerifyUser(phone: self.UserEmail.text!, password: self.UserPassword.text!, Success: { (json) -> () in
                
                 let UserToken = json
                 UserDefaults.standard.setValue(UserToken, forKey: "UserToken")
+                self.getProfile(U_token: json)
                 self.performSegue(withIdentifier: "SignIn", sender: self)
             }
                 , failure: { (message,status) -> () in
@@ -148,9 +150,9 @@ class UserSignIn: UIViewController {
         self.DMobj.drawLine(startPoint: CGPoint(x:LineView.frame.origin.x + 10 , y:(LineView.frame.origin.y + LineView.frame.height/2)), endPoint: CGPoint(x:OrLabel.frame.origin.x + 15, y:(LineView.frame.origin.y + LineView.frame.height/2)), view: self.view)
         
         self.DMobj.drawLine(startPoint: CGPoint(x: OrLabel.frame.origin.x + OrLabel.frame.size.width + 35 , y:(LineView.frame.origin.y + LineView.frame.height/2)), endPoint: CGPoint(x:LineView.frame.size.width + 10 , y:(LineView.frame.origin.y + LineView.frame.height/2)), view: self.view)
+
         self.FBView.addBorder()
         self.LoginView.addBorder()
-        self.ToastView.isHidden = true
     }
     
     func dismissKeyboard() {
@@ -158,15 +160,34 @@ class UserSignIn: UIViewController {
         view.endEditing(true)
         
     }
+    func getProfile(U_token:String){
+        
+        myobj.MyProfile(token: U_token , Success: { (json) -> () in
+            
+            if json{
+                
+                
+            }
+        }
+            , failure: { (message) -> () in
+                
+                self.obj.alert(message:message ,title: "Faliure" ,controller: self)}
+            
+            , Failure: { (error) -> () in
+                
+                print(error)
+        })
+    }
+
 }
 
 extension UserSignIn : UITextFieldDelegate {
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         
-        if textField == UserEmail{
+        if textField == UserPassword{
             
-            
+         
         }
         return true
     }

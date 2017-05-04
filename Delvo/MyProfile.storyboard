@@ -151,7 +151,7 @@
                                     <constraint firstAttribute="width" constant="20" id="G13-nn-QlO"/>
                                     <constraint firstAttribute="height" constant="20" id="r0V-ty-0fo"/>
                                 </constraints>
-                                <state key="normal" image="Edit.png"/>
+                                <state key="normal" backgroundImage="Upload"/>
                                 <connections>
                                     <action selector="UploadImg:" destination="ETC-Rd-KdP" eventType="touchUpInside" id="zN5-mM-sse"/>
                                 </connections>
@@ -311,9 +311,9 @@
     </scenes>
     <resources>
         <image name="Contact" width="30" height="30"/>
-        <image name="Edit.png" width="204" height="204"/>
         <image name="Email" width="30" height="30"/>
         <image name="Name" width="30" height="30"/>
         <image name="Password" width="30" height="30"/>
+        <image name="Upload" width="25" height="25"/>
     </resources>
 </document>
