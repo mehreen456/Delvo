@@ -72,7 +72,7 @@ class OrderDescClassMethods: NSObject {
         let doneButton = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.done,
                                               target: controller,
                                             action:#selector(PickUpViewController.dismissKeyboard))
-        doneButton.tintColor = UIColor.white
+        doneButton.tintColor = UIColor.DoneButtonColor()
         keyboardDoneButtonView.items = [doneButton]
         return keyboardDoneButtonView
     }

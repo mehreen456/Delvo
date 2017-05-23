@@ -7,12 +7,12 @@
 //
 
 import UIKit
-import RxSwift
-import RxCocoa
+//import RxSwift
+//import RxCocoa
 
-class CollectionViewController: UIViewController , UICollectionViewDelegateFlowLayout {
+class CollectionViewController: UIViewController{// , UICollectionViewDelegateFlowLayout {
   
-    @IBOutlet weak var collectionView: UICollectionView!
+   /* @IBOutlet weak var collectionView: UICollectionView!
 
     let disposeBag = DisposeBag()
     
@@ -25,12 +25,12 @@ class CollectionViewController: UIViewController , UICollectionViewDelegateFlowL
         SideMenuItems(item:"Bills",image:UIImage(named:"bills")!),
         SideMenuItems(item:"Others",image:UIImage(named:"other")!)
         
-        ])
+        ]) */
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView.rx.setDelegate(self).addDisposableTo(disposeBag)
+     /*   collectionView.rx.setDelegate(self).addDisposableTo(disposeBag)
         
         Menu.asObservable().bindTo(self.collectionView.rx.items(cellIdentifier: "Cell")) {  row,menuItem,cell in
             
@@ -52,6 +52,6 @@ class CollectionViewController: UIViewController , UICollectionViewDelegateFlowL
         let cellWidth = (width - 30) / 2
         let height = collectionView.bounds.height
         let cellheight = (height - 20) / 3
-        return CGSize(width: cellWidth, height:cellheight)
+        return CGSize(width: cellWidth, height:cellheight)*/
     }
 }

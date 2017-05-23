@@ -11,24 +11,32 @@ import UIKit
 
 class InitialVc: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    @IBOutlet weak var StartButton: UIButton!
+    @IBAction func StartButton(_ sender: Any) {
+        
         var destination = UIViewController()
-       // UserDefaults.standard.removeObject(forKey: "User")
+        
         if UserDefaults.standard.value(forKey: "UserToken") != nil{
             
             let storyboard = UIStoryboard(name:"Main", bundle: Bundle.main)
             destination = storyboard.instantiateViewController(withIdentifier: "SelectPlan") as! CollectionViewController
             
         }
-
+            
         else{
             
             let storyboard = UIStoryboard(name:"Main", bundle: Bundle.main)
             destination = storyboard.instantiateViewController(withIdentifier: "SignIn") as! UserSignIn
         }
-        present(destination, animated: false, completion: nil)
-       
+        self.present(destination, animated: false, completion: nil)
+        
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        _ = self.navigationController?.navigationBar.isHidden = true
+        self.StartButton.SetCorners(radius: 20)
+        self.StartButton.addBorder(color: UIColor.white.cgColor, width: 2)
+  }
 }

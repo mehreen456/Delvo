@@ -17,7 +17,7 @@ class ApiParsing: NSObject {
     var PlaceArray: [SearchResult] = []
     let authorization = "Basic NDlhMmRiZTExN2E0NDdjZWFmYjhiOTZiNTIwMTE2ZTY6ZDYzODQ0YjU2MDE3NDI4NjlhODQwNzRhYWZmNGNiNjY="
     let contentType = "application/json"
-    let placeOrderUrl =  "http://178.62.30.18:3004/api/v1/delivery_requests"
+    let placeOrderUrl =  "http://138.197.112.122/consumer_api/v1/orders"
     let autoComplete = "https://maps.googleapis.com/maps/api/place/autocomplete/json"
     let googlePlace = "https://maps.googleapis.com/maps/api/place/details/json"
     let GooglePlacesApi = "AIzaSyBsWLDDGbaaf042Y0yr1zktCbR4BrEWTFk"
@@ -26,15 +26,17 @@ class ApiParsing: NSObject {
     let verifyPinApi = "http://138.197.112.122/consumer_api/v1/verify_pin"
     let resendPinApi = "http://138.197.112.122/consumer_api/v1/resend_pin"
     let GetProfileInfoApi = "http://138.197.112.122/consumer_api/v1/my_profile"
-    
-    func PlaceOrder(name:String,phone:String,detail:String , Success:@escaping (Bool) -> (),failure: @escaping (String) -> () ,Failure: @escaping (NSError) -> ()){
+    let COMPANY_API_KEY = "ca82f9c0-e4ef-4a1c-a378-18884e7a07c1"
+   
+    func PlaceOrder(token:String , Success:@escaping (String) -> (),failure: @escaping (String) -> () ,Failure: @escaping (NSError) -> ()){
         
-        let params = self.ParamsPlaceOrder(name: name, phone: phone, detail: detail)
+        let params = self.PlaceOrder()
         
         let headers: HTTPHeaders = [
             
             "Content-Type":contentType,
-            "Authorization":authorization
+            "Authorization":token,
+            "COMPANYAPIKEY": COMPANY_API_KEY
         ]
         
         Alamofire.request(placeOrderUrl, method: .post, parameters: params as? Parameters , encoding: JSONEncoding.default, headers: headers)
@@ -49,16 +51,15 @@ class ApiParsing: NSObject {
                     let json = result as! NSDictionary
                     let meta = json["meta"] as! NSDictionary
                     let status = meta["status"] as! NSInteger
-                    
+                    let Message = meta["message"] as! String
+                   
                     if status == 200{
-                        Success(true)
-                        self.SaveOrders(data: params)
+                        Success(Message)
                     }
                         
                     else{
                         
-                        let Message = meta["message"]
-                        failure(Message as! String)}
+                        failure(Message)}
                 }
         }
     }
@@ -67,7 +68,8 @@ class ApiParsing: NSObject {
         
         let headers: HTTPHeaders = [
             
-            "Authorization":token
+            "Authorization":token,
+            "COMPANYAPIKEY": COMPANY_API_KEY
         ]
         
         Alamofire.request(GetProfileInfoApi, method: .get, parameters: nil , encoding: JSONEncoding.default, headers: headers)
@@ -110,12 +112,13 @@ class ApiParsing: NSObject {
     
     func VerifyUser(phone:String,password:String , Success:@escaping (String) -> (),failure: @escaping (String,Int) -> () ,Failure: @escaping (NSError) -> ()){
         
-        let params = self.UserInfo(Phone: phone, Password: password)
+        let params = self.UserSignIn(Phone: phone, Password: password)
         
         let headers: HTTPHeaders = [
             
             "Content-Type":contentType,
-            "Authorization":authorization
+            "Authorization":authorization,
+            "COMPANYAPIKEY": COMPANY_API_KEY
         ]
         
         Alamofire.request(UserAuthApi, method: .post, parameters: params as? Parameters , encoding: JSONEncoding.default, headers: headers)
@@ -149,7 +152,8 @@ class ApiParsing: NSObject {
         let headers: HTTPHeaders = [
             
             "Content-Type":contentType,
-            "Authorization":authorization
+            "Authorization":authorization,
+            "COMPANYAPIKEY": COMPANY_API_KEY
         ]
         
         Alamofire.request(resendPinApi, method: .post, parameters: params as? Parameters , encoding: JSONEncoding.default, headers: headers)
@@ -183,7 +187,8 @@ class ApiParsing: NSObject {
         let headers: HTTPHeaders = [
             
             "Content-Type":contentType,
-            "Authorization":authorization
+            "Authorization":authorization,
+            "COMPANYAPIKEY": COMPANY_API_KEY
         ]
         
         Alamofire.request(verifyPinApi, method: .post, parameters: params as? Parameters , encoding: JSONEncoding.default, headers: headers)
@@ -219,7 +224,8 @@ class ApiParsing: NSObject {
         let headers: HTTPHeaders = [
             
             "Content-Type":contentType,
-            "Authorization":authorization
+            "Authorization":authorization,
+            "COMPANYAPIKEY": COMPANY_API_KEY
         ]
         
         Alamofire.request(UserSignUpApi, method: .post, parameters: params as? Parameters , encoding: JSONEncoding.default, headers: headers)
@@ -316,7 +322,7 @@ class ApiParsing: NSObject {
         }
     }
     
-    func UserInfo(Phone:String,Password:String) -> (NSDictionary){
+    func UserSignIn(Phone:String,Password:String) -> (NSDictionary){
         
         let num = "92" + Phone
         let params = [
@@ -379,11 +385,9 @@ class ApiParsing: NSObject {
             "name": name,
             "phone": phone,
             "pick_address": Pick_Detail.PickAddress,
-          //  "pick_nearby": Location.PickLocation,
             "pick_lat": Location.PickLat,
             "pick_lng": Location.PickLng,
             "drop_address": Drop_Detail.DropAddress,
-       //     "drop_nearby": Location.DropLocation,
             "drop_lat": Location.DropLat,
             "drop_lng": Location.DropLng,
             "detail": detail
@@ -392,33 +396,75 @@ class ApiParsing: NSObject {
         return params as (NSDictionary)
     }
     
-    func SaveOrders(data:NSDictionary){
+    func OrderKeyValue() -> (NSDictionary){
         
-        let currentDate = DateFormatter.localizedString(from: NSDate() as Date, dateStyle: .full, timeStyle:.none)
-        let currentTime = DateFormatter.localizedString(from: NSDate() as Date, dateStyle: .none, timeStyle: .medium)
-        let userInfo = [
-            
-            "pick_address":data.value(forKey: "pick_address"),
-            "drop_address": data.value(forKey: "drop_address"),
-            "detail": data.value(forKey:"detail"),
-            "Date": currentDate,
-            "Time": currentTime,
-            "U_Name":data.value(forKey: "name"),
-            "U_Contact":data.value(forKey: "phone")
-            
-        ]
-        var array:[NSDictionary] = []
         
-        if UserDefaults.standard.object(forKey:  "MyOrder") == nil{
-            array.append(userInfo as NSDictionary)
-            UserDefaults.standard.setValue(array, forKey: "MyOrder")
-        }
-        else{
-            
-            array = UserDefaults.standard.value(forKey: "MyOrder") as! [NSDictionary]
-            array.append(userInfo as NSDictionary)
-            UserDefaults.standard.setValue(array, forKey: "MyOrder")
-        }
+        let params = [
+            "pickup_time" : Pick_Detail.PickUpTime,
+            "pickup_date" : Pick_Detail.PickUpDate,
+            "drop_time": Drop_Detail.DropTime,
+            "drop_date": Drop_Detail.DropDate,
+            "totaldistance": "5.2",
+            "order_type": "time_critical"
+            ] as [String : Any]
+        
+        return params as (NSDictionary)
     }
+    
+    func task1KeyValue() -> (NSDictionary){
+        
+        
+        let params = [
+            "name": Pick_Detail.PickName,
+            "contact": Pick_Detail.PickContact,
+            "task_type": "true",
+            "details": Pick_Detail.PickUpDetail,
+            "nearby": Pick_Detail.PickAddress,
+            "lat": Location.PickLat,
+            "lng": Location.PickLng,
+            "address": Pick_Detail.PickUpDetailAddress,
+            "pay_at_pickup_amount": Pick_Detail.PickUpAmount,
+            "status": "901"
+            ] as [String : Any]
+        
+        return params as (NSDictionary)
+    }
+    
+    func task2KeyValue() -> (NSDictionary){
+        
+        
+        let params = [
+            "name": Drop_Detail.DropName,
+            "contact": Drop_Detail.DropContact,
+            "task_type": "false",
+            "details": Drop_Detail.DropDetail,
+            "nearby": Drop_Detail.DropAddress,
+            "lat": Location.DropLat,
+            "lng": Location.DropLng,
+            "address": Drop_Detail.DropDetailAddress,
+            "pay_at_pickup_amount": "",
+            "status": "901"
+            ] as [String : Any]
+        
+        return params as (NSDictionary)
+    }
+
+    
+    func PlaceOrder() -> (NSDictionary) {
+    
+    let params = [
+        
+    "order": OrderKeyValue(),
+    "tasks": [
+        
+        task1KeyValue(),
+        task2KeyValue()
+        ]
+    ]as [String : Any]
+        
+        return params as (NSDictionary)
+    }
+    
+    
 }
 

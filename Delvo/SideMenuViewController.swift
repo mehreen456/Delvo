@@ -35,6 +35,7 @@ class SideMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.LogoImage.GetCircularImage(color: UIColor.ToastViewColor().cgColor)
         if (UserDefaults.standard.value(forKey: "User")) != nil{
            
            self.array =  UserDefaults.standard.value(forKey: "User") as! NSDictionary
@@ -68,8 +69,6 @@ class SideMenuViewController: UIViewController {
             
             }.addDisposableTo(disposeBag)
         
-        delvoMethod.drawLine(startPoint: CGPoint(x:LogoImage.frame.origin.x - 10 , y: LogoImage.frame.origin.y + LogoImage.frame.size.height + 5), endPoint:  CGPoint(x:LogoImage.frame.origin.x + LogoImage.frame.size.width , y: LogoImage.frame.origin.y + LogoImage.frame.size.height + 5), view: self.view)
-        
         MenuTable.rx.modelSelected(SideMenuItems.self).subscribe(onNext:{ menuItem in
             
             
@@ -81,7 +80,9 @@ class SideMenuViewController: UIViewController {
                 
                 UserDefaults.standard.removeObject(forKey: "UserToken")
                 UserDefaults.standard.removeObject(forKey: "User")
+                self.EmptyOrderDetails()
                 self.performSegue(withIdentifier: "SignIn", sender: self)
+                
             }
                 
             else{
@@ -107,6 +108,14 @@ class SideMenuViewController: UIViewController {
             
         }).addDisposableTo(disposeBag)
         MenuTable.alwaysBounceVertical = false
+    }
+    
+    func EmptyOrderDetails(){
+        
+        _ = Pick_Detail.init()
+        _ = Drop_Detail.init()
+        _ = MoveToVc.init()
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {

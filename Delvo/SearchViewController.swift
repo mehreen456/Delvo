@@ -100,7 +100,7 @@ class SearchViewController: UIViewController ,UITextFieldDelegate , NVActivityIn
     
     func SearchPlaces(place:String){
         
-        startAnimating(CGSize(width:50 ,height:50) , message: "Searching ..." , messageFont: UIFont.boldSystemFont(ofSize: 15) , type:.ballClipRotatePulse , color: UIColor.DarkBlueColor()
+        startAnimating(CGSize(width:50 ,height:50) , message: "Searching ..." , messageFont: UIFont.boldSystemFont(ofSize: 15) , type:.ballClipRotatePulse , color: UIColor.DoneButtonColor()
             , backgroundColor: UIColor.clear)
         self.LoaderView.isHidden=false
         self.array.removeAll()
@@ -126,6 +126,5 @@ extension SearchViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
       
         return cellHeight+30
-        
-           }
+    }
 }

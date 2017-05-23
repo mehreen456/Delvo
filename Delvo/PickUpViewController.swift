@@ -12,9 +12,29 @@ import RxCocoa
 
 class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate {
     
+    @IBAction func DropDetailButtonA(_ sender: Any) {
+        
+        self.performSegue(withIdentifier: "GoDropD", sender: self)
+        
+    }
+    @IBAction func DropLocButtonA(_ sender: Any) {
+       
+        self.performSegue(withIdentifier: "DropLoc", sender: self)
+    }
+    @IBAction func PickDetailButtonA(_ sender: Any) {
+        
+        self.performSegue(withIdentifier: "Proceed", sender: self)
+        
+    }
+    @IBOutlet weak var DropLocButton: UIButton!
+    
+    @IBOutlet weak var DropDView: UIView!
+    @IBOutlet weak var DropLocLine: UIView!
+    @IBOutlet weak var DropDetailButton: UIButton!
+    @IBOutlet weak var PickDetailButton: UIButton!
+    @IBOutlet weak var PickDetailLine: UIView!
     @IBOutlet weak var ToastView: UIView!
     @IBOutlet weak var Mapview: UIView!
-    @IBOutlet weak var AddButtonView: UIView!
     @IBOutlet weak var PickUpLocation: UILabel!
     @IBOutlet weak var PickUpView: UIView!
     
@@ -33,9 +53,9 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        AddButtonView.addBorder()
         self.setview()
         self.notification()
+        self.PickUpView.SetCorners(radius: 5)
         obj.AddGesture(controller:self)
         self.revealViewController().rightViewRevealWidth = self.view.frame.width - 55
         obj.navBar(controller:self,Title:TitleVc)
@@ -48,6 +68,29 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate {
         super.viewWillAppear(true)
         self.revealViewController().delegate = self
         MapVC?.controller = MapVcIdentifier
+       
+        if MoveToVc.visitPD {
+            
+            PickDetailLine.backgroundColor = UIColor.white
+            self.PickDetailButton.setImage(UIImage(named:"bagEnable"), for: .normal)
+            PickDetailButton.isUserInteractionEnabled = true
+        }
+        
+        if MoveToVc.visitDL{
+            
+                DropLocLine.backgroundColor = UIColor.white
+                self.DropLocButton.setImage(UIImage(named:"DropEnable"), for: .normal)
+                DropLocButton.isUserInteractionEnabled = true
+            
+        }
+        
+        if MoveToVc.visitDD{
+            
+            DropDView.backgroundColor = UIColor.white
+            self.DropDetailButton.setImage(UIImage(named:"bagEnable"), for: .normal)
+            DropDetailButton.isUserInteractionEnabled = true
+            
+        }
     }
     
     // Mark ~ Segue
@@ -64,7 +107,7 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate {
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         
-        if identifier == ProceedSegue {
+     if identifier == ProceedSegue {
            
             guard PickUpLocation.text !=  DefaultText && PickUpLocation.text != "" else {
                 

@@ -14,34 +14,45 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
-                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
+                        <viewControllerLayoutGuide type="top" id="f4h-t6-D4i"/>
+                        <viewControllerLayoutGuide type="bottom" id="iaP-om-b0C"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                    <view key="view" contentMode="scaleToFill" id="ReA-Lf-Bbp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="G40-d2-oT6">
-                                <rect key="frame" x="57" y="231" width="260" height="205"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="205" id="5b0-Nd-jCa"/>
-                                    <constraint firstAttribute="width" constant="260" id="8zb-GG-4Bc"/>
-                                </constraints>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Splash" translatesAutoresizingMaskIntoConstraints="NO" id="Dw1-Ew-Ebc">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DELIVERY CHACHA .." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qia-G3-Bfr">
+                                <rect key="frame" x="99.5" y="358" width="176.5" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="QEM-5v-wnb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="G40-d2-oT6" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="8Zs-Ge-iC6"/>
-                            <constraint firstItem="G40-d2-oT6" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="9k2-zS-ITc"/>
+                            <constraint firstItem="Qia-G3-Bfr" firstAttribute="top" secondItem="f4h-t6-D4i" secondAttribute="bottom" constant="338" id="3Go-L2-gs1"/>
+                            <constraint firstItem="Qia-G3-Bfr" firstAttribute="centerX" secondItem="ReA-Lf-Bbp" secondAttribute="centerX" id="UkQ-We-ePm"/>
+                            <constraint firstItem="Dw1-Ew-Ebc" firstAttribute="top" secondItem="ReA-Lf-Bbp" secondAttribute="top" id="cBC-Ck-KFK"/>
+                            <constraint firstItem="Dw1-Ew-Ebc" firstAttribute="leading" secondItem="ReA-Lf-Bbp" secondAttribute="leading" id="gHL-E0-gEc"/>
+                            <constraint firstAttribute="trailing" secondItem="Dw1-Ew-Ebc" secondAttribute="trailing" id="hnT-8R-0pM"/>
+                            <constraint firstAttribute="trailing" secondItem="Dw1-Ew-Ebc" secondAttribute="trailing" id="ooC-sN-fz1"/>
+                            <constraint firstItem="Dw1-Ew-Ebc" firstAttribute="leading" secondItem="ReA-Lf-Bbp" secondAttribute="leading" id="rds-a1-MBw"/>
+                            <constraint firstItem="iaP-om-b0C" firstAttribute="top" secondItem="Dw1-Ew-Ebc" secondAttribute="bottom" id="zVP-2b-fwS"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="117.59999999999999" y="192.95352323838082"/>
+            <point key="canvasLocation" x="442" y="161"/>
         </scene>
     </scenes>
     <resources>
-        <image name="Logo" width="260" height="125"/>
+        <image name="Splash" width="1080" height="1920"/>
     </resources>
 </document>

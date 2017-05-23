@@ -7,15 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		180D49D11E7C772B00B24080 /* SideMenuDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D49D01E7C772B00B24080 /* SideMenuDataModel.swift */; };
 		180D49D61E7C79E300B24080 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 180D49D41E7C79E300B24080 /* RxCocoa.framework */; };
 		180D49D71E7C79E300B24080 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 180D49D51E7C79E300B24080 /* RxSwift.framework */; };
 		180D49D91E7C920A00B24080 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D49D81E7C920A00B24080 /* SearchModel.swift */; };
+		1811E2D31EC720D600C929F4 /* SideMenuDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1811E2D21EC720D600C929F4 /* SideMenuDataModel.swift */; };
+		1811E2D51EC720F300C929F4 /* SideTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1811E2D41EC720F300C929F4 /* SideTableCell.swift */; };
 		181316EF1E50A7BF00910ADB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 181316EE1E50A7BF00910ADB /* Main.storyboard */; };
 		181316F51E51A89D00910ADB /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181316F41E51A89D00910ADB /* SearchTableViewCell.swift */; };
 		181316F71E51C7CB00910ADB /* DelvoMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181316F61E51C7CA00910ADB /* DelvoMethods.swift */; };
 		181C01A91E81968D002DD9AF /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181C01A81E81968D002DD9AF /* UserNotifications.framework */; };
 		181E64061E70076300918739 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181E64051E70076300918739 /* Model.swift */; };
+		182FD1E31ED45E6600FE50E0 /* key.png in Resources */ = {isa = PBXBuildFile; fileRef = 182FD1E21ED45E6600FE50E0 /* key.png */; };
 		1854BD791E52233A00AB9F55 /* ApiParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854BD781E52233A00AB9F55 /* ApiParsing.swift */; };
 		1888D3681E681539009FEBA0 /* MyOrders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1888D3671E681539009FEBA0 /* MyOrders.storyboard */; };
 		1888D36C1E68192A009FEBA0 /* MyOrdersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1888D36B1E68192A009FEBA0 /* MyOrdersVC.swift */; };
@@ -30,10 +32,10 @@
 		188FF30A1E9F4AC300C7A6A1 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188FF3091E9F4AC300C7A6A1 /* Bolts.framework */; };
 		189289EA1E66E07400892ACC /* OrderDescClassMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189289E91E66E07400892ACC /* OrderDescClassMethods.swift */; };
 		1893A1701EA9E99E005589E1 /* VerifyUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893A16F1EA9E99E005589E1 /* VerifyUser.swift */; };
-		1897498F1EB070570084C756 /* map_style.json in Resources */ = {isa = PBXBuildFile; fileRef = 1897498E1EB070570084C756 /* map_style.json */; };
 		18A30B6B1E92273E0062BB57 /* UserSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A30B6A1E92273E0062BB57 /* UserSignIn.swift */; };
 		18A30B731E9269340062BB57 /* UserSignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A30B721E9269340062BB57 /* UserSignUpVC.swift */; };
 		18AA995C1E5B02EE004EECD3 /* UIImageView+ChangeTintColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AA995B1E5B02EE004EECD3 /* UIImageView+ChangeTintColor.swift */; };
+		18B2275D1ED407A600AB6C8A /* ChangePasswordVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B2275C1ED407A600AB6C8A /* ChangePasswordVc.swift */; };
 		18BBBD071EA7786000DBD57E /* PickUpDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BBBD061EA7786000DBD57E /* PickUpDetails.swift */; };
 		18BBBD091EA7985700DBD57E /* InitialVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BBBD081EA7985700DBD57E /* InitialVc.swift */; };
 		18C424351E4F8D4D005E5546 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C424341E4F8D4D005E5546 /* AppDelegate.swift */; };
@@ -44,10 +46,8 @@
 		18C424511E4FA46F005E5546 /* PickUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C424501E4FA46F005E5546 /* PickUpViewController.swift */; };
 		18C424531E4FA738005E5546 /* DropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C424521E4FA738005E5546 /* DropViewController.swift */; };
 		18C424551E4FA899005E5546 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C424541E4FA899005E5546 /* SearchViewController.swift */; };
-		18C424571E4FACCF005E5546 /* OrderDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C424561E4FACCF005E5546 /* OrderDescriptionViewController.swift */; };
 		18C424591E4FAE36005E5546 /* Geocoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C424581E4FAE36005E5546 /* Geocoding.swift */; };
 		18C4245B1E4FAE9E005E5546 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C4245A1E4FAE9E005E5546 /* SideMenuViewController.swift */; };
-		18C4245D1E4FAF99005E5546 /* SideTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C4245C1E4FAF99005E5546 /* SideTableCell.swift */; };
 		18CFDB2C1EA885C100CF0538 /* DropDetailsVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CFDB2B1EA885C100CF0538 /* DropDetailsVc.swift */; };
 		18D7FE4A1E962B05008E387F /* MyProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18D7FE491E962B05008E387F /* MyProfile.storyboard */; };
 		18D7FE4C1E962B2F008E387F /* MyProfileVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D7FE4B1E962B2F008E387F /* MyProfileVc.swift */; };
@@ -56,15 +56,17 @@
 
 /* Begin PBXFileReference section */
 		0D64B710A25DDD50246B318D /* Pods-Delvo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Delvo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Delvo/Pods-Delvo.release.xcconfig"; sourceTree = "<group>"; };
-		180D49D01E7C772B00B24080 /* SideMenuDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuDataModel.swift; sourceTree = "<group>"; };
 		180D49D41E7C79E300B24080 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = "../../Library/Developer/Xcode/DerivedData/Delvo-earudflsgahwemgpfmmcbpccokhw/Build/Products/Debug-iphonesimulator/RxCocoa/RxCocoa.framework"; sourceTree = "<group>"; };
 		180D49D51E7C79E300B24080 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = "../../Library/Developer/Xcode/DerivedData/Delvo-earudflsgahwemgpfmmcbpccokhw/Build/Products/Debug-iphonesimulator/RxSwift/RxSwift.framework"; sourceTree = "<group>"; };
 		180D49D81E7C920A00B24080 /* SearchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
+		1811E2D21EC720D600C929F4 /* SideMenuDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuDataModel.swift; sourceTree = "<group>"; };
+		1811E2D41EC720F300C929F4 /* SideTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideTableCell.swift; sourceTree = "<group>"; };
 		181316EE1E50A7BF00910ADB /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		181316F41E51A89D00910ADB /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		181316F61E51C7CA00910ADB /* DelvoMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelvoMethods.swift; sourceTree = "<group>"; };
 		181C01A81E81968D002DD9AF /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		181E64051E70076300918739 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		182FD1E21ED45E6600FE50E0 /* key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key.png; sourceTree = "<group>"; };
 		1854BD781E52233A00AB9F55 /* ApiParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiParsing.swift; path = ../ApiParsing.swift; sourceTree = "<group>"; };
 		1888D3671E681539009FEBA0 /* MyOrders.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyOrders.storyboard; sourceTree = "<group>"; };
 		1888D36B1E68192A009FEBA0 /* MyOrdersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyOrdersVC.swift; sourceTree = "<group>"; };
@@ -79,11 +81,11 @@
 		188FF3091E9F4AC300C7A6A1 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		189289E91E66E07400892ACC /* OrderDescClassMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDescClassMethods.swift; sourceTree = "<group>"; };
 		1893A16F1EA9E99E005589E1 /* VerifyUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyUser.swift; sourceTree = "<group>"; };
-		1897498E1EB070570084C756 /* map_style.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = map_style.json; sourceTree = "<group>"; };
 		18A190981E8142AF00AAC44B /* Delvo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Delvo.entitlements; sourceTree = "<group>"; };
 		18A30B6A1E92273E0062BB57 /* UserSignIn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSignIn.swift; sourceTree = "<group>"; };
 		18A30B721E9269340062BB57 /* UserSignUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSignUpVC.swift; sourceTree = "<group>"; };
 		18AA995B1E5B02EE004EECD3 /* UIImageView+ChangeTintColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImageView+ChangeTintColor.swift"; path = "../UIImageView+ChangeTintColor.swift"; sourceTree = "<group>"; };
+		18B2275C1ED407A600AB6C8A /* ChangePasswordVc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordVc.swift; sourceTree = "<group>"; };
 		18BBBD061EA7786000DBD57E /* PickUpDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickUpDetails.swift; sourceTree = "<group>"; };
 		18BBBD081EA7985700DBD57E /* InitialVc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialVc.swift; sourceTree = "<group>"; };
 		18C424311E4F8D4D005E5546 /* Delvo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Delvo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,10 +100,8 @@
 		18C424501E4FA46F005E5546 /* PickUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickUpViewController.swift; sourceTree = "<group>"; };
 		18C424521E4FA738005E5546 /* DropViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropViewController.swift; sourceTree = "<group>"; };
 		18C424541E4FA899005E5546 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		18C424561E4FACCF005E5546 /* OrderDescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDescriptionViewController.swift; sourceTree = "<group>"; };
 		18C424581E4FAE36005E5546 /* Geocoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geocoding.swift; sourceTree = "<group>"; };
 		18C4245A1E4FAE9E005E5546 /* SideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
-		18C4245C1E4FAF99005E5546 /* SideTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideTableCell.swift; sourceTree = "<group>"; };
 		18CFDB2B1EA885C100CF0538 /* DropDetailsVc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDetailsVc.swift; sourceTree = "<group>"; };
 		18D7FE491E962B05008E387F /* MyProfile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyProfile.storyboard; sourceTree = "<group>"; };
 		18D7FE4B1E962B2F008E387F /* MyProfileVc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProfileVc.swift; sourceTree = "<group>"; };
@@ -131,8 +131,8 @@
 			isa = PBXGroup;
 			children = (
 				181316F41E51A89D00910ADB /* SearchTableViewCell.swift */,
-				18C4245C1E4FAF99005E5546 /* SideTableCell.swift */,
 				188FF02D1E9CECC7002CEEDF /* PlanCollectionCell.swift */,
+				1811E2D41EC720F300C929F4 /* SideTableCell.swift */,
 			);
 			name = TableCells;
 			sourceTree = "<group>";
@@ -143,9 +143,9 @@
 				18C424581E4FAE36005E5546 /* Geocoding.swift */,
 				1854BD781E52233A00AB9F55 /* ApiParsing.swift */,
 				181316F61E51C7CA00910ADB /* DelvoMethods.swift */,
+				1811E2D21EC720D600C929F4 /* SideMenuDataModel.swift */,
 				189289E91E66E07400892ACC /* OrderDescClassMethods.swift */,
 				181E64051E70076300918739 /* Model.swift */,
-				180D49D01E7C772B00B24080 /* SideMenuDataModel.swift */,
 				180D49D81E7C920A00B24080 /* SearchModel.swift */,
 			);
 			name = Classe;
@@ -221,9 +221,9 @@
 			isa = PBXGroup;
 			children = (
 				18A190981E8142AF00AAC44B /* Delvo.entitlements */,
+				182FD1E21ED45E6600FE50E0 /* key.png */,
 				18C424341E4F8D4D005E5546 /* AppDelegate.swift */,
 				18C4243B1E4F8D4D005E5546 /* Assets.xcassets */,
-				1897498E1EB070570084C756 /* map_style.json */,
 				181316EE1E50A7BF00910ADB /* Main.storyboard */,
 				18C4243D1E4F8D4D005E5546 /* LaunchScreen.storyboard */,
 				18C424401E4F8D4D005E5546 /* Info.plist */,
@@ -249,14 +249,13 @@
 		18C424621E4FB12D005E5546 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				1888D3611E681451009FEBA0 /* SideMenu */,
 				188CDBEA1E9B9CC70054EDCE /* CollectionViewController.swift */,
 				18BBBD081EA7985700DBD57E /* InitialVc.swift */,
-				1888D3611E681451009FEBA0 /* SideMenu */,
 				18C4244E1E4FA290005E5546 /* MapViewController.swift */,
 				18C424501E4FA46F005E5546 /* PickUpViewController.swift */,
 				18C424521E4FA738005E5546 /* DropViewController.swift */,
 				18C424541E4FA899005E5546 /* SearchViewController.swift */,
-				18C424561E4FACCF005E5546 /* OrderDescriptionViewController.swift */,
 				18A30B6A1E92273E0062BB57 /* UserSignIn.swift */,
 				18A30B721E9269340062BB57 /* UserSignUpVC.swift */,
 				188FF2F81E9E1B3000C7A6A1 /* UserSetPasswordVc.swift */,
@@ -272,6 +271,7 @@
 			children = (
 				18D7FE491E962B05008E387F /* MyProfile.storyboard */,
 				18D7FE4B1E962B2F008E387F /* MyProfileVc.swift */,
+				18B2275C1ED407A600AB6C8A /* ChangePasswordVc.swift */,
 			);
 			name = "My Profile";
 			sourceTree = "<group>";
@@ -367,10 +367,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				1888D3681E681539009FEBA0 /* MyOrders.storyboard in Resources */,
+				182FD1E31ED45E6600FE50E0 /* key.png in Resources */,
 				1888D3701E68295B009FEBA0 /* MyOrderCell.xib in Resources */,
 				18D7FE4A1E962B05008E387F /* MyProfile.storyboard in Resources */,
 				181316EF1E50A7BF00910ADB /* Main.storyboard in Resources */,
-				1897498F1EB070570084C756 /* map_style.json in Resources */,
 				18C4243F1E4F8D4D005E5546 /* LaunchScreen.storyboard in Resources */,
 				18C4243C1E4F8D4D005E5546 /* Assets.xcassets in Resources */,
 			);
@@ -432,8 +432,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				1888D36C1E68192A009FEBA0 /* MyOrdersVC.swift in Sources */,
+				1811E2D51EC720F300C929F4 /* SideTableCell.swift in Sources */,
 				1893A1701EA9E99E005589E1 /* VerifyUser.swift in Sources */,
 				18C424591E4FAE36005E5546 /* Geocoding.swift in Sources */,
+				18B2275D1ED407A600AB6C8A /* ChangePasswordVc.swift in Sources */,
 				188FF2F91E9E1B3000C7A6A1 /* UserSetPasswordVc.swift in Sources */,
 				18C424551E4FA899005E5546 /* SearchViewController.swift in Sources */,
 				18C424351E4F8D4D005E5546 /* AppDelegate.swift in Sources */,
@@ -446,13 +448,11 @@
 				181316F51E51A89D00910ADB /* SearchTableViewCell.swift in Sources */,
 				18AA995C1E5B02EE004EECD3 /* UIImageView+ChangeTintColor.swift in Sources */,
 				18BBBD071EA7786000DBD57E /* PickUpDetails.swift in Sources */,
+				1811E2D31EC720D600C929F4 /* SideMenuDataModel.swift in Sources */,
 				18C4244C1E4FA20C005E5546 /* SWRevealViewController.m in Sources */,
 				18C4244F1E4FA290005E5546 /* MapViewController.swift in Sources */,
 				189289EA1E66E07400892ACC /* OrderDescClassMethods.swift in Sources */,
-				18C424571E4FACCF005E5546 /* OrderDescriptionViewController.swift in Sources */,
 				18C4245B1E4FAE9E005E5546 /* SideMenuViewController.swift in Sources */,
-				180D49D11E7C772B00B24080 /* SideMenuDataModel.swift in Sources */,
-				18C4245D1E4FAF99005E5546 /* SideTableCell.swift in Sources */,
 				18A30B731E9269340062BB57 /* UserSignUpVC.swift in Sources */,
 				181E64061E70076300918739 /* Model.swift in Sources */,
 				188CDBEB1E9B9CC70054EDCE /* CollectionViewController.swift in Sources */,

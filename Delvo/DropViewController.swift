@@ -16,7 +16,9 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate {
     @IBOutlet weak var DropLocation: UILabel!
     @IBOutlet weak var DropView: UIView!
     @IBOutlet weak var MapView: UIView!
-    
+    @IBOutlet weak var DropDButton: UIButton!
+    @IBOutlet weak var DropDLine: UIView!
+
     var MapVC: MapViewController?
     var obj = DelvoMethods()
     
@@ -33,26 +35,36 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        MoveToVc.visitDL=true
+        MoveToVc.PD_visitDL=true
         MapVC = obj.ShowMapView(controller: self,Mapview:self.MapView)
         obj.navBar(controller: self, Title: TitleVc)
         obj.AddGesture(controller: self)
         self.setTextFields()
         self.notification()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
-        super.viewWillAppear(true)
         self.revealViewController().delegate = self
         MapVC?.controller = MapVcIdentifier
         if Drop_Detail.DropLocation != ""{
             MapVC?.GetMap(a: Location.DropLat, b: Location.DropLng)
         }
+        self.DropView.SetCorners(radius: 5)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+       
+        if MoveToVc.DL_visitDD{
+            
+            DropDLine.backgroundColor = UIColor.white
+            self.DropDButton.setImage(UIImage(named:"DropEnable"), for: .normal)
+            DropDButton.isUserInteractionEnabled = true
+            
+        }
     }
     
     @IBAction func ChangePIckButton(_ sender: Any) {
         
-       _ =  self.navigationController?.popToRootViewController(animated: true)
+       
     }
 
     // Mark ~ Delegate Methods
@@ -88,8 +100,16 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate {
                 obj.Toast(view: self.view, ToastView: self.ToastView, message:ToastMsgNearBy)
                 return false
             }
+            return true
         }
-        return true
+        
+        if identifier == SearchSegue{
+        
+            return true
+        }
+
+        return false
+        
     }
     
     // Class Methods
@@ -114,10 +134,15 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate {
         
         view.endEditing(true)
     }
+    
     @IBAction func GoToPick(_ sender: Any) {
-       _ = self.navigationController?.popToRootViewController(animated: true)
+      self.performSegue(withIdentifier: "GoPick", sender: self)
+    }
+    
+    @IBAction func DropDButtonA(_ sender: Any) {
+        self.performSegue(withIdentifier: GoDelvoSegue, sender: self)
     }
     @IBAction func GoToPickDetail(_ sender: Any) {
-       _ = self.navigationController?.popViewController(animated: true)
+      self.performSegue(withIdentifier: "GoPickD", sender: self)
     }
 }

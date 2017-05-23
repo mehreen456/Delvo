@@ -13,6 +13,12 @@ import RxCocoa
 
 class MyProfileVc: UIViewController ,UINavigationControllerDelegate,UIImagePickerControllerDelegate {
     
+    @IBOutlet weak var SaveButton: UIButton!
+    @IBOutlet weak var CancleButton: UIButton!
+    @IBOutlet weak var PassButton: UIButton!
+    @IBOutlet weak var NameView: UIView!
+    @IBOutlet weak var ConatctView: UIView!
+    @IBOutlet weak var EmailView: UIView!
     @IBOutlet weak var UserEmail: UITextField!
     @IBOutlet weak var UserContact: UITextField!
     @IBOutlet weak var UserName: UITextField!
@@ -26,6 +32,17 @@ class MyProfileVc: UIViewController ,UINavigationControllerDelegate,UIImagePicke
         showInfo()
         ShowImg()
         textfields()
+        self.setViews()
+    }
+    
+    func setViews(){
+        
+        self.NameView.setBottomBorder()
+        self.ConatctView.setBottomBorder()
+        self.EmailView.setBottomBorder()
+        self.CancleButton.SetCorners(radius: 5)
+        self.SaveButton.SetCorners(radius: 5)
+        self.PassButton.SetCorners(radius: 5)
     }
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -39,7 +56,7 @@ class MyProfileVc: UIViewController ,UINavigationControllerDelegate,UIImagePicke
     
     func ShowImg(){
         
-          UserImg.GetCircularImage()
+          UserImg.GetCircularImage(color: UIColor.ToastViewColor().cgColor)
     }
     
     func showInfo(){

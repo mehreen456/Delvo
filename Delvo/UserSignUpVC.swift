@@ -7,22 +7,25 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
-class UserSignUpVC: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class UserSignUpVC: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate , NVActivityIndicatorViewable{
     
+    @IBOutlet weak var SignUpButton: UIButton!
     @IBOutlet weak var ToastView: UIView!
+    @IBOutlet weak var LoaderView: UIView!
     @IBOutlet weak var ProfileImage: UIImageView!
     @IBOutlet weak var U_FirstName: UITextField!
     @IBOutlet weak var U_Contact: UITextField!
     @IBOutlet weak var U_Email: UITextField!
     @IBOutlet weak var ConfirmPassword: UITextField!
     @IBOutlet weak var Password: UITextField!
-    @IBOutlet weak var SignUpView: UIView!
     @IBOutlet var MainView: UIView!
     @IBOutlet weak var UContactView: UIView!
     @IBOutlet weak var UConfirmPassView: UIView!
     @IBOutlet weak var UEmailView: UIView!
     @IBOutlet weak var UPasswordView: UIView!
+    @IBOutlet weak var NameView: UIView!
    
     var FB_Name = ""
     var image:UIImage? = nil
@@ -38,19 +41,31 @@ class UserSignUpVC: UIViewController, UINavigationControllerDelegate, UIImagePic
         super.viewDidLoad()
         
         self.ToastView.isHidden = true
-        SignUpView.addBorder()
-        self.ProfileImage.GetCircularImage()
+        self.ProfileImage.GetCircularImage(color: UIColor.ToastViewColor().cgColor)
         if FB_Name != "" && image != nil{
             self.U_FirstName.text = FB_Name
             self.ProfileImage.image = image
         }
+        self.LoaderView.isHidden = true
         self.setDelegate()
         self.setOrigin()
         DelvoMethodObj.AddGesture(controller: self)
         self.U_Contact.inputAccessoryView = obj.AddDoneButton(controller: self)
         ConfirmPassword.isSecureTextEntry = true
         Password.isSecureTextEntry = true
+        self.setViews()
+        self.SignUpButton.SetCorners(radius: 5)
     }
+    
+    func setViews(){
+        
+        self.NameView.SetCorners(radius: 5)
+        self.UContactView.SetCorners(radius: 5)
+        self.UEmailView.SetCorners(radius: 5)
+        self.UPasswordView.SetCorners(radius: 5)
+        self.UConfirmPassView.SetCorners(radius: 5)
+    }
+
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
@@ -87,25 +102,8 @@ class UserSignUpVC: UIViewController, UINavigationControllerDelegate, UIImagePic
         image.sourceType = UIImagePickerControllerSourceType.photoLibrary
         image.allowsEditing = false
         self.present(image,animated: true)
-        
     }
     
-//    func SaveUserInfo(){
-//        
-//        var i:NSData = UIImagePNGRepresentation(UIImage(named:"Profile.png")!)! as NSData
-//        
-//        if self.ProfileImage.image != nil{
-//            i = UIImagePNGRepresentation(self.ProfileImage.image!)! as NSData}
-//        
-//        UserInfo.Email = self.U_Email.text!
-//        UserInfo.Name = self.U_FirstName.text!
-//        UserInfo.Password = self.Password.text!
-//        UserInfo.Phone = self.U_Contact.text!
-//        UserInfo.image = i as Data
-//        
-//        
-//    }
-//    
     func setOrigin(){
         
         origin = self.view.frame.origin.y
@@ -126,6 +124,7 @@ class UserSignUpVC: UIViewController, UINavigationControllerDelegate, UIImagePic
         view.endEditing(true)
         self.view.frame.origin.y = origin!
     }
+    
     @IBAction func GoBack(_ sender: Any) {
         
         self.dismiss(animated: true, completion: nil)
@@ -175,26 +174,46 @@ class UserSignUpVC: UIViewController, UINavigationControllerDelegate, UIImagePic
     
     func SendSignUpInfo(){
         
+        startAnimating(CGSize(width:60 ,height:60) , message: "Verifying User ..." , messageFont: UIFont.boldSystemFont(ofSize: 17) , type:.ballClipRotatePulse , color: UIColor.white
+            , backgroundColor: UIColor.clear
+        )
+        self.LoaderView.isHidden=false
         myobj.UserSignUp(Name: U_FirstName.text!, Phone: U_Contact.text!, Email: U_Email.text!, Password:  Password.text!, Password_confirmation: ConfirmPassword.text!, Success: { (message) -> () in
-            
-         //   self.SaveUserInfo()
+            self.removeLoader()
+            UserInfo.Phone = self.U_Contact.text!
+            UserInfo.Password = self.Password.text!
             self.obj.ShowAlert(controller: self, identifier: "EnterPin", message: message)
         }
             , failure: { (message) -> () in
                 
+                self.removeLoader()
                 self.obj.alert(message:message ,title: "Failed" ,controller: self)
         }
             , Failure: { (error) -> () in
                 
+                self.removeLoader()
                 self.obj.alert(message:"Internet connection failed." ,title: "Failed" ,controller: self)
         })
     }
+    func removeLoader(){
+        
+        self.stopAnimating()
+        self.LoaderView.isHidden=true
+    }
+
     
 }
 
 extension UserSignUpVC: UITextFieldDelegate{
     
     // Mark ~ Textfiels Delegate Methods
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        self.view.frame.origin.y = self.origin!
+        self.view.endEditing(true)
+        return true
+    }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
@@ -210,9 +229,9 @@ extension UserSignUpVC: UITextFieldDelegate{
         
         if textField == self.ConfirmPassword {
             
-            self.view.frame.origin.y = self.origin! - 130
+            self.view.frame.origin.y = self.origin! - 150
         }
-        
+
         return true
     }
     
@@ -222,14 +241,6 @@ extension UserSignUpVC: UITextFieldDelegate{
         return true
         
     }
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        self.view.endEditing(true)
-        return true
-    }
-    
-    
-    
 }
 
 

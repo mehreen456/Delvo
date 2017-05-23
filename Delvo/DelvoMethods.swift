@@ -27,7 +27,7 @@ class DelvoMethods: NSObject {
     {
         var style = ToastStyle()
         style.messageColor = UIColor.white
-        style.backgroundColor = UIColor.DarkBlueColor()
+        style.backgroundColor = UIColor.ToastViewColor()
         view.makeToast(message, duration: 2.0, position: ToastView.center, style:style)
     }
        
@@ -78,6 +78,7 @@ class DelvoMethods: NSObject {
         controller.navigationItem.title = Title
         controller.navigationController?.navigationBar.tintColor = UIColor.white
         controller.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
+        controller.navigationItem.hidesBackButton = true
        
     }
 
@@ -106,7 +107,7 @@ class DelvoMethods: NSObject {
         view.layer.masksToBounds = true
         let border = CALayer()
         border.frame = CGRect(x: 0, y: 0, width:7, height: height+5)
-        border.backgroundColor = UIColor.DarkBlueColor().cgColor
+        border.backgroundColor = UIColor.ToastViewColor().cgColor
         view.layer.addSublayer(border)
     }
 }

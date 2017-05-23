@@ -19,6 +19,21 @@ struct Pick_Detail{
     static var PickUpDate = String()
     static var PickUpDetail = String()
     static var PickUpAmount = String()
+    
+    init(){
+       
+        Pick_Detail.PickLocation = ""
+        Pick_Detail.PickAddress = ""
+        Pick_Detail.PickLocation = ""
+        Pick_Detail.PickName = ""
+        Pick_Detail.PickContact = ""
+        Pick_Detail.PickUpDetailAddress = ""
+        Pick_Detail.PickUpTime = ""
+        Pick_Detail.PickUpDate = ""
+        Pick_Detail.PickUpDetail = ""
+        Pick_Detail.PickUpAmount = ""
+        
+    }
 
 }
 
@@ -32,7 +47,21 @@ struct Drop_Detail{
     static var DropTime = String()
     static var DropDate = String()
     static var DropDetail = String()
-    static var DropAmount = String()}
+    static var DropAmount = String()
+    
+    init(){
+        
+        Drop_Detail.DropLocation = ""
+        Drop_Detail.DropAddress = ""
+        Drop_Detail.DropName = ""
+        Drop_Detail.DropContact = ""
+        Drop_Detail.DropDetailAddress = ""
+        Drop_Detail.DropTime = ""
+        Drop_Detail.DropDate = ""
+        Drop_Detail.DropDetail = ""
+        Drop_Detail.DropAmount = ""
+    }
+}
 
 struct Location{
     
@@ -40,6 +69,7 @@ struct Location{
     static var PickLng = Double()
     static var DropLat = Double()
     static var DropLng = Double()
+    
 }
 
 struct UserInfo{
@@ -52,4 +82,52 @@ struct UserInfo{
     
 }
 
+struct MoveToVc{
+    
+    static var visitPD = false
+    static var visitDL = false
+    static var visitDD = false
+    static var PD_visitDL = false
+    static var PD_visitDD = false
+    static var DL_visitDD = false
+    
+    init(){
+        
+        MoveToVc.visitPD = false
+        MoveToVc.visitDL = false
+        MoveToVc.visitDD = false
+        MoveToVc.PD_visitDL = false
+        MoveToVc.PD_visitDD = false
+        MoveToVc.DL_visitDD = false
+    }
+    
+}
+
+/*
+ 
+ func EmptyOrderDetails(){
+ 
+ Pick_Detail.PickLocation = ""
+ Pick_Detail.PickAddress = ""
+ Pick_Detail.PickLocation = ""
+ Pick_Detail.PickName = ""
+ Pick_Detail.PickContact = ""
+ Pick_Detail.PickUpDetailAddress = ""
+ Pick_Detail.PickUpTime = ""
+ Pick_Detail.PickUpDate = ""
+ Pick_Detail.PickUpDetail = ""
+ Pick_Detail.PickUpAmount = ""
+ 
+ Drop_Detail.DropLocation = ""
+ Drop_Detail.DropAddress = ""
+ Drop_Detail.DropName = ""
+ Drop_Detail.DropContact = ""
+ Drop_Detail.DropDetailAddress = ""
+ Drop_Detail.DropTime = ""
+ Drop_Detail.DropDate = ""
+ Drop_Detail.DropDetail = ""
+ Drop_Detail.DropAmount = ""
+ }
+
+ */
 

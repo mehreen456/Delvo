@@ -9,15 +9,16 @@
 import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
+import NVActivityIndicatorView
 
-class UserSignIn: UIViewController {
+class UserSignIn: UIViewController  , NVActivityIndicatorViewable{
     
     @IBOutlet weak var OrLabel: UILabel!
+    @IBOutlet weak var SignInButton: UIButton!
     @IBOutlet weak var UserEmail: UITextField!
     @IBOutlet weak var UserPassword: UITextField!
-    @IBOutlet weak var LoginView: UIView!
     @IBOutlet weak var LineView: UIView!
-    @IBOutlet weak var FBView: UIView!
+    @IBOutlet weak var LoaderView: UIView!
     @IBOutlet weak var EmailView: UIView!
     @IBOutlet weak var UContactView: UIView!
     @IBOutlet weak var UPasswordView: UIView!
@@ -32,10 +33,12 @@ class UserSignIn: UIViewController {
         UserEmail.delegate = self
         UserPassword.delegate = self
         DMobj.AddGesture(controller:self)
+        self.LoaderView.isHidden=true
         self.UserEmail.inputAccessoryView = obj.AddDoneButton(controller: self)
         self.AddLines()
         UserPassword.isSecureTextEntry = true
-    }
+        self.SignInButton.SetCorners(radius: 5)
+        }
     
     @IBAction func SignInButton(_ sender: Any) {
         
@@ -61,28 +64,37 @@ class UserSignIn: UIViewController {
                 
                 UPasswordView.removeBorder()}
             
+           startAnimating(CGSize(width:60 ,height:60) , message: "Verifying User ..." , messageFont: UIFont.boldSystemFont(ofSize: 17) , type:.ballClipRotatePulse , color: UIColor.white
+                , backgroundColor: UIColor.clear
+            )
+            self.LoaderView.isHidden=false
             myobj.VerifyUser(phone: self.UserEmail.text!, password: self.UserPassword.text!, Success: { (json) -> () in
                
                 let UserToken = json
+                self.removeLoader()
                 UserDefaults.standard.setValue(UserToken, forKey: "UserToken")
                 self.getProfile(U_token: json)
                 self.performSegue(withIdentifier: "SignIn", sender: self)
             }
                 , failure: { (message,status) -> () in
+                    
+                    self.removeLoader()
                     if status == 422{
                      
+                        
                         UserInfo.Phone = self.UserEmail.text!
                         UserInfo.Password = self.UserPassword.text!
                         self.obj.ShowAlert(controller: self, identifier: "VerifyPin" , message: message)
                         
                     }
                     else{
-
-                    self.obj.alert(message:message ,title: self.FailureMsg ,controller: self)}
+                    self.obj.alert(message:"Account does not exist." ,title: self.FailureMsg ,controller: self)}
             }
                 , Failure: { (error) -> () in
                     
+                    self.removeLoader()
                     self.obj.alert(message:"Can't get respose" ,title: self.FailureMsg ,controller: self)
+                    
             })
         }
         else {
@@ -91,6 +103,12 @@ class UserSignIn: UIViewController {
         }
     }
     
+    func removeLoader(){
+        
+        self.stopAnimating()
+        self.LoaderView.isHidden=true
+    }
+
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         
         if identifier == "SignIn"{
@@ -146,13 +164,9 @@ class UserSignIn: UIViewController {
     
     
     func AddLines(){
-        
-        self.DMobj.drawLine(startPoint: CGPoint(x:LineView.frame.origin.x + 10 , y:(LineView.frame.origin.y + LineView.frame.height/2)), endPoint: CGPoint(x:OrLabel.frame.origin.x + 15, y:(LineView.frame.origin.y + LineView.frame.height/2)), view: self.view)
-        
-        self.DMobj.drawLine(startPoint: CGPoint(x: OrLabel.frame.origin.x + OrLabel.frame.size.width + 35 , y:(LineView.frame.origin.y + LineView.frame.height/2)), endPoint: CGPoint(x:LineView.frame.size.width + 10 , y:(LineView.frame.origin.y + LineView.frame.height/2)), view: self.view)
 
-        self.FBView.addBorder()
-        self.LoginView.addBorder()
+        self.UContactView.SetCorners(radius:5)
+        self.UPasswordView.SetCorners(radius:5)
     }
     
     func dismissKeyboard() {

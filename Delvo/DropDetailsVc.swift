@@ -11,27 +11,25 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import NVActivityIndicatorView
 
-class DropDetailsVc: UIViewController  {
+class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
    
+    @IBOutlet weak var NameView: UIView!
+    @IBOutlet weak var DetailView: UIView!
+    @IBOutlet weak var AddressView: UIView!
+    @IBOutlet weak var LoaderView: UIView!
+    @IBOutlet weak var DateView: UIView!
+    @IBOutlet weak var TimeView: UIView!
     @IBOutlet weak var DropName: UITextField!
     @IBOutlet weak var DropContact: UITextField!
     @IBOutlet weak var DropAddress: UITextField!
     @IBOutlet weak var DropDate: UITextField!
     @IBOutlet weak var DropTime: UITextField!
-    @IBOutlet weak var DropAmount: UITextField!
-    @IBOutlet weak var AmountView: UIView!
     @IBOutlet weak var ToastView: UIView!
     @IBOutlet weak var DropDetail: UITextView!
-    @IBOutlet weak var DropButtonView: UIView!
     @IBOutlet weak var ContactView: UIView!
-    @IBOutlet weak var CheckButton: UIButton!
     
-    @IBAction func AddDropButton(_ sender: Any) {
-        
-      ComapareDates()
-    }
-   
     var frameorigin:CGRect?
     var origin:CGFloat?
     let DMobj = DelvoMethods()
@@ -41,21 +39,35 @@ class DropDetailsVc: UIViewController  {
     let PhoneValidationError = "Invalid PhoneNo"
     let DatePicker = UIDatePicker()
     let TimePicker = UIDatePicker()
+    let ApiObj = ApiParsing()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.navigationItem.setHidesBackButton(true, animated: false)
+        MoveToVc.visitDD=true
+        MoveToVc.PD_visitDD = true
+        MoveToVc.DL_visitDD=true
         DropDetail.delegate = self
         self.ToastView.isHidden = true
-        self.AmountView.isHidden = true
-        self.DropAmount.isHidden = true
+        self.LoaderView.isHidden=true
         self.setDelegate()
         self.setOrigin()
         DMobj.AddGesture(controller: self)
         self.DropContact.inputAccessoryView = obj.AddDoneButton(controller: self)
-        self.DropAmount.inputAccessoryView = obj.AddDoneButton(controller: self)
         self.TimePickerMethod()
         self.DatePickerMethod()
+        self.TimeView.setBottomBorder()
+        self.DateView.setBottomBorder()
+        self.setViews()
+    }
+    
+    func setViews(){
+        
+        self.NameView.SetCorners(radius: 5)
+        self.ContactView.SetCorners(radius: 5)
+        self.AddressView.SetCorners(radius: 5)
+        self.DetailView.SetCorners(radius: 5)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,30 +82,8 @@ class DropDetailsVc: UIViewController  {
         if Drop_Detail.DropDetail != ""{
             self.DropDetail.text = Drop_Detail.DropDetail
         }
-        if Drop_Detail.DropAmount != ""{
-            self.AmountView.isHidden = false
-            self.DropAmount.isHidden = false
-            self.CheckButton.setImage(UIImage(named:"PayCheck"), for: .normal)
-            self.DropAmount.text = Drop_Detail.DropAmount
-        }
+       
         self.setTextFields()
-    }
-    
-    @IBAction func CheckButton(_ sender: Any) {
-        
-        if CheckButton.image(for: .normal) == UIImage(named:"PayUncheck"){
-            self.AmountView.isHidden = false
-            self.DropAmount.isHidden = false
-            self.CheckButton.setImage(UIImage(named:"PayCheck"), for: .normal)
-        }
-            
-        else{
-            self.CheckButton.setImage(UIImage(named:"PayUncheck"), for: .normal)
-            self.AmountView.isHidden = true
-            self.DropAmount.isHidden = true
-            Pick_Detail.PickUpAmount = ""
-            DropAmount.text = ""
-        }
     }
     
     func setTextFields(){
@@ -133,13 +123,7 @@ class DropDetailsVc: UIViewController  {
             
         }).addDisposableTo(diposeBag)
         
-        self.DropAmount.rx.text.asObservable().subscribe(onNext: {
-            text in
-            
-            Drop_Detail.DropAmount = self.DropAmount.text!
-            
-        }).addDisposableTo(diposeBag)
-        
+      
         self.DropDetail.rx.text.asObservable().subscribe(onNext: {
             text in
             
@@ -151,21 +135,7 @@ class DropDetailsVc: UIViewController  {
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         
-        guard DropDetail.text != DefaultText  && DropDetail.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) != "" && DropAddress.text != "" && DropContact.text != "" && DropTime.text != "" && DropDate.text != "" && DropName.text != "" else {
-            
-            DMobj.Toast(view: self.view, ToastView: self.ToastView, message:"Please fill the fields.")
-            return false
-        }
-        
-        if !obj.validate(phoneNumber: self.DropContact.text!) {
-            self.obj.alert(message: PhoneValidationError, controller: self)
-            ContactView.addRedBorder()
-            return false
-        }
-        else{
-            ContactView.removeBorder()
-        }
-        return true
+       return false
     }
     
     func setOrigin(){
@@ -182,7 +152,6 @@ class DropDetailsVc: UIViewController  {
         self.DropTime.delegate = self
         self.DropDate.delegate = self
         self.DropDetail.delegate = self
-        self.DropAmount.delegate = self
     }
     
     func dismissKeyboard() {
@@ -195,14 +164,17 @@ class DropDetailsVc: UIViewController  {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         TimePicker.datePickerMode = .time
+        TimePicker.backgroundColor = UIColor.white
+        TimePicker.setValue(UIColor.ToastViewColor()
+            , forKeyPath: "textColor")
         let calendar = Calendar.current
         let formatter = DateFormatter()
         formatter.dateFormat="h:mm a"
         let TimeA = formatter.date(from: Pick_Detail.PickUpTime)
         let date:Date = calendar.date(byAdding: .minute, value: 30, to: TimeA!)!
         TimePicker.date = date
-        TimePicker.backgroundColor = UIColor.PrimaryBlueColor()
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(DonePressedTime))
+        doneButton.tintColor = UIColor.DoneButtonColor()
         toolbar.setItems([doneButton], animated: false)
         DropTime.inputAccessoryView = toolbar
         DropTime.inputView = TimePicker
@@ -214,6 +186,7 @@ class DropDetailsVc: UIViewController  {
         dateFormater.dateStyle = .none
         dateFormater.timeStyle = .medium
         dateFormater.dateFormat="h:mm a"
+      //  dateFormater.timeZone = NSTimeZone(name: "GMT") as TimeZone!
         DropTime.text = dateFormater.string(for: TimePicker.date)
         self.view.endEditing(true)
     }
@@ -223,14 +196,18 @@ class DropDetailsVc: UIViewController  {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         DatePicker.datePickerMode = .date
+        DatePicker.backgroundColor = UIColor.white
+        DatePicker.setValue(UIColor.ToastViewColor()
+            , forKeyPath: "textColor")
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM-dd-yyyy"
         dateFormatter.locale = Locale.init(identifier: "en_GB")
         let dateA:Date = dateFormatter.date(from: Pick_Detail.PickUpDate)!
         DatePicker.minimumDate = dateA
         DatePicker.date = dateA
-        DatePicker.backgroundColor = UIColor.PrimaryBlueColor()
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(DonePressedDate))
+        doneButton.tintColor = UIColor.DoneButtonColor()
+        
         toolbar.setItems([doneButton], animated: false)
         DropDate.inputAccessoryView = toolbar
         DropDate.inputView = DatePicker
@@ -292,24 +269,92 @@ class DropDetailsVc: UIViewController  {
                     }
 
                 }
+                self.PlaceOrder()
 
             }
         }
     }
     
     @IBAction func GoToPickLoc(_ sender: Any) {
-         _ = self.navigationController?.popToRootViewController(animated: true)
+         self.performSegue(withIdentifier: "GoPick", sender: self)
     }
     
     @IBAction func GoToPickDetail(_ sender: Any) {
-        
-        let viewControllers: [UIViewController] =  self.navigationController!.viewControllers as [UIViewController]
-        self.navigationController!.popToViewController(viewControllers[viewControllers.count
-            - 3], animated: true)    }
+         self.performSegue(withIdentifier: "GoPickD", sender: self)
+       
+    }
     
     @IBAction func GoToDropLoc(_ sender: Any) {
-        _ = self.navigationController?.popViewController(animated: true)
+        self.performSegue(withIdentifier: "GoDrop", sender: self)
     }
+    
+    @IBAction func AddDropButton(_ sender: Any) {
+        
+        guard DropDetail.text != DefaultText  && DropDetail.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) != "" && DropAddress.text != "" && DropContact.text != "" && DropTime.text != "" && DropDate.text != "" && DropName.text != "" else {
+            
+            DMobj.Toast(view: self.view, ToastView: self.ToastView, message:"Please fill the fields.")
+            return
+        }
+        
+        if !obj.validate(phoneNumber: self.DropContact.text!) {
+            self.obj.alert(message: PhoneValidationError, controller: self)
+            ContactView.addRedBorder()
+            return
+        }
+        else{
+            ContactView.removeBorder()
+        }
+        
+        ComapareDates()
+        
+    }
+
+    func PlaceOrder(){
+        
+        let U_token = UserDefaults.standard.value(forKey: "UserToken") as! String
+        
+        startAnimating(CGSize(width:50 ,height:50) , message: "Placing Order ..." , messageFont: UIFont.boldSystemFont(ofSize: 15) , type:.ballClipRotatePulse , color: UIColor.DoneButtonColor()
+            , backgroundColor: UIColor.clear)
+        self.LoaderView.isHidden=false
+        ApiObj.PlaceOrder(token: U_token, Success:{ (message) -> () in
+            
+                self.obj.ShowAlert(controller: self, identifier: "OrderPlaced", message: message)
+                self.EmptyOrderDetails()
+                self.removeLoader()
+    
+            }
+            , failure: { (message) -> () in
+                
+                self.removeLoader()
+                self.obj.alert(message:message ,title: "Failed" ,controller: self)
+        }
+            , Failure: { (error) -> () in
+                
+                self.removeLoader()
+                self.obj.alert(message:"Internet connection failed." ,title: "Failed" ,controller: self)
+        })
+        
+    }
+    
+    func removeLoader(){
+        
+        self.stopAnimating()
+        self.LoaderView.isHidden=true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        self.view.endEditing(true)
+    }
+    
+    func EmptyOrderDetails(){
+        
+        _ = Pick_Detail.init()
+        _ = Drop_Detail.init()
+        _ = MoveToVc.init()
+        
+    }
+    
 }
 
 extension DropDetailsVc: UITextFieldDelegate, UITextViewDelegate{
@@ -347,9 +392,14 @@ extension DropDetailsVc: UITextFieldDelegate, UITextViewDelegate{
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
-        if textField == self.DropAmount {
+        if textField == self.DropAddress {
             
-            self.view.frame.origin.y = self.origin! - 190
+            self.view.frame.origin.y = self.origin! - 100
+        }
+        
+        if textField == self.DropTime {
+            
+            self.view.frame.origin.y = self.origin! - 100
         }
         
         if textField == self.DropDate {

@@ -11,21 +11,21 @@ import UIKit
 extension UIColor{
     
   
-    class func PrimaryBlueColor() -> UIColor
+    class func PrimaryGrayColor() -> UIColor
     {
-        let myColor : UIColor = UIColor( red: 14.0/255.0, green: 190.0/255.0, blue: 214.0/255.0, alpha: 1.0 )
+        let myColor : UIColor = UIColor( red: 211.0/255.0, green: 211.0/255.0, blue: 211.0/255.0, alpha: 1.0 )
         return myColor
     }
     
-    class func DarkBlueColor() -> UIColor
+    class func ToastViewColor() -> UIColor
     {
-        let myColor : UIColor = UIColor( red: 32.0/255.0, green: 136.0/255.0, blue: 171.0/255.0, alpha: 1.0 )
+        let myColor : UIColor = UIColor( red: 70.0/255.0, green: 27.0/255.0, blue: 70.0/255.0, alpha: 1.0 )
         return myColor
     }
     
-    class func ButtonColor() -> UIColor
+    class func DoneButtonColor() -> UIColor
     {
-        let myColor : UIColor = UIColor( red: 4.0/255.0, green: 189.0/255.0, blue: 214.0/255.0, alpha: 1.0 )
+        let myColor : UIColor = UIColor( red: 255.0/255.0, green: 126.0/255.0, blue: 7.0/255.0, alpha: 1.0 )
         return myColor
     }
 
