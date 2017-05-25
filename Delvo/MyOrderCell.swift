@@ -19,16 +19,18 @@ class MyOrderCell: UITableViewCell {
     @IBOutlet weak var UserContact: UILabel!
     @IBOutlet weak var UserName: UILabel!
     @IBOutlet weak var GreenCircle: UIImageView!
-    @IBOutlet weak var LineView: UIView!
+   
+    @IBOutlet weak var DropTime: UILabel!
   
+    @IBOutlet weak var DropDate: UILabel!
+    @IBOutlet weak var DropDetail: UILabel!
+    @IBOutlet weak var RecieverContact: UILabel!
+    @IBOutlet weak var RecieverName: UILabel!
     @IBOutlet weak var RedCircle: UIImageView!
     let delvoMethods = DelvoMethods()
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        
-        self.delvoMethods.drawLine(startPoint: CGPoint(x: contentView.frame.origin.x + 20 , y:  UserContact.frame.origin.y +  UserContact.frame.size.height + 5), endPoint:  CGPoint(x:contentView.frame.origin.x + CellView.frame.size.width - 20 , y: UserContact.frame.origin.y +  UserContact.frame.size.height + 5), view: CellView)
    
     }
 

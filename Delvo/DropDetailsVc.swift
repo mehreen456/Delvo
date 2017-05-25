@@ -231,10 +231,8 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
         dateFormatter.locale = Locale.init(identifier: "en_GB")
         
         let dateA = dateFormatter.date(from: Pick_Detail.PickUpDate)
-        print(dateA! as Date)
         
         let dateB = dateFormatter.date(from: Drop_Detail.DropDate)
-        print(dateB! as Date)
        
         if dateA! > dateB!{
             
@@ -352,7 +350,7 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
         _ = Pick_Detail.init()
         _ = Drop_Detail.init()
         _ = MoveToVc.init()
-        
+        _ = Location.init()
     }
     
 }

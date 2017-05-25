@@ -116,6 +116,7 @@ class UserSignIn: UIViewController  , NVActivityIndicatorViewable{
         }
         return true
     }
+    
     @IBAction func FBSignInButton(_ sender: Any) {
         
         FBSDKLoginManager().logIn(withReadPermissions: ["email","public_profile"], from: self){

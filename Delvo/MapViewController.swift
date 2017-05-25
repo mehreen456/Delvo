@@ -76,6 +76,7 @@ class MapViewController: UIViewController ,GMSMapViewDelegate,Address,CLLocation
         GeocodingObj.getAddressFromGeocodeCoordinate(coordinate: coordinates ,controller: self.controller , success: { (success) -> () in
             
         }, failure: { (error) -> () in
+           
             
             print(error)
         })
@@ -102,20 +103,6 @@ class MapViewController: UIViewController ,GMSMapViewDelegate,Address,CLLocation
     func setMapView(){
         
         self.Pointer.frame=MapView.camera.accessibilityFrame
-//        
-//        do {
-//            
-//            if let styleURL = Bundle.main.url(forResource: "map_style", withExtension: "json") {
-//                MapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
-//            }
-//            else {
-//                NSLog("Unable to find style.json")
-//            }
-//        }
-//        catch {
-//             NSLog("One or more of the map styles failed to load. \(error)")
-//        }
-        
         MapView.settings.myLocationButton=false
         MapView.settings.compassButton=false
         self.MapView?.isMyLocationEnabled = true

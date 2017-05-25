@@ -115,6 +115,7 @@ class SideMenuViewController: UIViewController {
         _ = Pick_Detail.init()
         _ = Drop_Detail.init()
         _ = MoveToVc.init()
+        _ = Location.init()
         
     }
     

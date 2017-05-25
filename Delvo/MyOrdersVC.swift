@@ -10,11 +10,11 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class MyOrdersVC: UIViewController {
+class MyOrdersVC: UIViewController ,UITableViewDelegate{
 
     @IBOutlet weak var MyOrderTable: UITableView!
 
-    var cellHeight:CGFloat = 230
+    var cellHeight:CGFloat = 375
     var array:[NSDictionary] = []
     let obj = DelvoMethods()
     let delvoMethods = DelvoMethods()
@@ -27,11 +27,11 @@ class MyOrdersVC: UIViewController {
         super.viewDidLoad()
         
         _ = self.MyOrderTable.rx.setDelegate(self)
-        
         if (UserDefaults.standard.value(forKey: "MyOrder")) != nil{
             array =  UserDefaults.standard.value(forKey: "MyOrder") as! [NSDictionary]
             dataSource.value =  self.array
         }
+        
         
         let yourNibName = UINib(nibName: "MyOrderCell", bundle: nil)
         MyOrderTable.register(yourNibName, forCellReuseIdentifier: "OrderCell")
@@ -48,13 +48,18 @@ class MyOrdersVC: UIViewController {
                 cell.TimeLabel.text = dic["Time"] as? String
                 cell.UserName.text = dic["U_Name"] as? String
                 cell.UserContact.text = dic["U_Contact"] as? String
+                
+                cell.DropDetail.text = dic["detail"] as? String
+                cell.DropDate.text = dic["Date"] as? String
+                cell.DropTime.text = dic["Time"] as? String
+                cell.RecieverName.text = dic["U_Name"] as? String
+                cell.RecieverContact.text = dic["U_Contact"] as? String
+
                
-               self.cellHeight = self.obj.heightForView(text:cell.DropLabel.text!, frame:cell.DropLabel.frame) + self.obj.heightForView(text:cell.PickUpLabel.text!, frame:cell.PickUpLabel.frame) + self.obj.heightForView(text:cell.OrderLabel.text!, frame:cell.OrderLabel.frame) + 180
+                self.cellHeight = self.obj.heightForView(text:cell.DropLabel.text!, frame:cell.DropLabel.frame,size: 13.0) + self.obj.heightForView(text:cell.PickUpLabel.text!, frame:cell.PickUpLabel.frame,size: 13.0) + self.obj.heightForView(text:cell.OrderLabel.text!, frame:cell.OrderLabel.frame,size: 13.0) + self.obj.heightForView(text:cell.DropDetail.text!, frame:cell.DropDetail.frame,size: 13.0) + 330
          
-               self.delvoMethods.drawLine(startPoint: CGPoint(x:cell.GreenCircle.frame.size.width/2+cell.GreenCircle.frame.origin.x, y:cell.GreenCircle.frame.size.height/2+cell.GreenCircle.frame.origin.y), endPoint:  CGPoint(x:cell.RedCircle.frame.size.width/2+cell.RedCircle.frame.origin.x, y:cell.RedCircle.frame.size.height/2+cell.RedCircle.frame.origin.y),view: cell.CellView)
                 
                self.CellHeightsArray.append(self.cellHeight)
-               print(self.cellHeight, "......")
                self.obj.AddBorder(height: self.cellHeight,view: cell.CellView)
                 
             }
@@ -62,15 +67,15 @@ class MyOrdersVC: UIViewController {
                 
          self.MyOrderTable.alwaysBounceVertical = false
     }
-    
+   
     func navBar(){
         
         self.navigationController?.navigationItem.title = "My Orders"
         self.navigationController?.navigationBar.tintColor = UIColor.white
     }
-}
+//}
 
-extension MyOrdersVC : UITableViewDelegate {
+//extension MyOrdersVC : UITableViewDelegate {
   
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 5
@@ -88,8 +93,9 @@ extension MyOrdersVC : UITableViewDelegate {
         if CellHeightsArray.count > indexPath.row {
             return CellHeightsArray[indexPath.row]
         }
-        else{
-            return cellHeight  }
+        
+        return cellHeight
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -103,20 +109,6 @@ extension MyOrdersVC : UITableViewDelegate {
     func numberOfSections(in MyOrderTable: UITableView) -> Int {
         return array.count
     }
-    
-//    func tableView(_ tableView: UITableView,
-//                   willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "OrderCell", for: indexPath) as! MyOrderCell
-//    }
-//   
-//    var rx_willDisplayCell: ControlEvent<(cell: UITableViewCell, indexPath: NSIndexPath)> {
-//     
-//        let source = rx_delegate.observe(#selector(UITableViewDelegate.tableView(_:didEndDisplayingCell:forRowAtIndexPath:)))
-//            .map { ($0[1] as! UITableViewCell, $0[2] as! NSIndexPath)
-//        }
-//        return ControlEvent(events: source)
-//    }
     
 }
 

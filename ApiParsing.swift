@@ -405,7 +405,8 @@ class ApiParsing: NSObject {
             "drop_time": Drop_Detail.DropTime,
             "drop_date": Drop_Detail.DropDate,
             "totaldistance": "5.2",
-            "order_type": "time_critical"
+            "order_type": "time_critical",
+            "status": 800
             ] as [String : Any]
         
         return params as (NSDictionary)

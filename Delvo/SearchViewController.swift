@@ -54,7 +54,7 @@ class SearchViewController: UIViewController ,UITextFieldDelegate , NVActivityIn
             if let C_cell = cell as? SearchTableViewCell{
                 
                 C_cell.LocationLabel.text = Searchplace.place
-                self.cellHeight = self.obj.heightForView(text: (C_cell.LocationLabel?.text)!, frame:C_cell.LocationLabel.frame)
+                self.cellHeight = self.obj.heightForView(text: (C_cell.LocationLabel?.text)!, frame:C_cell.LocationLabel.frame,size: 17.0)
                
             }
             
@@ -77,6 +77,7 @@ class SearchViewController: UIViewController ,UITextFieldDelegate , NVActivityIn
             },
                                                
               failure: { (error) -> () in
+                
                 print(error)
             })
             
@@ -104,6 +105,7 @@ class SearchViewController: UIViewController ,UITextFieldDelegate , NVActivityIn
             , backgroundColor: UIColor.clear)
         self.LoaderView.isHidden=false
         self.array.removeAll()
+       
         geocodingClass.getResults(place: place, success: { (places) -> () in
 
             self.array = places

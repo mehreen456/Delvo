@@ -12,12 +12,12 @@ import Toast_Swift
 class DelvoMethods: NSObject {
 
     
-    func heightForView(text:String , frame:CGRect) -> CGFloat{
+    func heightForView(text:String , frame:CGRect,size:CGFloat) -> CGFloat{
         
         let label:UILabel = UILabel(frame:frame)
         label.numberOfLines = 0
         label.lineBreakMode = NSLineBreakMode.byWordWrapping
-        label.font =  UIFont(name: "Helvetica", size: 17.0)
+        label.font =  UIFont(name: "Helvetica", size: size)
         label.text = text
         label.sizeToFit()
         return label.frame.height
