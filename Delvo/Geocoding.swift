@@ -44,7 +44,7 @@ class Geocoding: NSObject {
     
      }
     
-    func getAddressFromGeocodeCoordinate(coordinate: CLLocationCoordinate2D , controller:String, success:@escaping (Bool) -> (), failure: @escaping (NSError) -> ()) {
+    func getAddressFromGeocodeCoordinate(coordinate: CLLocationCoordinate2D , controller:String, success:@escaping (Bool) -> (), failure: @escaping (String) -> ()) {
         
         let geocoder = GMSGeocoder()
         
@@ -72,11 +72,16 @@ class Geocoding: NSObject {
                     NotificationCenter.default.post(name: NSNotification.Name(rawValue: "GetArea"), object: nil)
                     success(true)
                 }
+                
             }
                 
             else {
                 
-                failure(error as! NSError)
+                if error != nil{
+                    failure((error?.localizedDescription)!)}
+                else{
+                    failure("Can't get location")
+                }
             }
             
         }

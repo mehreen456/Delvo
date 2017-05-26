@@ -275,21 +275,21 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
     
     @IBAction func GoToPickLoc(_ sender: Any) {
         
-        _ = self.navigationController?.popToRootViewController(animated: true)
-       //  self.performSegue(withIdentifier: "GoPick", sender: self)
+       // _ = self.navigationController?.popToRootViewController(animated: true)
+         self.performSegue(withIdentifier: "GoPick", sender: self)
     }
     
     @IBAction func GoToPickDetail(_ sender: Any) {
-        let viewControllers: [UIViewController] =  self.navigationController!.viewControllers as [UIViewController]
-        self.navigationController!.popToViewController(viewControllers[viewControllers.count
-                    - 3], animated: true)
-       //  self.performSegue(withIdentifier: "GoPickD", sender: self)
+//        let viewControllers: [UIViewController] =  self.navigationController!.viewControllers as [UIViewController]
+//        self.navigationController!.popToViewController(viewControllers[viewControllers.count
+//                    - 3], animated: true)
+        self.performSegue(withIdentifier: "GoPickD", sender: self)
        
     }
     
     @IBAction func GoToDropLoc(_ sender: Any) {
-         _ = self.navigationController?.popViewController(animated: true)
-       // self.performSegue(withIdentifier: "GoDrop", sender: self)
+        // _ = self.navigationController?.popViewController(animated: true)
+        self.performSegue(withIdentifier: "GoDrop", sender: self)
     }
     
     @IBAction func AddDropButton(_ sender: Any) {
