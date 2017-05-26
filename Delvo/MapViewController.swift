@@ -16,8 +16,6 @@ class MapViewController: UIViewController ,GMSMapViewDelegate,Address,CLLocation
     @IBOutlet weak var MapView: GMSMapView!
     
     var placesClient: GMSPlacesClient!
-    var lat: CLLocationDegrees = 24.8838999
-    var long: CLLocationDegrees = 67.0546788
     var controller:String = "PickUpVc"
     var locationManager = CLLocationManager()
     var didFindMyLocation = false
@@ -27,9 +25,7 @@ class MapViewController: UIViewController ,GMSMapViewDelegate,Address,CLLocation
     override func viewDidLoad() {
        
         super.viewDidLoad()
-        
         self.setLocationManager()
-        GetMap(a: lat, b: long)
         self.setMapView()
     }
     
@@ -44,8 +40,25 @@ class MapViewController: UIViewController ,GMSMapViewDelegate,Address,CLLocation
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        let location = locations.last
-        let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom: 17.0)
+        var lastLat = locations.last?.coordinate.latitude
+        var lastLng = locations.last?.coordinate.longitude
+
+        if Pick_Detail.PickLocation != "" && controller == "PickUpVc"{
+            
+           lastLat = Location.PickLat
+           lastLng = Location.PickLng
+            
+        }
+        
+        if Drop_Detail.DropLocation != "" && controller == "DropVc"{
+            
+            lastLat = Location.DropLat
+            lastLng = Location.DropLng
+            
+        }
+    
+        self.GetMap(a: lastLat!, b: lastLng!)
+        let camera = GMSCameraPosition.camera(withLatitude: lastLat!, longitude: lastLng!, zoom: 17.0)
         self.MapView?.animate(to: camera)
         self.locationManager.stopUpdatingLocation()
     }
@@ -77,7 +90,6 @@ class MapViewController: UIViewController ,GMSMapViewDelegate,Address,CLLocation
             
         }, failure: { (error) -> () in
            
-            
             print(error)
         })
     }
@@ -94,8 +106,8 @@ class MapViewController: UIViewController ,GMSMapViewDelegate,Address,CLLocation
         let camera: GMSCameraPosition = GMSCameraPosition.camera(withLatitude: a, longitude: b, zoom: 17)
         MapView.camera = camera
         MapView.isMyLocationEnabled = true
-        MapView.settings.myLocationButton=false
-        MapView.settings.compassButton=false
+        MapView.settings.myLocationButton=true
+        MapView.settings.compassButton=true
     }
     
     // Mark ~ Class Methods
@@ -103,8 +115,8 @@ class MapViewController: UIViewController ,GMSMapViewDelegate,Address,CLLocation
     func setMapView(){
         
         self.Pointer.frame=MapView.camera.accessibilityFrame
-        MapView.settings.myLocationButton=false
-        MapView.settings.compassButton=false
+        MapView.settings.myLocationButton=true
+        MapView.settings.compassButton=true
         self.MapView?.isMyLocationEnabled = true
         MapView.delegate = self
     }
@@ -115,7 +127,6 @@ class MapViewController: UIViewController ,GMSMapViewDelegate,Address,CLLocation
         locationManager.requestAlwaysAuthorization()
         locationManager.startUpdatingLocation()
         self.locationManager.delegate = self
-        
+    
     }
-
 }

@@ -141,19 +141,15 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate {
     }
     
     @IBAction func GoToPick(_ sender: Any) {
-        _ = self.navigationController?.popToRootViewController(animated: true)
-    //  self.performSegue(withIdentifier: "GoPick", sender: self)
+       // _ = self.navigationController?.popToRootViewController(animated: true)
+      self.performSegue(withIdentifier: "GoPick", sender: self)
     }
     
     @IBAction func DropDButtonA(_ sender: Any) {
-      //  self.performSegue(withIdentifier: GoDelvoSegue, sender: self)
+        self.performSegue(withIdentifier: GoDelvoSegue, sender: self)
     }
     @IBAction func GoToPickDetail(_ sender: Any) {
-       
-        let viewControllers: [UIViewController] =  self.navigationController!.viewControllers as [UIViewController]
-        self.navigationController!.popToViewController(viewControllers[viewControllers.count
-            - 3], animated: true)
-        
-     // self.performSegue(withIdentifier: "GoPickD", sender: self)
+    
+      self.performSegue(withIdentifier: "GoPickD", sender: self)
     }
 }
