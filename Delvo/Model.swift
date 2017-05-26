@@ -70,15 +70,6 @@ struct Location{
     static var DropLat = Double()
     static var DropLng = Double()
     
-    init(){
-        
-        Location.PickLat = 24.8838999
-        Location.DropLat = 24.8838999
-        Location.PickLng = 67.0546788
-        Location.DropLng = 67.0546788
-        
-    }
-    
 }
 
 struct UserInfo{

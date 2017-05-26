@@ -171,7 +171,7 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
         let formatter = DateFormatter()
         formatter.dateFormat="h:mm a"
         let TimeA = formatter.date(from: Pick_Detail.PickUpTime)
-        let date:Date = calendar.date(byAdding: .minute, value: 30, to: TimeA!)!
+        let date:Date = calendar.date(byAdding: .minute, value: 45, to: TimeA!)!
         TimePicker.date = date
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(DonePressedTime))
         doneButton.tintColor = UIColor.DoneButtonColor()
@@ -260,9 +260,9 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
                 
                 if components.hour! == 0{
                   
-                    if  components.minute! < 30 {
+                    if  components.minute! < 45 {
                         
-                        self.obj.alert(message: "Invalid Time. Can't deliver order before 30 minutes.", controller: self)
+                        self.obj.alert(message: "Invalid Time. Can't deliver order before 45 minutes.", controller: self)
                         return
                     }
 
@@ -274,16 +274,22 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
     }
     
     @IBAction func GoToPickLoc(_ sender: Any) {
-         self.performSegue(withIdentifier: "GoPick", sender: self)
+        
+        _ = self.navigationController?.popToRootViewController(animated: true)
+       //  self.performSegue(withIdentifier: "GoPick", sender: self)
     }
     
     @IBAction func GoToPickDetail(_ sender: Any) {
-         self.performSegue(withIdentifier: "GoPickD", sender: self)
+        let viewControllers: [UIViewController] =  self.navigationController!.viewControllers as [UIViewController]
+        self.navigationController!.popToViewController(viewControllers[viewControllers.count
+                    - 3], animated: true)
+       //  self.performSegue(withIdentifier: "GoPickD", sender: self)
        
     }
     
     @IBAction func GoToDropLoc(_ sender: Any) {
-        self.performSegue(withIdentifier: "GoDrop", sender: self)
+         _ = self.navigationController?.popViewController(animated: true)
+       // self.performSegue(withIdentifier: "GoDrop", sender: self)
     }
     
     @IBAction func AddDropButton(_ sender: Any) {

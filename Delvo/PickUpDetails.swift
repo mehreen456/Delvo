@@ -283,16 +283,19 @@ class PickUpDetails: UIViewController  {
     }
     @IBAction func GoToPickLoc(_ sender: Any) {
         
-        self.performSegue(withIdentifier: "RPick", sender: self)
+     // _ = self.navigationController?.popToRootViewController(animated: true)
+     //   self.performSegue(withIdentifier: "RPick", sender: self)
+        let viewControllers: [UIViewController] =  self.navigationController!.viewControllers as [UIViewController]
+        self.navigationController?.present(viewControllers[0], animated: true, completion: nil)
         
     }
     @IBAction func DropDButtonA(_ sender: Any){
-        self.performSegue(withIdentifier: "GoDropD", sender: self)
+     //   self.performSegue(withIdentifier: "GoDropD", sender: self)
         
     }
     @IBAction func DropLocButtonA(_ sender: Any) {
-        
-        self.performSegue(withIdentifier: "Drop", sender: self)
+         _ = self.navigationController?.popViewController(animated: true)
+    //    self.performSegue(withIdentifier: "Drop", sender: self)
     }
 
     override func viewWillDisappear(_ animated: Bool) {

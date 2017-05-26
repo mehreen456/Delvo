@@ -61,10 +61,10 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate {
     
     override func viewDidDisappear(_ animated: Bool) {
         
-            if Drop_Detail.DropLocation != ""{
-                MapVC?.GetMap(a: Location.DropLat, b: Location.DropLng)
-            }
-        
+//            if Drop_Detail.DropLocation != ""{
+//                MapVC?.GetMap(a: Location.DropLat, b: Location.DropLng)
+//            }
+//        
     }
     
     @IBAction func ChangePIckButton(_ sender: Any) {
@@ -141,13 +141,19 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate {
     }
     
     @IBAction func GoToPick(_ sender: Any) {
-      self.performSegue(withIdentifier: "GoPick", sender: self)
+        _ = self.navigationController?.popToRootViewController(animated: true)
+    //  self.performSegue(withIdentifier: "GoPick", sender: self)
     }
     
     @IBAction func DropDButtonA(_ sender: Any) {
-        self.performSegue(withIdentifier: GoDelvoSegue, sender: self)
+      //  self.performSegue(withIdentifier: GoDelvoSegue, sender: self)
     }
     @IBAction func GoToPickDetail(_ sender: Any) {
-      self.performSegue(withIdentifier: "GoPickD", sender: self)
+       
+        let viewControllers: [UIViewController] =  self.navigationController!.viewControllers as [UIViewController]
+        self.navigationController!.popToViewController(viewControllers[viewControllers.count
+            - 3], animated: true)
+        
+     // self.performSegue(withIdentifier: "GoPickD", sender: self)
     }
 }

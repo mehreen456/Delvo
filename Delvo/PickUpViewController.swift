@@ -14,20 +14,28 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate {
     
     @IBAction func DropDetailButtonA(_ sender: Any) {
         
-        self.performSegue(withIdentifier: "GoDropD", sender: self)
+       // self.performSegue(withIdentifier: "GoDropD", sender: self)
         
     }
     @IBAction func DropLocButtonA(_ sender: Any) {
        
-        self.performSegue(withIdentifier: "DropLoc", sender: self)
+     //  self.performSegue(withIdentifier: "DropLoc", sender: self)
     }
     @IBAction func PickDetailButtonA(_ sender: Any) {
-        
-        self.performSegue(withIdentifier: "Proceed", sender: self)
+      
+        self.gonext()
+      //  self.performSegue(withIdentifier: "Proceed", sender: self)
         
     }
-    @IBOutlet weak var DropLocButton: UIButton!
     
+    func gonext(){
+    
+    let viewControllers: [UIViewController] =  self.navigationController!.viewControllers as [UIViewController]
+    self.navigationController?.present(viewControllers[1], animated: true, completion: nil)
+       // self.navigationController?.backToViewController(vc: PickUpViewController.self)
+    }
+    
+    @IBOutlet weak var DropLocButton: UIButton!
     @IBOutlet weak var DropDView: UIView!
     @IBOutlet weak var DropLocLine: UIView!
     @IBOutlet weak var DropDetailButton: UIButton!
@@ -65,9 +73,9 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate {
     
     override func viewDidDisappear(_ animated: Bool) {
         
-        if Pick_Detail.PickLocation == ""{
-            MapVC?.GetMap(a: Location.PickLat, b: Location.PickLng)
-        }
+//        if Pick_Detail.PickLocation == ""{
+//            MapVC?.GetMap(a: Location.PickLat, b: Location.PickLng)
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -121,6 +129,12 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate {
                 return false
             }
         }
+//      if MoveToVc.visitPD {
+//        
+//        self.gonext()
+//        return false
+//        }
+    
         return true
     }
     
