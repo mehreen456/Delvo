@@ -17,7 +17,6 @@
 		181316F71E51C7CB00910ADB /* DelvoMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181316F61E51C7CA00910ADB /* DelvoMethods.swift */; };
 		181C01A91E81968D002DD9AF /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181C01A81E81968D002DD9AF /* UserNotifications.framework */; };
 		181E64061E70076300918739 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181E64051E70076300918739 /* Model.swift */; };
-		182FD1E31ED45E6600FE50E0 /* key.png in Resources */ = {isa = PBXBuildFile; fileRef = 182FD1E21ED45E6600FE50E0 /* key.png */; };
 		1854BD791E52233A00AB9F55 /* ApiParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854BD781E52233A00AB9F55 /* ApiParsing.swift */; };
 		1888D3681E681539009FEBA0 /* MyOrders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1888D3671E681539009FEBA0 /* MyOrders.storyboard */; };
 		1888D36C1E68192A009FEBA0 /* MyOrdersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1888D36B1E68192A009FEBA0 /* MyOrdersVC.swift */; };
@@ -67,7 +66,6 @@
 		181316F61E51C7CA00910ADB /* DelvoMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelvoMethods.swift; sourceTree = "<group>"; };
 		181C01A81E81968D002DD9AF /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		181E64051E70076300918739 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		182FD1E21ED45E6600FE50E0 /* key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = key.png; sourceTree = "<group>"; };
 		1854BD781E52233A00AB9F55 /* ApiParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiParsing.swift; path = ../ApiParsing.swift; sourceTree = "<group>"; };
 		1888D3671E681539009FEBA0 /* MyOrders.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyOrders.storyboard; sourceTree = "<group>"; };
 		1888D36B1E68192A009FEBA0 /* MyOrdersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyOrdersVC.swift; sourceTree = "<group>"; };
@@ -223,7 +221,6 @@
 			isa = PBXGroup;
 			children = (
 				18A190981E8142AF00AAC44B /* Delvo.entitlements */,
-				182FD1E21ED45E6600FE50E0 /* key.png */,
 				18C424341E4F8D4D005E5546 /* AppDelegate.swift */,
 				18C4243B1E4F8D4D005E5546 /* Assets.xcassets */,
 				188F9B221ED801D800F85699 /* app_logo.pdf */,
@@ -370,7 +367,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1888D3681E681539009FEBA0 /* MyOrders.storyboard in Resources */,
-				182FD1E31ED45E6600FE50E0 /* key.png in Resources */,
 				1888D3701E68295B009FEBA0 /* MyOrderCell.xib in Resources */,
 				18D7FE4A1E962B05008E387F /* MyProfile.storyboard in Resources */,
 				181316EF1E50A7BF00910ADB /* Main.storyboard in Resources */,
