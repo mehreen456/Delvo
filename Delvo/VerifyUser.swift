@@ -20,9 +20,11 @@ class VerifyUser: UIViewController ,UITextFieldDelegate , NVActivityIndicatorVie
     @IBOutlet weak var LoaderView: UIView!
     @IBOutlet weak var PinTextField: UITextField!
     @IBOutlet weak var TimerLabel: UILabel!
+   
     let obj = OrderDescClassMethods()
     let myobj = ApiParsing()
-    var seconds = 10
+    let DMobj = DelvoMethods()
+    var seconds = 60
     var timer = Timer()
     var isTimerRunning = false
     var origin:CGFloat?
@@ -39,6 +41,7 @@ class VerifyUser: UIViewController ,UITextFieldDelegate , NVActivityIndicatorVie
         self.CodeView.SetCorners(radius: 5)
         self.ResendButton.SetCorners(radius: 5)
         self.EnterButton.SetCorners(radius: 5)
+        DMobj.AddGesture(controller:self)
     }
 
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
@@ -88,7 +91,7 @@ class VerifyUser: UIViewController ,UITextFieldDelegate , NVActivityIndicatorVie
             self.obj.alert(message:message ,title: "Sent" ,controller: self)
             self.ResendButton.isEnabled = false
             self.TimerLabel.isHidden = false
-            self.seconds = 10
+            self.seconds = 60
             self.TimerLabel.text = "You can resend request after \(self.seconds) seconds"
             self.runTimer()
         }

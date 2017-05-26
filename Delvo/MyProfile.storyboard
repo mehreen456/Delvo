@@ -213,6 +213,7 @@
                             <constraint firstItem="jJD-Yj-ygZ" firstAttribute="top" secondItem="W1R-jo-RdX" secondAttribute="bottom" constant="12" id="WpV-gF-YGk"/>
                             <constraint firstItem="jJD-Yj-ygZ" firstAttribute="trailing" secondItem="AGE-Jk-WPc" secondAttribute="trailing" id="Wuu-w7-QNz"/>
                             <constraint firstItem="biK-5h-v7H" firstAttribute="centerY" secondItem="W1R-jo-RdX" secondAttribute="centerY" id="b0s-lR-gHv"/>
+                            <constraint firstItem="wY8-E1-QNp" firstAttribute="top" secondItem="gGI-Vv-YOp" secondAttribute="bottom" constant="99" id="fL1-UP-V2f"/>
                             <constraint firstItem="0d5-Zy-adv" firstAttribute="leading" secondItem="EhQ-Jd-0OC" secondAttribute="trailing" constant="27" id="fkA-Cy-kOY"/>
                             <constraint firstItem="EdW-5T-gC5" firstAttribute="top" secondItem="AGE-Jk-WPc" secondAttribute="bottom" constant="19" id="g9z-Fu-EjP"/>
                             <constraint firstItem="ryo-pr-fw4" firstAttribute="centerY" secondItem="BCB-db-gHh" secondAttribute="centerY" id="hsL-Yu-8ms"/>
@@ -222,7 +223,6 @@
                             <constraint firstItem="5Ua-6V-eqj" firstAttribute="centerX" secondItem="kdJ-3i-Riy" secondAttribute="centerX" id="oqT-PX-yUj"/>
                             <constraint firstItem="EdW-5T-gC5" firstAttribute="leading" secondItem="kdJ-3i-Riy" secondAttribute="leadingMargin" constant="14" id="riz-SC-c5X"/>
                             <constraint firstItem="rfu-Iq-rID" firstAttribute="leading" secondItem="kdJ-3i-Riy" secondAttribute="leadingMargin" constant="14" id="vNq-zu-Scf"/>
-                            <constraint firstItem="gGI-Vv-YOp" firstAttribute="top" secondItem="KLK-q9-8fW" secondAttribute="bottom" constant="20" id="yQN-zT-I9m"/>
                             <constraint firstItem="EhQ-Jd-0OC" firstAttribute="top" secondItem="5Ua-6V-eqj" secondAttribute="bottom" constant="26" id="yu4-9L-ZqJ"/>
                         </constraints>
                     </view>
@@ -380,10 +380,10 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="eMG-e0-1yy" secondAttribute="trailing" constant="20" id="BNG-Sd-sGl"/>
+                            <constraint firstItem="eMG-e0-1yy" firstAttribute="top" secondItem="E7m-6P-SEU" secondAttribute="bottom" constant="120" id="HA3-eZ-YkE"/>
                             <constraint firstItem="b8P-XK-tgt" firstAttribute="centerX" secondItem="Asq-pp-cxc" secondAttribute="centerX" id="OXR-nX-a7q"/>
                             <constraint firstItem="eMG-e0-1yy" firstAttribute="top" secondItem="b8P-XK-tgt" secondAttribute="bottom" constant="-39" id="XkE-ss-VrE"/>
                             <constraint firstItem="eMG-e0-1yy" firstAttribute="leading" secondItem="Asq-pp-cxc" secondAttribute="leading" constant="20" id="cur-ij-T7x"/>
-                            <constraint firstItem="eMG-e0-1yy" firstAttribute="centerY" secondItem="Asq-pp-cxc" secondAttribute="centerY" id="ugT-O2-oaa"/>
                         </constraints>
                     </view>
                     <connections>

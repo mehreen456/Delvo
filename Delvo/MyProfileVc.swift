@@ -11,7 +11,8 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class MyProfileVc: UIViewController ,UINavigationControllerDelegate,UIImagePickerControllerDelegate {
+class MyProfileVc: UIViewController ,UINavigationControllerDelegate //,UIImagePickerControllerDelegate{
+{
     
     @IBOutlet weak var SaveButton: UIButton!
     @IBOutlet weak var CancleButton: UIButton!
@@ -25,14 +26,16 @@ class MyProfileVc: UIViewController ,UINavigationControllerDelegate,UIImagePicke
     @IBOutlet weak var UserImg: UIImageView!
     let disposeBag = DisposeBag()
     var UserInfo:[String : AnyObject] = [ : ]
-   
+    let obj = DelvoMethods()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         showInfo()
-        ShowImg()
+      //  ShowImg()
         textfields()
         self.setViews()
+        obj.AddGesture(controller:self)
     }
     
     func setViews(){
@@ -45,19 +48,19 @@ class MyProfileVc: UIViewController ,UINavigationControllerDelegate,UIImagePicke
         self.PassButton.SetCorners(radius: 5)
     }
 
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
-       
-            UserImg.image = image
-            UserInfo["Image"] = UIImagePNGRepresentation(image)! as NSData
-        }
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    func ShowImg(){
-        
-          UserImg.GetCircularImage(color: UIColor.ToastViewColor().cgColor)
-    }
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+//        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
+//       
+//            UserImg.image = image
+//            UserInfo["Image"] = UIImagePNGRepresentation(image)! as NSData
+//        }
+//        self.dismiss(animated: true, completion: nil)
+//    }
+//    
+//    func ShowImg(){
+//        
+//          UserImg.GetCircularImage(color: UIColor.ToastViewColor().cgColor)
+//    }
     
     func showInfo(){
         
@@ -70,6 +73,11 @@ class MyProfileVc: UIViewController ,UINavigationControllerDelegate,UIImagePicke
             let imageData = UserInfo["Image"] as! NSData?
             self.UserImg.image = UIImage(data: imageData as! Data)
         }
+    }
+    
+    func dismissKeyboard() {
+        
+        view.endEditing(true)
     }
     
     func textfields(){
@@ -97,13 +105,13 @@ class MyProfileVc: UIViewController ,UINavigationControllerDelegate,UIImagePicke
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "UpdateInfo"), object: nil)
     }
     
-    @IBAction func UploadImg(_ sender: Any) {
-        
-        let image = UIImagePickerController()
-        image.delegate = self
-        image.sourceType = UIImagePickerControllerSourceType.photoLibrary
-        image.allowsEditing = false
-        self.present(image,animated: true)
-    }
-    
+//    @IBAction func UploadImg(_ sender: Any) {
+//        
+//        let image = UIImagePickerController()
+//        image.delegate = self
+//        image.sourceType = UIImagePickerControllerSourceType.photoLibrary
+//        image.allowsEditing = false
+//        self.present(image,animated: true)
+//    }
+//    
 }

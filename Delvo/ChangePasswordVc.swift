@@ -20,6 +20,8 @@ class ChangePasswordVc: UIViewController {
     @IBOutlet weak var ImageView: UIImageView!
     @IBOutlet weak var SavePassButton: UIButton!
    
+    let obj = DelvoMethods()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.SubView.addBorder(color:UIColor.PrimaryGrayColor().cgColor, width: 1)
@@ -28,6 +30,7 @@ class ChangePasswordVc: UIViewController {
         self.ImageView.GetCircularImage(color: UIColor.PrimaryGrayColor().cgColor)
         let image = UIImage(named: "Password")!
         _ = self.ImageView.image = image.addImagePadding(x: 10, y: 10)
+        obj.AddGesture(controller:self)
     }
     
     func setViews(){
@@ -41,6 +44,11 @@ class ChangePasswordVc: UIViewController {
     @IBAction func SavePassword(_ sender: Any){
         
         
+    }
+    func dismissKeyboard() {
+        
+        view.endEditing(true)
+//self.view.frame.origin.y = origin!
     }
     
 }

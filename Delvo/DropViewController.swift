@@ -44,9 +44,6 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate {
         self.notification()
         self.revealViewController().delegate = self
         MapVC?.controller = MapVcIdentifier
-        if Drop_Detail.DropLocation != ""{
-            MapVC?.GetMap(a: Location.DropLat, b: Location.DropLng)
-        }
         self.DropView.SetCorners(radius: 5)
     }
     
@@ -60,6 +57,14 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate {
             DropDButton.isUserInteractionEnabled = true
             
         }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        
+            if Drop_Detail.DropLocation != ""{
+                MapVC?.GetMap(a: Location.DropLat, b: Location.DropLng)
+            }
+        
     }
     
     @IBAction func ChangePIckButton(_ sender: Any) {

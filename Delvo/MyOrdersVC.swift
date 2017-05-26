@@ -11,9 +11,9 @@ import RxSwift
 import RxCocoa
 
 class MyOrdersVC: UIViewController ,UITableViewDelegate{
-
+    
     @IBOutlet weak var MyOrderTable: UITableView!
-
+    
     var cellHeight:CGFloat = 375
     var array:[NSDictionary] = []
     let obj = DelvoMethods()
@@ -39,7 +39,7 @@ class MyOrdersVC: UIViewController ,UITableViewDelegate{
         
         dataSource.asObservable().bindTo(MyOrderTable.rx.items(cellIdentifier: "OrderCell")){ IndexPath,dic,C_cell in
             
-               if let cell = C_cell as? MyOrderCell{
+            if let cell = C_cell as? MyOrderCell{
                 
                 cell.DropLabel.text = dic["drop_address"] as? String
                 cell.PickUpLabel.text = dic["pick_address"] as? String
@@ -54,29 +54,29 @@ class MyOrdersVC: UIViewController ,UITableViewDelegate{
                 cell.DropTime.text = dic["Time"] as? String
                 cell.RecieverName.text = dic["U_Name"] as? String
                 cell.RecieverContact.text = dic["U_Contact"] as? String
-
-               
-                self.cellHeight = self.obj.heightForView(text:cell.DropLabel.text!, frame:cell.DropLabel.frame,size: 13.0) + self.obj.heightForView(text:cell.PickUpLabel.text!, frame:cell.PickUpLabel.frame,size: 13.0) + self.obj.heightForView(text:cell.OrderLabel.text!, frame:cell.OrderLabel.frame,size: 13.0) + self.obj.heightForView(text:cell.DropDetail.text!, frame:cell.DropDetail.frame,size: 13.0) + 330
-         
                 
-               self.CellHeightsArray.append(self.cellHeight)
-               self.obj.AddBorder(height: self.cellHeight,view: cell.CellView)
+                
+                self.cellHeight = self.obj.heightForView(text:cell.DropLabel.text!, frame:cell.DropLabel.frame,size: 13.0) + self.obj.heightForView(text:cell.PickUpLabel.text!, frame:cell.PickUpLabel.frame,size: 13.0) + self.obj.heightForView(text:cell.OrderLabel.text!, frame:cell.OrderLabel.frame,size: 13.0) + self.obj.heightForView(text:cell.DropDetail.text!, frame:cell.DropDetail.frame,size: 13.0) + 330
+                
+                
+                self.CellHeightsArray.append(self.cellHeight)
+                self.obj.AddBorder(height: self.cellHeight,view: cell.CellView)
                 
             }
             }.addDisposableTo(disposeBag)
-                
-         self.MyOrderTable.alwaysBounceVertical = false
+        
+        self.MyOrderTable.alwaysBounceVertical = false
     }
-   
+    
     func navBar(){
         
         self.navigationController?.navigationItem.title = "My Orders"
         self.navigationController?.navigationBar.tintColor = UIColor.white
     }
-//}
-
-//extension MyOrdersVC : UITableViewDelegate {
-  
+    //}
+    
+    //extension MyOrdersVC : UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 5
     }

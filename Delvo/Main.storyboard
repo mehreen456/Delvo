@@ -25,8 +25,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="slu-Ku-rRE">
                                 <rect key="frame" x="66" y="0.0" width="309" height="231"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ProfileImg" translatesAutoresizingMaskIntoConstraints="NO" id="vip-uU-dj5">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_logo" translatesAutoresizingMaskIntoConstraints="NO" id="vip-uU-dj5">
                                         <rect key="frame" x="89" y="41" width="130" height="130"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="130" id="JkK-nh-H6f"/>
                                             <constraint firstAttribute="height" constant="130" id="YEA-ZO-70P"/>
@@ -540,13 +541,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Order anything and everything from anywhere in Karachi via Delivery ChaCha and we will bring it to you at your doorstep." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aGE-b5-r3R">
-                                <rect key="frame" x="60" y="409" width="255" height="80"/>
+                                <rect key="frame" x="60" y="409" width="255" height="79.5"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Akh-6a-w2b">
-                                <rect key="frame" x="60" y="526" width="255" height="43"/>
+                                <rect key="frame" x="60" y="525.5" width="255" height="43"/>
                                 <color key="backgroundColor" red="1" green="0.4941176471" blue="0.027450980390000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="43" id="2cR-Hj-ocC"/>
@@ -1677,7 +1678,7 @@
                                     <segue destination="OMS-oO-hU1" kind="show" identifier="EnterPin" id="bTv-Tb-pMs"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ProfileImg" translatesAutoresizingMaskIntoConstraints="NO" id="Bno-Ra-9TB">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_logo" translatesAutoresizingMaskIntoConstraints="NO" id="Bno-Ra-9TB">
                                 <rect key="frame" x="112" y="131" width="150" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="m62-Dt-fiT"/>
@@ -1742,10 +1743,10 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lae-7b-0KV" userLabel="contact">
-                                <rect key="frame" x="193" y="316" width="157" height="35"/>
+                                <rect key="frame" x="192.5" y="316" width="157.5" height="35"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Contact " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1O1-UJ-f0d">
-                                        <rect key="frame" x="42" y="9" width="107" height="18"/>
+                                        <rect key="frame" x="42" y="9" width="107.5" height="18"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
@@ -1777,10 +1778,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U5e-Yr-PWu" userLabel="UserNameView">
-                                <rect key="frame" x="25" y="316" width="158" height="35"/>
+                                <rect key="frame" x="25" y="316" width="157.5" height="35"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Reciever Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Vs-jp-0fu">
-                                        <rect key="frame" x="8" y="9" width="142" height="18"/>
+                                        <rect key="frame" x="8" y="9" width="141.5" height="18"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
@@ -2114,10 +2115,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u8p-DS-cyN" userLabel="contact">
-                                <rect key="frame" x="193" y="306" width="167" height="35"/>
+                                <rect key="frame" x="192.5" y="306" width="167.5" height="35"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Contact " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="H27-HD-Kyw">
-                                        <rect key="frame" x="42" y="9" width="117" height="18"/>
+                                        <rect key="frame" x="42" y="9" width="117.5" height="18"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
@@ -2203,10 +2204,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rV6-e1-5F2" userLabel="UserNameView">
-                                <rect key="frame" x="15" y="306" width="168" height="35"/>
+                                <rect key="frame" x="15" y="306" width="167.5" height="35"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Reciever Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RPE-2B-Yk6">
-                                        <rect key="frame" x="8" y="9" width="152" height="18"/>
+                                        <rect key="frame" x="8" y="9" width="151.5" height="18"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
@@ -2568,10 +2569,10 @@
         <image name="PayCheck" width="30" height="30"/>
         <image name="PayUncheck" width="30" height="30"/>
         <image name="PickEnable" width="137" height="137"/>
-        <image name="ProfileImg" width="150" height="150"/>
         <image name="SearchIcon" width="66" height="66"/>
         <image name="Splash" width="1080" height="1920"/>
         <image name="Upload" width="25" height="25"/>
+        <image name="app_logo" width="150" height="150"/>
         <image name="bagDisable" width="137" height="137"/>
         <image name="bagEnable" width="137" height="137"/>
         <image name="delivery-plan-top-image" width="1080" height="978"/>
@@ -2580,12 +2581,12 @@
         <image name="login-screen-img" width="1080" height="1008"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="bTv-Tb-pMs"/>
         <segue reference="z10-H0-qpm"/>
-        <segue reference="7RJ-M0-bxl"/>
         <segue reference="a0h-VH-lE9"/>
         <segue reference="FD3-FZ-OaL"/>
         <segue reference="UiD-US-K09"/>
-        <segue reference="kZs-nm-ruT"/>
         <segue reference="pUd-bD-Lo3"/>
+        <segue reference="kZs-nm-ruT"/>
     </inferredMetricsTieBreakers>
 </document>

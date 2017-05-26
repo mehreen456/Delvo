@@ -59,8 +59,15 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate {
         obj.AddGesture(controller:self)
         self.revealViewController().rightViewRevealWidth = self.view.frame.width - 55
         obj.navBar(controller:self,Title:TitleVc)
+       
+        // objOD.EmptyUserDefaults()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
         
-       // objOD.EmptyUserDefaults()
+        if Pick_Detail.PickLocation == ""{
+            MapVC?.GetMap(a: Location.PickLat, b: Location.PickLng)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,7 +88,6 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate {
                 DropLocLine.backgroundColor = UIColor.white
                 self.DropLocButton.setImage(UIImage(named:"DropEnable"), for: .normal)
                 DropLocButton.isUserInteractionEnabled = true
-            
         }
         
         if MoveToVc.visitDD{
@@ -89,8 +95,8 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate {
             DropDView.backgroundColor = UIColor.white
             self.DropDetailButton.setImage(UIImage(named:"bagEnable"), for: .normal)
             DropDetailButton.isUserInteractionEnabled = true
-            
         }
+        
     }
     
     // Mark ~ Segue
