@@ -52,7 +52,7 @@
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>App Access data</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Allow Location</string>
+	<string>Allow Delvo to Access Your Location</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Allow Delvo to access your Photos</string>
 	<key>UILaunchStoryboardName</key>
