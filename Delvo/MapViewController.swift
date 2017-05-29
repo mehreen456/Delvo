@@ -27,7 +27,7 @@ class MapViewController: UIViewController ,GMSMapViewDelegate,Address,CLLocation
         super.viewDidLoad()
         self.setLocationManager()
         self.setMapView()
-       
+        notification()
     }
    
     // Mark ~ LocationManagerDelegates
@@ -156,5 +156,14 @@ class MapViewController: UIViewController ,GMSMapViewDelegate,Address,CLLocation
             
             return
         }
+    }
+    
+    func notification(){
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.CheckService(_:)), name: NSNotification.Name(rawValue:"CheckLocServices"), object: nil)}
+    
+    func CheckService(_ notification: NSNotification) {
+        
+       setLocationManager()
     }
 }
