@@ -18,6 +18,8 @@
 		181C01A91E81968D002DD9AF /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 181C01A81E81968D002DD9AF /* UserNotifications.framework */; };
 		181E64061E70076300918739 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181E64051E70076300918739 /* Model.swift */; };
 		1854BD791E52233A00AB9F55 /* ApiParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1854BD781E52233A00AB9F55 /* ApiParsing.swift */; };
+		18858F361EDBF522000ECA75 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18858F351EDBF522000ECA75 /* GoogleService-Info.plist */; };
+		18858F391EDC01DD000ECA75 /* Key in Resources */ = {isa = PBXBuildFile; fileRef = 18858F381EDC01DD000ECA75 /* Key */; };
 		1888D3681E681539009FEBA0 /* MyOrders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1888D3671E681539009FEBA0 /* MyOrders.storyboard */; };
 		1888D36C1E68192A009FEBA0 /* MyOrdersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1888D36B1E68192A009FEBA0 /* MyOrdersVC.swift */; };
 		1888D36F1E68295B009FEBA0 /* MyOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1888D36D1E68295B009FEBA0 /* MyOrderCell.swift */; };
@@ -67,6 +69,8 @@
 		181C01A81E81968D002DD9AF /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		181E64051E70076300918739 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		1854BD781E52233A00AB9F55 /* ApiParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiParsing.swift; path = ../ApiParsing.swift; sourceTree = "<group>"; };
+		18858F351EDBF522000ECA75 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		18858F381EDC01DD000ECA75 /* Key */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Key; sourceTree = "<group>"; };
 		1888D3671E681539009FEBA0 /* MyOrders.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyOrders.storyboard; sourceTree = "<group>"; };
 		1888D36B1E68192A009FEBA0 /* MyOrdersVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyOrdersVC.swift; sourceTree = "<group>"; };
 		1888D36D1E68295B009FEBA0 /* MyOrderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyOrderCell.swift; sourceTree = "<group>"; };
@@ -202,6 +206,7 @@
 		18C424281E4F8D4D005E5546 = {
 			isa = PBXGroup;
 			children = (
+				18858F381EDC01DD000ECA75 /* Key */,
 				18C424331E4F8D4D005E5546 /* Delvo */,
 				18C424321E4F8D4D005E5546 /* Products */,
 				F3033DC40CF87A730FF97B4D /* Pods */,
@@ -220,6 +225,7 @@
 		18C424331E4F8D4D005E5546 /* Delvo */ = {
 			isa = PBXGroup;
 			children = (
+				18858F351EDBF522000ECA75 /* GoogleService-Info.plist */,
 				18A190981E8142AF00AAC44B /* Delvo.entitlements */,
 				18C424341E4F8D4D005E5546 /* AppDelegate.swift */,
 				18C4243B1E4F8D4D005E5546 /* Assets.xcassets */,
@@ -310,6 +316,7 @@
 				18C4242F1E4F8D4D005E5546 /* Resources */,
 				7FAD9EB850166D8A65DE8F30 /* [CP] Embed Pods Frameworks */,
 				737901A5AC075365CE129F50 /* [CP] Copy Pods Resources */,
+				18858F371EDC010D000ECA75 /* Crash Reporting */,
 			);
 			buildRules = (
 			);
@@ -366,7 +373,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18858F391EDC01DD000ECA75 /* Key in Resources */,
 				1888D3681E681539009FEBA0 /* MyOrders.storyboard in Resources */,
+				18858F361EDBF522000ECA75 /* GoogleService-Info.plist in Resources */,
 				1888D3701E68295B009FEBA0 /* MyOrderCell.xib in Resources */,
 				18D7FE4A1E962B05008E387F /* MyProfile.storyboard in Resources */,
 				181316EF1E50A7BF00910ADB /* Main.storyboard in Resources */,
@@ -379,6 +388,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		18858F371EDC010D000ECA75 /* Crash Reporting */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Crash Reporting";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Replace this with the GOOGLE_APP_ID from your GoogleService-Info.plist file\nGOOGLE_APP_ID=1:510197773797:ios:e87390b6b92d7c5b\n\n# Replace the /Path/To/ServiceAccount.json with the path to the key you just downloaded\n\"${PODS_ROOT}\"/FirebaseCrash/upload-sym \"${PROJECT_DIR}/Key/CrashReportingKey.json\"\n\n";
+		};
 		40DB07AAB625F1EB795D59A0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

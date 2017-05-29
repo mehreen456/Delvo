@@ -9,12 +9,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>GoogleToolboxForMac.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>NVActivityIndicatorView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>Pods-Delvo.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Protobuf.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -37,17 +47,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>050AB05067E1ED1D5F855DEEA4E2FA92</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>1C0F6938C777BB62AC9D388B03FF28AB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>2BB1F56D1D7A62E151645914FEBDFDA5</key>
+		<key>0080BEABF0ABD63D551E1D5717C1C345</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,12 +57,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>45C37AE7B16BCCEAF8D7BDC7E4D53721</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4E65CB6CA55367CEFD7ADA9268C2BC59</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5148FE2343D319E258B40C16DD19412E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F4B1F06D746DAC56573CC2B5360A0BF8</key>
+		<key>C5B80060FE8C664DF08841000F41D515</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DAE5D13C75D5D55BF0F96D0B2CFF8FF8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
