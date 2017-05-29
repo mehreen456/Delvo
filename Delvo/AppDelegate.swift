@@ -11,15 +11,18 @@ import GoogleMaps
 import GooglePlaces
 import UserNotifications
 import FBSDKCoreKit
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var FirstLoad = true
-        
+    
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        FIRApp.configure()
         GMSServices.provideAPIKey("AIzaSyCKkj5lpWzV8PtOUWNiEc1kMLYZoOvqgVw")
         GMSPlacesClient.provideAPIKey("AIzaSyD8ASiQpYssjrbd1MPD-euek93_AGIuQFs")
         
@@ -28,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             // Fallback on earlier versions
         }
-      //  UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]){ (granted, error) in }
+      
 
         application.registerForRemoteNotifications()
         
@@ -64,6 +67,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
+        
+        
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
 

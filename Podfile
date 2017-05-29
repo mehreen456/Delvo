@@ -16,5 +16,6 @@ target 'Delvo' do
    pod 'Toast-Swift', '~> 2.0.0'
    pod 'RxSwift',    '~> 3.0'
    pod 'RxCocoa',    '~> 3.0'
+   pod 'Firebase/Crash'
    
 end

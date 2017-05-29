@@ -29,8 +29,8 @@ class MapViewController: UIViewController ,GMSMapViewDelegate,Address,CLLocation
         self.setMapView()
        
     }
-    
-    // MArk ~ LocationManagerDelegates
+   
+    // Mark ~ LocationManagerDelegates
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status:  CLAuthorizationStatus) {
         
@@ -64,7 +64,7 @@ class MapViewController: UIViewController ,GMSMapViewDelegate,Address,CLLocation
         self.locationManager.stopUpdatingLocation()
     }
     
-    // MArk ~ MapViewDelegates
+    // Mark ~ MapViewDelegates
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
         

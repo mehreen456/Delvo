@@ -13,7 +13,8 @@ class InitialVc: UIViewController {
 
     @IBOutlet weak var StartButton: UIButton!
     @IBAction func StartButton(_ sender: Any) {
-        
+    
+
         var destination = UIViewController()
         
         if UserDefaults.standard.value(forKey: "UserToken") != nil{
