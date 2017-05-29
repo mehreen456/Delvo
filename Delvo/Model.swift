@@ -102,32 +102,3 @@ struct MoveToVc{
     }
     
 }
-
-/*
- 
- func EmptyOrderDetails(){
- 
- Pick_Detail.PickLocation = ""
- Pick_Detail.PickAddress = ""
- Pick_Detail.PickLocation = ""
- Pick_Detail.PickName = ""
- Pick_Detail.PickContact = ""
- Pick_Detail.PickUpDetailAddress = ""
- Pick_Detail.PickUpTime = ""
- Pick_Detail.PickUpDate = ""
- Pick_Detail.PickUpDetail = ""
- Pick_Detail.PickUpAmount = ""
- 
- Drop_Detail.DropLocation = ""
- Drop_Detail.DropAddress = ""
- Drop_Detail.DropName = ""
- Drop_Detail.DropContact = ""
- Drop_Detail.DropDetailAddress = ""
- Drop_Detail.DropTime = ""
- Drop_Detail.DropDate = ""
- Drop_Detail.DropDetail = ""
- Drop_Detail.DropAmount = ""
- }
-
- */
-

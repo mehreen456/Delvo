@@ -27,6 +27,7 @@ class MapViewController: UIViewController ,GMSMapViewDelegate,Address,CLLocation
         super.viewDidLoad()
         self.setLocationManager()
         self.setMapView()
+       
     }
     
     // MArk ~ LocationManagerDelegates
@@ -125,8 +126,35 @@ class MapViewController: UIViewController ,GMSMapViewDelegate,Address,CLLocation
         
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
-        locationManager.startUpdatingLocation()
-        self.locationManager.delegate = self
-    
+        
+        if CLLocationManager.locationServicesEnabled() && CLLocationManager.authorizationStatus() != CLAuthorizationStatus.denied {
+            self.locationManager.delegate = self
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+            self.locationManager.startUpdatingLocation()
+            
+        }else{
+            
+            let alertController = UIAlertController(title: "Location Permissions", message: "Enable Location Permissions for Delvo. And then press button button to get your current location.", preferredStyle: .alert)
+            let OKAction = UIAlertAction(title: "Settings", style: .default, handler: { action in
+               
+                if let url = URL(string: "App-Prefs:root=LOCATION_SERVICES") {
+                    if #available(iOS 10.0, *) {
+                        UIApplication.shared.open(url, completionHandler:nil)
+                        
+                    } else {
+                        UIApplication.shared.openURL(url)
+                }
+                }})
+            
+            alertController.addAction(OKAction)
+            let CancelAction = UIAlertAction(title: "Cancel", style: .default, handler:  { action in
+                
+                alertController.dismiss(animated: true, completion: nil)
+            })
+            alertController.addAction(CancelAction)
+            self.present(alertController, animated: true, completion: nil)
+            
+            return
+        }
     }
 }
