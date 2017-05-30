@@ -70,8 +70,8 @@ class MyProfileVc: UIViewController ,UINavigationControllerDelegate //,UIImagePi
             UserName.text = UserInfo["Name"] as! String?
             UserEmail.text = UserInfo["Email"] as! String?
             UserContact.text = UserInfo["Contact"] as! String?
-            let imageData = UserInfo["Image"] as! NSData?
-            self.UserImg.image = UIImage(data: imageData as! Data)
+         //   let imageData = UserInfo["Image"] as! NSData?
+          //  self.UserImg.image = UIImage(data: imageData as! Data)
         }
     }
     

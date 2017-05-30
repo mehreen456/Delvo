@@ -27,6 +27,7 @@ class ApiParsing: NSObject {
     let resendPinApi = "http://138.197.112.122/consumer_api/v1/resend_pin"
     let GetProfileInfoApi = "http://138.197.112.122/consumer_api/v1/my_profile"
     let COMPANY_API_KEY = "ca82f9c0-e4ef-4a1c-a378-18884e7a07c1"
+    let myOrdersApi = "http://138.197.112.122/consumer_api/v1/orders"
    
     func PlaceOrder(token:String , Success:@escaping (String) -> (),failure: @escaping (String) -> () ,Failure: @escaping (NSError) -> ()){
         
@@ -87,14 +88,14 @@ class ApiParsing: NSObject {
                     if status == 200{
                         
                         
-                        let imageData:NSData = UIImagePNGRepresentation(UIImage(named:"ProfileImg")!)! as NSData
+                       // let imageData:NSData = UIImagePNGRepresentation(UIImage(named:"ProfileImg")!)! as NSData
                       
                         let userProfile:[String : AnyObject] = [
                             
                             "Name": json["name"] as AnyObject,
                             "Contact": json["phone"] as AnyObject,
                             "Email": json["email"] as AnyObject,
-                            "Image": imageData as AnyObject
+                          //  "Image": imageData as AnyObject
                             ]
                         
                         UserDefaults.standard.setValue(userProfile, forKey: "User")
@@ -108,6 +109,51 @@ class ApiParsing: NSObject {
                 }
         }
     }
+    func MyOrders(token:String, Success:@escaping (Bool) -> (),failure: @escaping (String) -> () ,Failure: @escaping (NSError) -> ()){
+        
+        let headers: HTTPHeaders = [
+            
+            "Authorization":token,
+            "COMPANYAPIKEY": COMPANY_API_KEY
+        ]
+        
+        Alamofire.request(myOrdersApi, method: .get, parameters: nil , encoding: JSONEncoding.default, headers: headers)
+            .responseJSON { response in
+                
+                if response.result.error != nil
+                {
+                    Failure(response.result.error! as NSError)}
+                
+                if let result = response.result.value {
+                    
+                    let status = response.response?.statusCode
+                    let json = result as! NSDictionary
+                    
+                    if status == 200{
+                        
+                        
+                       // let imageData:NSData = UIImagePNGRepresentation(UIImage(named:"ProfileImg")!)! as NSData
+                        
+                        let userProfile:[String : AnyObject] = [
+                            
+                            "Name": json["name"] as AnyObject,
+                            "Contact": json["phone"] as AnyObject,
+                            "Email": json["email"] as AnyObject,
+                          //  "Image": imageData as AnyObject
+                        ]
+                        
+                        UserDefaults.standard.setValue(userProfile, forKey: "User")
+                        Success(true)
+                    }
+                        
+                    else{
+                        
+                        let Message = json["message"]
+                        failure(Message as! String)}
+                }
+        }
+    }
+
 
     
     func VerifyUser(phone:String,password:String , Success:@escaping (String) -> (),failure: @escaping (String,Int) -> () ,Failure: @escaping (NSError) -> ()){
