@@ -183,20 +183,20 @@ class PickUpDetails: UIViewController  {
             
         }).addDisposableTo(diposeBag)
         
-        self.PickUpTime.rx.text.asObservable().subscribe(onNext: {
-            text in
-            
-            Pick_Detail.PickUpTime = self.PickUpTime.text!
-            
-        }).addDisposableTo(diposeBag)
-        
-        self.PickUpDate.rx.text.asObservable().subscribe(onNext: {
-            text in
-            
-            Pick_Detail.PickUpDate = self.PickUpDate.text!
-            
-        }).addDisposableTo(diposeBag)
-        
+//        self.PickUpTime.rx.text.asObservable().subscribe(onNext: {
+//            text in
+//            
+//            Pick_Detail.PickUpTime = self.PickUpTime.text!
+//            
+//        }).addDisposableTo(diposeBag)
+//        
+//        self.PickUpDate.rx.text.asObservable().subscribe(onNext: {
+//            text in
+//            
+//            Pick_Detail.PickUpDate = self.PickUpDate.text!
+//            
+//        }).addDisposableTo(diposeBag)
+//        
         self.PickUpAmount.rx.text.asObservable().subscribe(onNext: {
             text in
             
@@ -253,6 +253,8 @@ class PickUpDetails: UIViewController  {
         dateFormater.dateFormat = "h:mm a"
       //  dateFormater.timeZone = NSTimeZone(name: "GMT") as TimeZone!
         PickUpTime.text = dateFormater.string(for: TimePicker.date)
+        dateFormater.dateFormat = "h:mm "
+        Pick_Detail.PickLocation = dateFormater.string(for: TimePicker.date)!
         self.view.endEditing(true)
     }
     
@@ -279,22 +281,20 @@ class PickUpDetails: UIViewController  {
         dateFormater.timeStyle = .none
         dateFormater.dateFormat = "MM-dd-yyyy"
         PickUpDate.text = dateFormater.string(for: DatePicker.date)
+        dateFormater.dateFormat = "yyyy-mm-dd"
+        Pick_Detail.PickUpTime = dateFormater.string(for: DatePicker.date)!
         self.view.endEditing(true)
     }
     @IBAction func GoToPickLoc(_ sender: Any) {
         
-     // _ = self.navigationController?.popToRootViewController(animated: true)
         self.performSegue(withIdentifier: "RPick", sender: self)
-//        let viewControllers: [UIViewController] =  self.navigationController!.viewControllers as [UIViewController]
-//        self.navigationController?.present(viewControllers[0], animated: true, completion: nil)
-        
+     
     }
     @IBAction func DropDButtonA(_ sender: Any){
        self.performSegue(withIdentifier: "GoDropD", sender: self)
         
     }
     @IBAction func DropLocButtonA(_ sender: Any) {
-       //  _ = self.navigationController?.popViewController(animated: true)
        self.performSegue(withIdentifier: "Drop", sender: self)
     }
 
