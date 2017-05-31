@@ -32,7 +32,6 @@ class MyProfileVc: UIViewController ,UINavigationControllerDelegate //,UIImagePi
         super.viewDidLoad()
         
         showInfo()
-      //  ShowImg()
         textfields()
         self.setViews()
         obj.AddGesture(controller:self)
@@ -48,19 +47,6 @@ class MyProfileVc: UIViewController ,UINavigationControllerDelegate //,UIImagePi
         self.PassButton.SetCorners(radius: 5)
     }
 
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-//        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
-//       
-//            UserImg.image = image
-//            UserInfo["Image"] = UIImagePNGRepresentation(image)! as NSData
-//        }
-//        self.dismiss(animated: true, completion: nil)
-//    }
-//    
-//    func ShowImg(){
-//        
-//          UserImg.GetCircularImage(color: UIColor.ToastViewColor().cgColor)
-//    }
     
     func showInfo(){
         
@@ -70,8 +56,7 @@ class MyProfileVc: UIViewController ,UINavigationControllerDelegate //,UIImagePi
             UserName.text = UserInfo["Name"] as! String?
             UserEmail.text = UserInfo["Email"] as! String?
             UserContact.text = UserInfo["Contact"] as! String?
-         //   let imageData = UserInfo["Image"] as! NSData?
-          //  self.UserImg.image = UIImage(data: imageData as! Data)
+         
         }
     }
     
@@ -105,13 +90,5 @@ class MyProfileVc: UIViewController ,UINavigationControllerDelegate //,UIImagePi
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "UpdateInfo"), object: nil)
     }
     
-//    @IBAction func UploadImg(_ sender: Any) {
-//        
-//        let image = UIImagePickerController()
-//        image.delegate = self
-//        image.sourceType = UIImagePickerControllerSourceType.photoLibrary
-//        image.allowsEditing = false
-//        self.present(image,animated: true)
-//    }
-//    
+
 }

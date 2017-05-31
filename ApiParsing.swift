@@ -110,7 +110,7 @@ class ApiParsing: NSObject {
                 }
         }
     }
-    func MyOrders(token:String, Success:@escaping ([[String:Dictionary<String, String>]]) -> (),failure: @escaping (String) -> () ,Failure: @escaping (NSError) -> ()){
+    func MyOrders(token:String, Success:@escaping (Bool) -> (),failure: @escaping (String) -> () ,Failure: @escaping (NSError) -> ()){
         
         let headers: HTTPHeaders = [
             
@@ -160,8 +160,8 @@ class ApiParsing: NSObject {
                             
                             MyOrders.append(dict)
                         }
-                        
-                        Success(MyOrders)
+                        UserDefaults.standard.setValue(MyOrders, forKey:"MyOrder")
+                        Success(true)
                         
                     }
                         

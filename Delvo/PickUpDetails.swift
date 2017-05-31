@@ -286,7 +286,7 @@ class PickUpDetails: UIViewController  {
             let TimeA = formatter.date(from: Pick_Detail.PickUpTime)
             let TimeB = formatter.date(from: currdate!)
             
-            if TimeB! >= TimeA! {
+            if TimeB! > TimeA! {
                 
                 self.obj.alert(message: "Invalid Time. Pickup time can not be less than current time.", controller: self)
                 return false

@@ -108,21 +108,6 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
             Drop_Detail.DropContact = self.DropContact.text!
             
         }).addDisposableTo(diposeBag)
-        
-        self.DropDate.rx.text.asObservable().subscribe(onNext: {
-            text in
-            
-            Drop_Detail.DropDate = self.DropDate.text!
-            
-        }).addDisposableTo(diposeBag)
-        
-        self.DropTime.rx.text.asObservable().subscribe(onNext: {
-            text in
-            
-            Drop_Detail.DropTime = self.DropTime.text!
-            
-        }).addDisposableTo(diposeBag)
-        
       
         self.DropDetail.rx.text.asObservable().subscribe(onNext: {
             text in
@@ -169,7 +154,7 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
             , forKeyPath: "textColor")
         let calendar = Calendar.current
         let formatter = DateFormatter()
-        formatter.dateFormat="h:mm a"
+        formatter.dateFormat="HH:mm"
         let TimeA = formatter.date(from: Pick_Detail.PickUpTime)
         let date:Date = calendar.date(byAdding: .minute, value: 45, to: TimeA!)!
         TimePicker.date = date
@@ -188,6 +173,8 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
         dateFormater.dateFormat="h:mm a"
       //  dateFormater.timeZone = NSTimeZone(name: "GMT") as TimeZone!
         DropTime.text = dateFormater.string(for: TimePicker.date)
+        dateFormater.dateFormat = "HH:mm"
+        Drop_Detail.DropTime = dateFormater.string(for: TimePicker.date)!
         self.view.endEditing(true)
     }
     
@@ -200,9 +187,10 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
         DatePicker.setValue(UIColor.ToastViewColor()
             , forKeyPath: "textColor")
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM-dd-yyyy"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.locale = Locale.init(identifier: "en_GB")
         let dateA:Date = dateFormatter.date(from: Pick_Detail.PickUpDate)!
+         dateFormatter.dateFormat = "MM-dd-yyyy"
         DatePicker.minimumDate = dateA
         DatePicker.date = dateA
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(DonePressedDate))
@@ -221,13 +209,15 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
         dateFormater.dateFormat = "MM-dd-yyyy"
         DatePicker.minimumDate = Date()
         DropDate.text = dateFormater.string(for: DatePicker.date)
+        dateFormater.dateFormat = "yyyy-MM-dd"
+        Drop_Detail.DropDate = dateFormater.string(for: DatePicker.date)!
         self.view.endEditing(true)
     }
     
     func ComapareDates(){
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM-dd-yyyy"
+        dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.locale = Locale.init(identifier: "en_GB")
         
         let dateA = dateFormatter.date(from: Pick_Detail.PickUpDate)
@@ -243,7 +233,7 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
         if dateA! == dateB!{
             
             let formatter = DateFormatter()
-            formatter.dateFormat="h:mm a"
+            formatter.dateFormat = "HH:mm"
             let TimeA = formatter.date(from: Pick_Detail.PickUpTime)
             let TimeB = formatter.date(from: Drop_Detail.DropTime)
             
@@ -274,21 +264,17 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
     }
     
     @IBAction func GoToPickLoc(_ sender: Any) {
-        
-       // _ = self.navigationController?.popToRootViewController(animated: true)
+      
          self.performSegue(withIdentifier: "GoPick", sender: self)
     }
     
     @IBAction func GoToPickDetail(_ sender: Any) {
-//        let viewControllers: [UIViewController] =  self.navigationController!.viewControllers as [UIViewController]
-//        self.navigationController!.popToViewController(viewControllers[viewControllers.count
-//                    - 3], animated: true)
+
         self.performSegue(withIdentifier: "GoPickD", sender: self)
-       
     }
     
     @IBAction func GoToDropLoc(_ sender: Any) {
-        // _ = self.navigationController?.popViewController(animated: true)
+
         self.performSegue(withIdentifier: "GoDrop", sender: self)
     }
     
