@@ -148,7 +148,9 @@ class PickUpDetails: UIViewController  {
         else{
             ContactView.removeBorder()
         }
-        return true
+            
+        return checkDate()
+        
         }
         return false
     }
@@ -179,21 +181,7 @@ class PickUpDetails: UIViewController  {
         self.SenderContact.rx.text.asObservable().subscribe(onNext: {
             text in
             
-            Pick_Detail.PickContact = self.SenderContact.text!
-            
-        }).addDisposableTo(diposeBag)
-        
-        self.PickUpTime.rx.text.asObservable().subscribe(onNext: {
-            text in
-            
-            Pick_Detail.PickUpTime = self.PickUpTime.text!
-            
-        }).addDisposableTo(diposeBag)
-        
-        self.PickUpDate.rx.text.asObservable().subscribe(onNext: {
-            text in
-            
-            Pick_Detail.PickUpDate = self.PickUpDate.text!
+            Pick_Detail.PickContact = "92" + self.SenderContact.text!
             
         }).addDisposableTo(diposeBag)
         
@@ -234,7 +222,6 @@ class PickUpDetails: UIViewController  {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         TimePicker.datePickerMode = .time
-        TimePicker.minimumDate = NSDate() as Date
         TimePicker.backgroundColor = UIColor.white
         TimePicker.setValue(UIColor.ToastViewColor()
             , forKeyPath: "textColor")
@@ -253,6 +240,8 @@ class PickUpDetails: UIViewController  {
         dateFormater.dateFormat = "h:mm a"
       //  dateFormater.timeZone = NSTimeZone(name: "GMT") as TimeZone!
         PickUpTime.text = dateFormater.string(for: TimePicker.date)
+        dateFormater.dateFormat = "HH:mm"
+        Pick_Detail.PickUpTime = dateFormater.string(for: TimePicker.date)!
         self.view.endEditing(true)
     }
     
@@ -279,22 +268,44 @@ class PickUpDetails: UIViewController  {
         dateFormater.timeStyle = .none
         dateFormater.dateFormat = "MM-dd-yyyy"
         PickUpDate.text = dateFormater.string(for: DatePicker.date)
+        dateFormater.dateFormat = "yyyy-MM-dd"
+        Pick_Detail.PickUpDate = dateFormater.string(for: DatePicker.date)!
         self.view.endEditing(true)
     }
+    
+    func checkDate() -> Bool {
+        
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        if Pick_Detail.PickUpDate == formatter.string(for:date){
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat="HH:mm"
+            let currdate = formatter.string(for:date)
+            let TimeA = formatter.date(from: Pick_Detail.PickUpTime)
+            let TimeB = formatter.date(from: currdate!)
+            
+            if TimeB! > TimeA! {
+                
+                self.obj.alert(message: "Invalid Time. Pickup time can not be less than current time.", controller: self)
+                return false
+            }
+        }
+        
+        return true
+    }
+    
     @IBAction func GoToPickLoc(_ sender: Any) {
         
-     // _ = self.navigationController?.popToRootViewController(animated: true)
         self.performSegue(withIdentifier: "RPick", sender: self)
-//        let viewControllers: [UIViewController] =  self.navigationController!.viewControllers as [UIViewController]
-//        self.navigationController?.present(viewControllers[0], animated: true, completion: nil)
-        
+     
     }
     @IBAction func DropDButtonA(_ sender: Any){
        self.performSegue(withIdentifier: "GoDropD", sender: self)
         
     }
     @IBAction func DropLocButtonA(_ sender: Any) {
-       //  _ = self.navigationController?.popViewController(animated: true)
        self.performSegue(withIdentifier: "Drop", sender: self)
     }
 

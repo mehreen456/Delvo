@@ -44,7 +44,9 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate {
     let objOD = OrderDescClassMethods()
     let ToastMsgPickUp = "Please enter pick address to proceed"
     let ToastMsgNearBy = "Please select near by place"
-    let DefaultText = "Near by location"
+    let DefaultText1 = "Near by location"
+    let DefaultText2 = "Pakistan"
+    let DefaultText3 = "Unamed Road"
     let ProceedSegue = "Proceed"
     let SearchSegue = "Search"
     let TitleVc = "PickUp"
@@ -56,11 +58,12 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate {
         super.viewDidLoad()
         self.setview()
         self.notification()
+        self.mapNotification()
         self.PickUpView.SetCorners(radius: 5)
         obj.AddGesture(controller:self)
         self.revealViewController().rightViewRevealWidth = self.view.frame.width - 55
         obj.navBar(controller:self,Title:TitleVc)
-       
+        
         // objOD.EmptyUserDefaults()
     }
     
@@ -110,7 +113,7 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate {
         
      if identifier == ProceedSegue {
            
-            guard PickUpLocation.text !=  DefaultText && PickUpLocation.text != "" else {
+            guard PickUpLocation.text !=  DefaultText1 && PickUpLocation.text != "" else {
                 
                 obj.Toast(view: self.view, ToastView: self.ToastView, message:ToastMsgNearBy)
                 return false
@@ -140,6 +143,18 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate {
        
         PickUpLocation.text = Pick_Detail.PickLocation
     }
+    
+    func mapNotification(){
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.ShowError(_:)), name: NSNotification.Name(rawValue:"ShowError"), object: nil)}
+    
+    func ShowError(_ notification: NSNotification) {
+        
+        if let error = notification.userInfo?["error"] as? String {
+          
+            self.objOD.alert(message:error,title: "Failed" ,controller: self)        }
+    }
+
     
     // Mark ~ Delegate Methods
     func revealController(_ revealController: SWRevealViewController!, animateTo position: FrontViewPosition) {

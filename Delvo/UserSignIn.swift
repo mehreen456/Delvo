@@ -122,7 +122,8 @@ class UserSignIn: UIViewController  , NVActivityIndicatorViewable{
         FBSDKLoginManager().logIn(withReadPermissions: ["email","public_profile"], from: self){
             (result,error) in
             if error != nil{
-                print("Login Failed")
+                
+               self.obj.alert(message:error as! String ,title: "Faliure" ,controller: self)
                 return
             }
             
@@ -131,11 +132,10 @@ class UserSignIn: UIViewController  , NVActivityIndicatorViewable{
                 
                 if err != nil{
                     
-                    print(err as! NSError)
+                    self.obj.alert(message:err as! String ,title: "Faliure" ,controller: self)
                     return
                 }
                 
-                print(result as! NSDictionary)
                 let info = result as! NSDictionary
                 let name = info.value(forKey: "name") as? String
                 var img = UIImage(named:"Profile.png")
@@ -175,6 +175,7 @@ class UserSignIn: UIViewController  , NVActivityIndicatorViewable{
         view.endEditing(true)
         
     }
+    
     func getProfile(U_token:String){
         
         myobj.MyProfile(token: U_token , Success: { (json) -> () in
@@ -190,7 +191,7 @@ class UserSignIn: UIViewController  , NVActivityIndicatorViewable{
             
             , Failure: { (error) -> () in
                 
-                print(error)
+               self.obj.alert(message:error.description ,title: "Faliure" ,controller: self) 
         })
     }
 

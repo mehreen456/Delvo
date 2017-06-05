@@ -77,8 +77,5 @@ class OrderDescClassMethods: NSObject {
         return keyboardDoneButtonView
     }
 
-    func EmptyUserDefaults(){
-        
-         UserDefaults.standard.removeObject(forKey: "MyOrder")
-    }
+   
 }

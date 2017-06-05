@@ -9,7 +9,7 @@
 import UIKit
 import NVActivityIndicatorView
 
-class UserSignUpVC: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate , NVActivityIndicatorViewable{
+class UserSignUpVC: UIViewController, UINavigationControllerDelegate , NVActivityIndicatorViewable{
     
     @IBOutlet weak var SignUpButton: UIButton!
     @IBOutlet weak var ToastView: UIView!
@@ -93,15 +93,6 @@ class UserSignUpVC: UIViewController, UINavigationControllerDelegate, UIImagePic
             
             DelvoMethodObj.Toast(view: self.view, ToastView: self.ToastView, message:"Please fill the fields first")
         }
-    }
-    
-    @IBAction func CameraButton(_ sender: Any) {
-        
-        let image = UIImagePickerController()
-        image.delegate = self
-        image.sourceType = UIImagePickerControllerSourceType.photoLibrary
-        image.allowsEditing = false
-        self.present(image,animated: true)
     }
     
     func setOrigin(){

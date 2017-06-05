@@ -91,7 +91,9 @@ class MapViewController: UIViewController ,GMSMapViewDelegate,Address,CLLocation
             
         }, failure: { (error) -> () in
            
-            print(error)
+            let errorMsg:[String: String] = ["error": error]
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ShowError"), object: nil, userInfo:errorMsg)
+           
         })
     }
 

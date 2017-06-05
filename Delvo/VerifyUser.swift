@@ -149,8 +149,7 @@ class VerifyUser: UIViewController ,UITextFieldDelegate , NVActivityIndicatorVie
             
             , Failure: { (error) -> () in
                 
-                print(error)
-        })
+                self.obj.alert(message:error.description ,title: "Faliure" ,controller: self)        })
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {

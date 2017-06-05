@@ -27,7 +27,8 @@ class SearchViewController: UIViewController ,UITextFieldDelegate , NVActivityIn
     var array:[SearchResult] = []
     var geocodingClass = Geocoding()
     var cellHeight:CGFloat = 25
-    let obj = DelvoMethods()
+    let DMobj = DelvoMethods()
+    let obj = OrderDescClassMethods()
     let disposeBag = DisposeBag()
     let dataSource = Variable<[SearchResult]>([])
    
@@ -39,7 +40,7 @@ class SearchViewController: UIViewController ,UITextFieldDelegate , NVActivityIn
         self.LoaderView.isHidden=true
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationItem.title="Search Location"
-        obj.AddImageTextfield(textField: self.searchField)
+        DMobj.AddImageTextfield(textField: self.searchField)
         self.searchResultTabel()
         self.SearchTextField()
         _ = self.ResultsTable.rx.setDelegate(self)
@@ -54,7 +55,7 @@ class SearchViewController: UIViewController ,UITextFieldDelegate , NVActivityIn
             if let C_cell = cell as? SearchTableViewCell{
                 
                 C_cell.LocationLabel.text = Searchplace.place
-                self.cellHeight = self.obj.heightForView(text: (C_cell.LocationLabel?.text)!, frame:C_cell.LocationLabel.frame,size: 17.0)
+                self.cellHeight = self.DMobj.heightForView(text: (C_cell.LocationLabel?.text)!, frame:C_cell.LocationLabel.frame,size: 17.0)
                
             }
             
@@ -78,7 +79,7 @@ class SearchViewController: UIViewController ,UITextFieldDelegate , NVActivityIn
                                                
               failure: { (error) -> () in
                 
-                print(error)
+                self.obj.alert(message:error.description ,title: "Faliure" ,controller: self)
             })
             
         }).addDisposableTo(disposeBag)
@@ -120,7 +121,7 @@ class SearchViewController: UIViewController ,UITextFieldDelegate , NVActivityIn
         },
         failure: { (error) -> () in
             
-            print(error) })
+           self.obj.alert(message:error.description ,title: "Faliure" ,controller: self) })
     }
 }
 
