@@ -181,7 +181,7 @@ class PickUpDetails: UIViewController  {
         self.SenderContact.rx.text.asObservable().subscribe(onNext: {
             text in
             
-            Pick_Detail.PickContact = self.SenderContact.text!
+            Pick_Detail.PickContact = "92" + self.SenderContact.text!
             
         }).addDisposableTo(diposeBag)
         

@@ -58,11 +58,12 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate {
         super.viewDidLoad()
         self.setview()
         self.notification()
+        self.mapNotification()
         self.PickUpView.SetCorners(radius: 5)
         obj.AddGesture(controller:self)
         self.revealViewController().rightViewRevealWidth = self.view.frame.width - 55
         obj.navBar(controller:self,Title:TitleVc)
-       
+        
         // objOD.EmptyUserDefaults()
     }
     
@@ -142,6 +143,18 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate {
        
         PickUpLocation.text = Pick_Detail.PickLocation
     }
+    
+    func mapNotification(){
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.ShowError(_:)), name: NSNotification.Name(rawValue:"ShowError"), object: nil)}
+    
+    func ShowError(_ notification: NSNotification) {
+        
+        if let error = notification.userInfo?["error"] as? String {
+          
+            self.objOD.alert(message:error,title: "Failed" ,controller: self)        }
+    }
+
     
     // Mark ~ Delegate Methods
     func revealController(_ revealController: SWRevealViewController!, animateTo position: FrontViewPosition) {

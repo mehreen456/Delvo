@@ -20,8 +20,8 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate {
     @IBOutlet weak var DropDLine: UIView!
 
     var MapVC: MapViewController?
-    var obj = DelvoMethods()
-    
+    let obj = DelvoMethods()
+    let objOD = OrderDescClassMethods()
     let ToastMsgDrop = "Please enter drop address to proceed"
     let ToastMsgNearBy = "Please select near by place"
     let DefaultText = "Near by location"
@@ -129,6 +129,17 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate {
         DropLocation.text = Drop_Detail.DropLocation
     }
     
+    func mapNotification(){
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.ShowError(_:)), name: NSNotification.Name(rawValue:"ShowError"), object: nil)}
+    
+    func ShowError(_ notification: NSNotification) {
+        
+        if let error = notification.userInfo?["error"] as? String {
+            
+            self.objOD.alert(message:error,title: "Failed" ,controller: self)        }
+    }
+
     func setTextFields(){
         
         DropLocation.text = Drop_Detail.DropLocation
@@ -141,7 +152,7 @@ class DropViewController: UIViewController ,SWRevealViewControllerDelegate {
     }
     
     @IBAction func GoToPick(_ sender: Any) {
-       // _ = self.navigationController?.popToRootViewController(animated: true)
+      
       self.performSegue(withIdentifier: "GoPick", sender: self)
     }
     

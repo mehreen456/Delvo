@@ -32,6 +32,7 @@
 		188FF2FD1E9E5C7F00C7A6A1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188FF2FB1E9E5C7F00C7A6A1 /* FBSDKCoreKit.framework */; };
 		188FF2FE1E9E5C8000C7A6A1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188FF2FC1E9E5C7F00C7A6A1 /* FBSDKLoginKit.framework */; };
 		188FF30A1E9F4AC300C7A6A1 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188FF3091E9F4AC300C7A6A1 /* Bolts.framework */; };
+		189281671EE53F4B00BFA736 /* OrderDetailVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189281661EE53F4B00BFA736 /* OrderDetailVc.swift */; };
 		189289EA1E66E07400892ACC /* OrderDescClassMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189289E91E66E07400892ACC /* OrderDescClassMethods.swift */; };
 		1893A1701EA9E99E005589E1 /* VerifyUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893A16F1EA9E99E005589E1 /* VerifyUser.swift */; };
 		18A30B6B1E92273E0062BB57 /* UserSignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A30B6A1E92273E0062BB57 /* UserSignIn.swift */; };
@@ -83,6 +84,7 @@
 		188FF2FB1E9E5C7F00C7A6A1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		188FF2FC1E9E5C7F00C7A6A1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		188FF3091E9F4AC300C7A6A1 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		189281661EE53F4B00BFA736 /* OrderDetailVc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailVc.swift; sourceTree = "<group>"; };
 		189289E91E66E07400892ACC /* OrderDescClassMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDescClassMethods.swift; sourceTree = "<group>"; };
 		1893A16F1EA9E99E005589E1 /* VerifyUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerifyUser.swift; sourceTree = "<group>"; };
 		18A190981E8142AF00AAC44B /* Delvo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Delvo.entitlements; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 			children = (
 				1888D36D1E68295B009FEBA0 /* MyOrderCell.swift */,
 				1888D36E1E68295B009FEBA0 /* MyOrderCell.xib */,
+				189281661EE53F4B00BFA736 /* OrderDetailVc.swift */,
 			);
 			name = OrderCell;
 			sourceTree = "<group>";
@@ -390,7 +393,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		18858F371EDC010D000ECA75 /* Crash Reporting */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
@@ -398,7 +401,7 @@
 			name = "Crash Reporting";
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "# Replace this with the GOOGLE_APP_ID from your GoogleService-Info.plist file\nGOOGLE_APP_ID=1:510197773797:ios:e87390b6b92d7c5b\n\n# Replace the /Path/To/ServiceAccount.json with the path to the key you just downloaded\n\"${PODS_ROOT}\"/FirebaseCrash/upload-sym \"${PROJECT_DIR}/Key/CrashReportingKey.json\"\n\n";
 		};
@@ -476,6 +479,7 @@
 				18C4244F1E4FA290005E5546 /* MapViewController.swift in Sources */,
 				189289EA1E66E07400892ACC /* OrderDescClassMethods.swift in Sources */,
 				18C4245B1E4FAE9E005E5546 /* SideMenuViewController.swift in Sources */,
+				189281671EE53F4B00BFA736 /* OrderDetailVc.swift in Sources */,
 				18A30B731E9269340062BB57 /* UserSignUpVC.swift in Sources */,
 				181E64061E70076300918739 /* Model.swift in Sources */,
 				188CDBEB1E9B9CC70054EDCE /* CollectionViewController.swift in Sources */,

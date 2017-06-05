@@ -105,7 +105,7 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
         self.DropContact.rx.text.asObservable().subscribe(onNext: {
             text in
             
-            Drop_Detail.DropContact = self.DropContact.text!
+            Drop_Detail.DropContact = "92" + self.DropContact.text!
             
         }).addDisposableTo(diposeBag)
       
@@ -257,10 +257,11 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
                     }
 
                 }
-                self.PlaceOrder()
 
             }
         }
+        
+        self.PlaceOrder()
     }
     
     @IBAction func GoToPickLoc(_ sender: Any) {
@@ -302,7 +303,7 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
     func PlaceOrder(){
         
         let U_token = UserDefaults.standard.value(forKey: "UserToken") as! String
-        
+        self.dismissKeyboard()
         startAnimating(CGSize(width:50 ,height:50) , message: "Placing Order ..." , messageFont: UIFont.boldSystemFont(ofSize: 15) , type:.ballClipRotatePulse , color: UIColor.DoneButtonColor()
             , backgroundColor: UIColor.clear)
         self.LoaderView.isHidden=false

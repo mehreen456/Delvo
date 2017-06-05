@@ -28,7 +28,7 @@ class ApiParsing: NSObject {
     let GetProfileInfoApi = "http://138.197.112.122/consumer_api/v1/my_profile"
     let COMPANY_API_KEY = "ca82f9c0-e4ef-4a1c-a378-18884e7a07c1"
     let myOrdersApi = "http://138.197.112.122/consumer_api/v1/orders"
-   
+    
     func PlaceOrder(token:String , Success:@escaping (String) -> (),failure: @escaping (String) -> () ,Failure: @escaping (NSError) -> ()){
         
         let params = self.PlaceOrder()
@@ -50,18 +50,20 @@ class ApiParsing: NSObject {
                 if let result = response.result.value {
                     
                     let json = result as! NSDictionary
-                    let meta = json["meta"] as! NSDictionary
-                    print(json["data"] as! NSDictionary)
-                    let status = meta["status"] as! NSInteger
-                    let Message = meta["message"] as! String
-                   
+                    let status = response.response?.statusCode
                     if status == 200{
+                        
+                        let meta = json["meta"] as! NSDictionary
+                        let Message = meta["message"] as! String
+                        
                         Success(Message)
                     }
                         
                     else{
                         
-                        failure(Message)}
+                        let Message = json["message"]
+                        failure(Message as! String)}
+                    
                 }
         }
     }
@@ -88,15 +90,11 @@ class ApiParsing: NSObject {
                     
                     if status == 200{
                         
-                        
-                       // let imageData:NSData = UIImagePNGRepresentation(UIImage(named:"ProfileImg")!)! as NSData
-                      
                         let userProfile:[String : AnyObject] = [
                             
                             "Name": json["name"] as AnyObject,
                             "Contact": json["phone"] as AnyObject,
                             "Email": json["email"] as AnyObject,
-                          //  "Image": imageData as AnyObject
                             ]
                         
                         UserDefaults.standard.setValue(userProfile, forKey: "User")
@@ -132,35 +130,7 @@ class ApiParsing: NSObject {
                     
                     if status == 200{
                         
-                    let data = json["data"] as! NSArray
-                    var MyOrders = [[String:Dictionary<String, String>]]()
-                        for i in 0 ..< data.count{
-                           
-                            let order = data[i] as! NSDictionary
-                            
-                            let task = order["tasks"] as! NSArray
-                            let PickDetails = task[0] as! Dictionary <String,String>
-                            let DropDetails = task[1] as! Dictionary <String,String>
-                            let Charges = order["charges"] as! NSArray
-                            let booking = Charges[0] as! Dictionary <String,String>
-                            let delivery = Charges[1] as! Dictionary <String,String>
-                            var dict = [String: Dictionary<String, String>]()
-                            
-                            dict["order"] = [
-                                "PickTime":order["pickup_time"] as! String,
-                                "PickDate":order["pickup_date"] as! String,
-                                "DropTime":order["drop_time"] as! String,
-                                "DropDate":order["drop_date"] as! String ]
-
-                            dict["PickTask"] = ["details":PickDetails["details"]!,"address":PickDetails["address"]!,"name":PickDetails["name"]!,"contact": PickDetails["contact"]!]
-                            
-                             dict["DropTask"] = ["details":DropDetails["details"]!,"address":DropDetails["address"]!,"name": DropDetails["name"]!,"contact":DropDetails["contact"]!]
-                            
-                            dict["charges"] = ["B_amount":booking["amount"]!,"D_amount":delivery["amount"]!]
-                            
-                            MyOrders.append(dict)
-                        }
-                        UserDefaults.standard.setValue(MyOrders, forKey:"MyOrder")
+                        UserDefaults.standard.setValue(self.ParseOrder(Dic:json), forKey:"MyOrder")
                         Success(true)
                         
                     }
@@ -172,8 +142,56 @@ class ApiParsing: NSObject {
                 }
         }
     }
-
-
+    
+    func ParseOrder(Dic:NSDictionary) -> [[String:Dictionary<String, String>]] {
+        
+        let data = Dic["data"] as! NSArray
+        var MyOrders = [[String:Dictionary<String, String>]]()
+        for i in 0 ..< data.count{
+            
+            let order = data[i] as! NSDictionary
+            
+            let task = order["tasks"] as! NSArray
+            let PickDetails = task[0] as! NSDictionary
+            let DropDetails = task[1] as! NSDictionary
+            let Charges = order["charges"] as! NSArray
+            let booking = Charges[0] as! NSDictionary
+            let delivery = Charges[1] as! NSDictionary
+            let B_Amount = booking["amount"] as! NSNumber
+            let D_Amount = delivery["amount"] as! NSNumber
+            var dict = [String: Dictionary<String, String>]()
+            
+            dict["order"] = [
+                "PickTime":formatTime(time:(order["pickup_time"] as! String)),
+                "PickDate":order["pickup_date"] as! String,
+                "DropTime":formatTime(time:(order["drop_time"] as! String)),
+                "DropDate":order["drop_date"] as! String]
+            
+            let P_time = PickDetails["contact"]as! String
+            let D_time = DropDetails["contact"]as! String
+            
+            dict["PickTask"] = [
+                "details":PickDetails["details"] as! String,
+                "address":PickDetails["address"]as! String,
+                "name":PickDetails["name"]as! String,
+                "contact": P_time,
+                "nearby": PickDetails["nearby"]as! String]
+            
+            dict["DropTask"] = [
+                "details":DropDetails["details"]as! String,
+                "address":DropDetails["address"]as! String,
+                "name": DropDetails["name"]as! String,
+                "contact": D_time ,
+                "nearby": DropDetails["nearby"]as! String]
+            
+            dict["charges"] = [
+                "B_amount": B_Amount.stringValue,
+                "D_amount":D_Amount.stringValue]
+            
+            MyOrders.append(dict)
+        }
+        return MyOrders
+    }
     
     func VerifyUser(phone:String,password:String , Success:@escaping (String) -> (),failure: @escaping (String,Int) -> () ,Failure: @escaping (NSError) -> ()){
         
@@ -192,7 +210,7 @@ class ApiParsing: NSObject {
                 if response.result.error != nil
                 {
                     Failure(response.result.error! as NSError)}
-        
+                
                 if let result = response.result.value {
                     let status = response.response?.statusCode
                     let json = result as! NSDictionary
@@ -280,7 +298,7 @@ class ApiParsing: NSObject {
                 }
         }
     }
-
+    
     
     func UserSignUp(Name:String,Phone:String,Email:String,Password:String,Password_confirmation:String , Success:@escaping (String) -> (),failure: @escaping (String) -> () ,Failure: @escaping (NSError) -> ()){
         
@@ -301,7 +319,7 @@ class ApiParsing: NSObject {
                     Failure(response.result.error! as NSError)}
                 
                 if let result = response.result.value {
-                   
+                    
                     let json = result as! NSDictionary
                     let status = response.response?.statusCode
                     
@@ -410,7 +428,7 @@ class ApiParsing: NSObject {
         
         return params as (NSDictionary)
     }
-
+    
     
     func UserSignUpInfo(name:String,phone:String,email:String,password:String,password_confirmation:String) -> (NSDictionary){
         
@@ -441,7 +459,7 @@ class ApiParsing: NSObject {
         
         return params as (NSDictionary)
     }
-
+    
     
     func ParamsPlaceOrder(name:String,phone:String,detail:String) -> (NSDictionary){
         
@@ -465,9 +483,9 @@ class ApiParsing: NSObject {
         
         
         let params = [
-            "pickup_time" : Pick_Detail.PickUpTime,
+            "pickup_time" : Pick_Detail.PickUpDate + " " + Pick_Detail.PickUpTime,
             "pickup_date" : Pick_Detail.PickUpDate,
-            "drop_time": Drop_Detail.DropTime,
+            "drop_time":  Drop_Detail.DropDate + " " + Drop_Detail.DropTime,
             "drop_date": Drop_Detail.DropDate,
             "totaldistance": "5.2",
             "order_type": "time_critical",
@@ -514,21 +532,32 @@ class ApiParsing: NSObject {
         
         return params as (NSDictionary)
     }
-
+    
     
     func PlaceOrder() -> (NSDictionary) {
-    
-    let params = [
         
-    "order": OrderKeyValue(),
-    "tasks": [
-        
-        task1KeyValue(),
-        task2KeyValue()
-        ]
-    ]as [String : Any]
+        let params = [
+            
+            "order": OrderKeyValue(),
+            "tasks": [
+                
+                task1KeyValue(),
+                task2KeyValue()
+            ]
+            ]as [String : Any]
         
         return params as (NSDictionary)
+    }
+    
+    func formatTime(time:String) -> String{
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000Z"
+        let date = dateFormatter.date(from: time)
+        dateFormatter.dateFormat = "h:mm a"
+        let DateString = dateFormatter.string(from: date!)
+        return DateString
+        
     }
     
     
