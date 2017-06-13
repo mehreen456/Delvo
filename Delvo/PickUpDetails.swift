@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 
 class PickUpDetails: UIViewController  {
-
+    
     @IBOutlet weak var DetailView: UIView!
     @IBOutlet weak var NameView: UIView!
     @IBOutlet weak var AddressView: UIView!
@@ -34,7 +34,7 @@ class PickUpDetails: UIViewController  {
     @IBOutlet weak var DDLine: UIView!
     @IBOutlet weak var DLocLine: UIView!
     @IBOutlet weak var DropLocButton: UIButton!
-   
+    
     let DatePicker = UIDatePicker()
     let TimePicker = UIDatePicker()
     let DefaultText = "PickUp Details"
@@ -48,8 +48,8 @@ class PickUpDetails: UIViewController  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
-       self.navigationItem.setHidesBackButton(true, animated: false)
+        
+        self.navigationItem.setHidesBackButton(true, animated: false)
         self.DateView.setBottomBorder()
         self.TimeView.setBottomBorder()
         MoveToVc.visitPD=true
@@ -110,7 +110,7 @@ class PickUpDetails: UIViewController  {
             DropLocButton.isUserInteractionEnabled = true
             
         }
-
+        
     }
     
     @IBAction func CheckButton(_ sender: Any) {
@@ -119,7 +119,7 @@ class PickUpDetails: UIViewController  {
             self.AmountView.isHidden = false
             self.PickUpAmount.isHidden = false
             self.CheckButton.setImage(UIImage(named:"PayCheck"), for: .normal)
-            }
+        }
             
         else{
             self.CheckButton.setImage(UIImage(named:"PayUncheck"), for: .normal)
@@ -133,24 +133,24 @@ class PickUpDetails: UIViewController  {
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         
         if identifier == "Drop"{
-           
-        guard PickUpDetail.text != DefaultText && PickUpDetail.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) != "" && SenderAddress.text != "" && SenderContact.text != "" && PickUpTime.text != "" && PickUpDate.text != "" && SenderName.text != "" else {
             
-            DMobj.Toast(view: self.view, ToastView: self.ToastView, message:"Please fill the fields.")
-            return false
-        }
+            guard PickUpDetail.text != DefaultText && PickUpDetail.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) != "" && SenderAddress.text != "" && SenderContact.text != "" && PickUpTime.text != "" && PickUpDate.text != "" && SenderName.text != "" else {
                 
-        if !obj.validate(phoneNumber: self.SenderContact.text!) {
-            self.obj.alert(message: PhoneValidationError, controller: self)
-            ContactView.addRedBorder()
-            return false
-        }
-        else{
-            ContactView.removeBorder()
-        }
+                DMobj.Toast(view: self.view, ToastView: self.ToastView, message:"Please fill the fields.")
+                return false
+            }
             
-        return checkDate()
-        
+            if !obj.validate(phoneNumber: self.SenderContact.text!) {
+                self.obj.alert(message: PhoneValidationError, controller: self)
+                ContactView.addRedBorder()
+                return false
+            }
+            else{
+                ContactView.removeBorder()
+            }
+            
+            return checkDate()
+            
         }
         return false
     }
@@ -160,7 +160,7 @@ class PickUpDetails: UIViewController  {
         origin = self.view.frame.origin.y
         self.frameorigin = self.view.frame
     }
-
+    
     func setTextFields(){
         
         self.SenderName.rx.text.asObservable().subscribe(onNext: {
@@ -181,7 +181,7 @@ class PickUpDetails: UIViewController  {
         self.SenderContact.rx.text.asObservable().subscribe(onNext: {
             text in
             
-            Pick_Detail.PickContact = "92" + self.SenderContact.text!
+            Pick_Detail.PickContact =  self.SenderContact.text!
             
         }).addDisposableTo(diposeBag)
         
@@ -230,7 +230,8 @@ class PickUpDetails: UIViewController  {
         toolbar.setItems([doneButton], animated: false)
         PickUpTime.inputAccessoryView = toolbar
         PickUpTime.inputView = TimePicker
-    }
+        DonePressedTime()
+           }
     
     func DonePressedTime(){
         
@@ -238,10 +239,8 @@ class PickUpDetails: UIViewController  {
         dateFormater.dateStyle = .none
         dateFormater.timeStyle = .medium
         dateFormater.dateFormat = "h:mm a"
-      //  dateFormater.timeZone = NSTimeZone(name: "GMT") as TimeZone!
-        PickUpTime.text = dateFormater.string(for: TimePicker.date)
-        dateFormater.dateFormat = "HH:mm"
         Pick_Detail.PickUpTime = dateFormater.string(for: TimePicker.date)!
+        PickUpTime.text = dateFormater.string(for: TimePicker.date)
         self.view.endEditing(true)
     }
     
@@ -253,12 +252,13 @@ class PickUpDetails: UIViewController  {
         DatePicker.backgroundColor = UIColor.white
         DatePicker.setValue(UIColor.ToastViewColor()
             , forKeyPath: "textColor")
-        DatePicker.minimumDate = NSDate() as Date
+        DatePicker.minimumDate = Date()
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(DonePressedDate))
         doneButton.tintColor = UIColor.DoneButtonColor()
         toolbar.setItems([doneButton], animated: false)
         PickUpDate.inputAccessoryView = toolbar
         PickUpDate.inputView = DatePicker
+        DonePressedDate()
     }
     
     func DonePressedDate(){
@@ -266,9 +266,8 @@ class PickUpDetails: UIViewController  {
         let dateFormater = DateFormatter()
         dateFormater.dateStyle = .medium
         dateFormater.timeStyle = .none
-        dateFormater.dateFormat = "MM-dd-yyyy"
+        dateFormater.dateFormat = "dd-MM-yyyy"
         PickUpDate.text = dateFormater.string(for: DatePicker.date)
-        dateFormater.dateFormat = "yyyy-MM-dd"
         Pick_Detail.PickUpDate = dateFormater.string(for: DatePicker.date)!
         self.view.endEditing(true)
     }
@@ -277,11 +276,11 @@ class PickUpDetails: UIViewController  {
         
         let date = Date()
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.dateFormat = "dd-MM-yyyy"
         if Pick_Detail.PickUpDate == formatter.string(for:date){
             
             let formatter = DateFormatter()
-            formatter.dateFormat="HH:mm"
+            formatter.dateFormat="h:mm a"
             let currdate = formatter.string(for:date)
             let TimeA = formatter.date(from: Pick_Detail.PickUpTime)
             let TimeB = formatter.date(from: currdate!)
@@ -299,16 +298,16 @@ class PickUpDetails: UIViewController  {
     @IBAction func GoToPickLoc(_ sender: Any) {
         
         self.performSegue(withIdentifier: "RPick", sender: self)
-     
+        
     }
     @IBAction func DropDButtonA(_ sender: Any){
-       self.performSegue(withIdentifier: "GoDropD", sender: self)
+        self.performSegue(withIdentifier: "GoDropD", sender: self)
         
     }
     @IBAction func DropLocButtonA(_ sender: Any) {
-       self.performSegue(withIdentifier: "Drop", sender: self)
+        self.performSegue(withIdentifier: "Drop", sender: self)
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         self.view.endEditing(true)
@@ -370,14 +369,14 @@ extension PickUpDetails: UITextFieldDelegate, UITextViewDelegate{
             self.view.frame.origin.y = self.origin! - 150
         }
         
-            return true
+        return true
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         
         self.view.frame.origin.y = self.origin!
         return true
-
+        
     }
     
 }

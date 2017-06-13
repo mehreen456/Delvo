@@ -26,8 +26,9 @@ class ApiParsing: NSObject {
     let verifyPinApi = "http://138.197.112.122/consumer_api/v1/verify_pin"
     let resendPinApi = "http://138.197.112.122/consumer_api/v1/resend_pin"
     let GetProfileInfoApi = "http://138.197.112.122/consumer_api/v1/my_profile"
-    let COMPANY_API_KEY = "ca82f9c0-e4ef-4a1c-a378-18884e7a07c1"
+    let COMPANY_API_KEY = "fa66dede-348e-4c14-b628-7c49d985398e"
     let myOrdersApi = "http://138.197.112.122/consumer_api/v1/orders"
+    var updateProfileApi = "http://138.197.112.122/consumer_api/v1/consumers/"
     
     func PlaceOrder(token:String , Success:@escaping (String) -> (),failure: @escaping (String) -> () ,Failure: @escaping (NSError) -> ()){
         
@@ -58,12 +59,10 @@ class ApiParsing: NSObject {
                         
                         Success(Message)
                     }
-                        
                     else{
                         
                         let Message = json["message"]
                         failure(Message as! String)}
-                    
                 }
         }
     }
@@ -95,7 +94,8 @@ class ApiParsing: NSObject {
                             "Name": json["name"] as AnyObject,
                             "Contact": json["phone"] as AnyObject,
                             "Email": json["email"] as AnyObject,
-                            ]
+                            "User_id" : json["id"] as AnyObject
+                        ]
                         
                         UserDefaults.standard.setValue(userProfile, forKey: "User")
                         Success(true)
@@ -108,6 +108,57 @@ class ApiParsing: NSObject {
                 }
         }
     }
+    
+    func UpdateProfile(token:String,id:Int,name:String,email:String, Success:@escaping (Bool) -> (),failure: @escaping (String) -> () ,Failure: @escaping (NSError) -> ()){
+        
+        let headers: HTTPHeaders = [
+            
+            "Authorization":token,
+            "COMPANYAPIKEY": COMPANY_API_KEY
+        ]
+        
+        let params = [
+            "name": name,
+            "status": email
+            ] as [String : Any]
+        
+        
+        let api = updateProfileApi + id.description
+        
+        Alamofire.request(api, method: .patch, parameters: params , encoding: JSONEncoding.default, headers: headers)
+            .responseJSON { response in
+                
+                if response.result.error != nil
+                {
+                    Failure(response.result.error! as NSError)}
+                
+                if let result = response.result.value {
+                    
+                    let status = response.response?.statusCode
+                    let json = result as! NSDictionary
+                    
+                    if status == 200{
+                        
+                        let userProfile:[String : AnyObject] = [
+                            
+                            "Name": json["name"] as AnyObject,
+                            "Contact": json["phone"] as AnyObject,
+                            "Email": json["email"] as AnyObject,
+                            "User_id" : json["id"] as AnyObject
+                        ]
+                        
+                        UserDefaults.standard.setValue(userProfile, forKey: "User")
+                        Success(true)
+                    }
+                        
+                    else{
+                        
+                        let Message = json["message"]
+                        failure(Message as! String)}
+                }
+        }
+    }
+    
     func MyOrders(token:String, Success:@escaping (Bool) -> (),failure: @escaping (String) -> () ,Failure: @escaping (NSError) -> ()){
         
         let headers: HTTPHeaders = [
@@ -165,7 +216,7 @@ class ApiParsing: NSObject {
                 "PickTime":formatTime(time:(order["pickup_time"] as! String)),
                 "PickDate":order["pickup_date"] as! String,
                 "DropTime":formatTime(time:(order["drop_time"] as! String)),
-                "DropDate":order["drop_date"] as! String]
+                "DropDate":order["pickup_date"] as! String]
             
             let P_time = PickDetails["contact"]as! String
             let D_time = DropDetails["contact"]as! String
@@ -333,8 +384,7 @@ class ApiParsing: NSObject {
                         let EMessage = json["message"] as! String
                         failure(EMessage)
                     }
-                }
-        }
+                }}
     }
     
     func GetLatLng(placeID: String , Success:@escaping (NSDictionary) -> (), Failure: @escaping (NSError) -> ()){
@@ -483,9 +533,9 @@ class ApiParsing: NSObject {
         
         
         let params = [
-            "pickup_time" : Pick_Detail.PickUpDate + " " + Pick_Detail.PickUpTime,
+            "pickup_time" :  changeFormat(time:Pick_Detail.PickUpTime),
             "pickup_date" : Pick_Detail.PickUpDate,
-            "drop_time":  Drop_Detail.DropDate + " " + Drop_Detail.DropTime,
+            "drop_time":  changeFormat(time:Drop_Detail.DropTime),
             "drop_date": Drop_Detail.DropDate,
             "totaldistance": "5.2",
             "order_type": "time_critical",
@@ -500,7 +550,7 @@ class ApiParsing: NSObject {
         
         let params = [
             "name": Pick_Detail.PickName,
-            "contact": Pick_Detail.PickContact,
+            "contact": "+92" + Pick_Detail.PickContact,
             "task_type": "true",
             "details": Pick_Detail.PickUpDetail,
             "nearby": Pick_Detail.PickLocation,
@@ -519,7 +569,7 @@ class ApiParsing: NSObject {
         
         let params = [
             "name": Drop_Detail.DropName,
-            "contact": Drop_Detail.DropContact,
+            "contact": "+92" + Drop_Detail.DropContact,
             "task_type": "false",
             "details": Drop_Detail.DropDetail,
             "nearby": Drop_Detail.DropLocation,
@@ -553,13 +603,23 @@ class ApiParsing: NSObject {
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.000Z"
+        dateFormatter.timeZone = TimeZone(identifier:"GMT")
         let date = dateFormatter.date(from: time)
+        
         dateFormatter.dateFormat = "h:mm a"
         let DateString = dateFormatter.string(from: date!)
         return DateString
-        
     }
     
-    
+    func changeFormat(time:String) -> String{
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        let date = dateFormatter.date(from: time)
+        
+        dateFormatter.dateFormat = "HH:mm"
+        let DateString = dateFormatter.string(from: date!)
+        return DateString
+    }
 }
 
