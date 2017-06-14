@@ -24,23 +24,20 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Splash" translatesAutoresizingMaskIntoConstraints="NO" id="Dw1-Ew-Ebc">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DELIVERY CHACHA" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qia-G3-Bfr">
-                                <rect key="frame" x="107" y="358" width="162" height="24"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="QEM-5v-wnb"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DELIVERY CHACHA!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qia-G3-Bfr">
+                                <rect key="frame" x="70.5" y="319.5" width="234.5" height="29.5"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="25"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Qia-G3-Bfr" firstAttribute="top" secondItem="f4h-t6-D4i" secondAttribute="bottom" constant="338" id="3Go-L2-gs1"/>
-                            <constraint firstItem="Qia-G3-Bfr" firstAttribute="centerX" secondItem="ReA-Lf-Bbp" secondAttribute="centerX" id="UkQ-We-ePm"/>
+                            <constraint firstItem="Qia-G3-Bfr" firstAttribute="centerY" secondItem="ReA-Lf-Bbp" secondAttribute="centerY" id="Ozz-TX-fi2"/>
                             <constraint firstItem="Dw1-Ew-Ebc" firstAttribute="top" secondItem="ReA-Lf-Bbp" secondAttribute="top" id="cBC-Ck-KFK"/>
                             <constraint firstItem="Dw1-Ew-Ebc" firstAttribute="leading" secondItem="ReA-Lf-Bbp" secondAttribute="leading" id="gHL-E0-gEc"/>
                             <constraint firstAttribute="trailing" secondItem="Dw1-Ew-Ebc" secondAttribute="trailing" id="hnT-8R-0pM"/>
+                            <constraint firstItem="Qia-G3-Bfr" firstAttribute="centerX" secondItem="ReA-Lf-Bbp" secondAttribute="centerX" id="mnL-tw-ZwO"/>
                             <constraint firstAttribute="trailing" secondItem="Dw1-Ew-Ebc" secondAttribute="trailing" id="ooC-sN-fz1"/>
                             <constraint firstItem="Dw1-Ew-Ebc" firstAttribute="leading" secondItem="ReA-Lf-Bbp" secondAttribute="leading" id="rds-a1-MBw"/>
                             <constraint firstItem="iaP-om-b0C" firstAttribute="top" secondItem="Dw1-Ew-Ebc" secondAttribute="bottom" id="zVP-2b-fwS"/>

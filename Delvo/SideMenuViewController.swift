@@ -12,7 +12,7 @@ import RxCocoa
 
 class SideMenuViewController: UIViewController {
 
-        @IBOutlet weak var MenuTable: UITableView!
+    @IBOutlet weak var MenuTable: UITableView!
     @IBOutlet weak var UserNameLabel: UILabel!
     @IBOutlet weak var LogoImage: UIImageView!
   

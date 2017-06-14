@@ -42,13 +42,17 @@ class ChangePasswordVc: UIViewController {
     }
     
     @IBAction func SavePassword(_ sender: Any){
-        
+       
+        if NewPass.text != RetypePass.text {
+         //    self.obj.alert(message: "Password doesn't match", controller: self)
+            return
+        }
         
     }
     func dismissKeyboard() {
         
         view.endEditing(true)
-//self.view.frame.origin.y = origin!
+        // self.view.frame.origin.y = origin!
     }
     
 }

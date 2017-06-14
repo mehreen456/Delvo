@@ -26,17 +26,26 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iw5-gY-F2V">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="iw5-gY-F2V" secondAttribute="bottom" id="BoA-Pe-OJD"/>
+                            <constraint firstItem="iw5-gY-F2V" firstAttribute="leading" secondItem="koh-dq-xQx" secondAttribute="leading" id="HeR-uQ-Kqv"/>
                             <constraint firstItem="Uk3-uH-S1G" firstAttribute="top" secondItem="koh-dq-xQx" secondAttribute="top" id="Rly-84-BhR"/>
                             <constraint firstItem="Pyj-vH-T2Q" firstAttribute="top" secondItem="Uk3-uH-S1G" secondAttribute="bottom" id="ama-vv-iTa"/>
+                            <constraint firstAttribute="trailing" secondItem="iw5-gY-F2V" secondAttribute="trailing" id="d7A-CA-lOZ"/>
                             <constraint firstAttribute="trailing" secondItem="Uk3-uH-S1G" secondAttribute="trailing" id="hjn-Bb-yAk"/>
+                            <constraint firstItem="iw5-gY-F2V" firstAttribute="top" secondItem="koh-dq-xQx" secondAttribute="top" id="pmh-1b-2Yw"/>
                             <constraint firstItem="Uk3-uH-S1G" firstAttribute="leading" secondItem="koh-dq-xQx" secondAttribute="leading" id="zwB-R0-rT8"/>
                         </constraints>
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="LoaderView" destination="iw5-gY-F2V" id="yTd-5b-sdP"/>
                         <outlet property="MyOrderTable" destination="Uk3-uH-S1G" id="GSc-90-0bg"/>
                     </connections>
                 </viewController>

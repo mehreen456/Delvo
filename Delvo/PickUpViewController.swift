@@ -14,19 +14,15 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate {
     
     @IBAction func DropDetailButtonA(_ sender: Any) {
         
-       self.performSegue(withIdentifier: "GoDropD", sender: self)
-        
-    }
+       self.performSegue(withIdentifier: "GoDropD", sender: self)}
+    
     @IBAction func DropLocButtonA(_ sender: Any) {
        
-      self.performSegue(withIdentifier: "DropLoc", sender: self)
-    }
+      self.performSegue(withIdentifier: "DropLoc", sender: self)}
+    
     @IBAction func PickDetailButtonA(_ sender: Any) {
       
-      self.performSegue(withIdentifier: "Proceed", sender: self)
-        
-    }
-    
+      self.performSegue(withIdentifier: "Proceed", sender: self)}
     
     @IBOutlet weak var DropLocButton: UIButton!
     @IBOutlet weak var DropDView: UIView!
@@ -66,7 +62,6 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate {
         
         // objOD.EmptyUserDefaults()
     }
-    
 
     override func viewWillAppear(_ animated: Bool) {
         
@@ -98,7 +93,6 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate {
     }
     
     // Mark ~ Segue
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == SearchSegue
@@ -118,6 +112,7 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate {
                 obj.Toast(view: self.view, ToastView: self.ToastView, message:ToastMsgNearBy)
                 return false
             }
+        return true
         }
     
         return true
@@ -155,7 +150,6 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate {
             self.objOD.alert(message:error,title: "Failed" ,controller: self)        }
     }
 
-    
     // Mark ~ Delegate Methods
     func revealController(_ revealController: SWRevealViewController!, animateTo position: FrontViewPosition) {
         

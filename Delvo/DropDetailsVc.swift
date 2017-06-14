@@ -56,10 +56,11 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
         DMobj.AddGesture(controller: self)
         self.DropContact.inputAccessoryView = obj.AddDoneButton(controller: self)
         self.TimePickerMethod()
-        self.DatePickerMethod()
         self.TimeView.setBottomBorder()
         self.DateView.setBottomBorder()
         self.setViews()
+        Drop_Detail.DropDate = Pick_Detail.PickUpDate
+        DropDate.isEnabled = false
     }
     
     func setViews(){
@@ -77,12 +78,11 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
         self.DropContact.text = Drop_Detail.DropContact
         self.DropAddress.text = Drop_Detail.DropAddress
         self.DropTime.text = Drop_Detail.DropTime
-        self.DropDate.text = Drop_Detail.DropDate
+        self.DropDate.text = Pick_Detail.PickUpDate
         
         if Drop_Detail.DropDetail != ""{
             self.DropDetail.text = Drop_Detail.DropDetail
         }
-       
         self.setTextFields()
     }
     
@@ -105,7 +105,7 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
         self.DropContact.rx.text.asObservable().subscribe(onNext: {
             text in
             
-            Drop_Detail.DropContact = "92" + self.DropContact.text!
+            Drop_Detail.DropContact =  self.DropContact.text!
             
         }).addDisposableTo(diposeBag)
       
@@ -115,7 +115,6 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
             Drop_Detail.DropDetail = self.DropDetail.text!
             
         }).addDisposableTo(diposeBag)
-        
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
@@ -144,6 +143,7 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
         view.endEditing(true)
         self.view.frame.origin.y = origin!
     }
+    
     func TimePickerMethod(){
         
         let toolbar = UIToolbar()
@@ -154,15 +154,17 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
             , forKeyPath: "textColor")
         let calendar = Calendar.current
         let formatter = DateFormatter()
-        formatter.dateFormat="HH:mm"
+        formatter.dateFormat="h:mm a"
         let TimeA = formatter.date(from: Pick_Detail.PickUpTime)
         let date:Date = calendar.date(byAdding: .minute, value: 45, to: TimeA!)!
+        TimePicker.minimumDate = date
         TimePicker.date = date
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(DonePressedTime))
         doneButton.tintColor = UIColor.DoneButtonColor()
         toolbar.setItems([doneButton], animated: false)
         DropTime.inputAccessoryView = toolbar
         DropTime.inputView = TimePicker
+        DonePressedTime()
     }
     
     func DonePressedTime(){
@@ -171,99 +173,11 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
         dateFormater.dateStyle = .none
         dateFormater.timeStyle = .medium
         dateFormater.dateFormat="h:mm a"
-      //  dateFormater.timeZone = NSTimeZone(name: "GMT") as TimeZone!
         DropTime.text = dateFormater.string(for: TimePicker.date)
-        dateFormater.dateFormat = "HH:mm"
         Drop_Detail.DropTime = dateFormater.string(for: TimePicker.date)!
         self.view.endEditing(true)
     }
-    
-    func DatePickerMethod(){
         
-        let toolbar = UIToolbar()
-        toolbar.sizeToFit()
-        DatePicker.datePickerMode = .date
-        DatePicker.backgroundColor = UIColor.white
-        DatePicker.setValue(UIColor.ToastViewColor()
-            , forKeyPath: "textColor")
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateFormatter.locale = Locale.init(identifier: "en_GB")
-        let dateA:Date = dateFormatter.date(from: Pick_Detail.PickUpDate)!
-         dateFormatter.dateFormat = "MM-dd-yyyy"
-        DatePicker.minimumDate = dateA
-        DatePicker.date = dateA
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(DonePressedDate))
-        doneButton.tintColor = UIColor.DoneButtonColor()
-        
-        toolbar.setItems([doneButton], animated: false)
-        DropDate.inputAccessoryView = toolbar
-        DropDate.inputView = DatePicker
-    }
-    
-    func DonePressedDate(){
-        
-        let dateFormater = DateFormatter()
-        dateFormater.dateStyle = .medium
-        dateFormater.timeStyle = .none
-        dateFormater.dateFormat = "MM-dd-yyyy"
-        DatePicker.minimumDate = Date()
-        DropDate.text = dateFormater.string(for: DatePicker.date)
-        dateFormater.dateFormat = "yyyy-MM-dd"
-        Drop_Detail.DropDate = dateFormater.string(for: DatePicker.date)!
-        self.view.endEditing(true)
-    }
-    
-    func ComapareDates(){
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateFormatter.locale = Locale.init(identifier: "en_GB")
-        
-        let dateA = dateFormatter.date(from: Pick_Detail.PickUpDate)
-        
-        let dateB = dateFormatter.date(from: Drop_Detail.DropDate)
-       
-        if dateA! > dateB!{
-            
-            self.obj.alert(message: "Invalid Date. Please Change PickUp Date.", controller: self)
-            return
-        }
-        
-        if dateA! == dateB!{
-            
-            let formatter = DateFormatter()
-            formatter.dateFormat = "HH:mm"
-            let TimeA = formatter.date(from: Pick_Detail.PickUpTime)
-            let TimeB = formatter.date(from: Drop_Detail.DropTime)
-            
-            let calendar = NSCalendar.current
-            let components: DateComponents = calendar.dateComponents([.hour, .minute, .second], from: TimeA!, to: TimeB!)
-            
-            if TimeA! >= TimeB! {
-                
-                self.obj.alert(message: "Invalid Time. Drop time can not be less than pickup time.", controller: self)
-                return
-            }
-            
-            else{
-                
-                if components.hour! == 0{
-                  
-                    if  components.minute! < 45 {
-                        
-                        self.obj.alert(message: "Invalid Time. Can't deliver order before 45 minutes.", controller: self)
-                        return
-                    }
-
-                }
-
-            }
-        }
-        
-        self.PlaceOrder()
-    }
-    
     @IBAction func GoToPickLoc(_ sender: Any) {
       
          self.performSegue(withIdentifier: "GoPick", sender: self)
@@ -296,7 +210,8 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
             ContactView.removeBorder()
         }
         
-        ComapareDates()
+        self.PlaceOrder()
+        //ComapareDates()
         
     }
 

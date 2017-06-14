@@ -138,26 +138,25 @@ class UserSignIn: UIViewController  , NVActivityIndicatorViewable{
                 
                 let info = result as! NSDictionary
                 let name = info.value(forKey: "name") as? String
-                var img = UIImage(named:"Profile.png")
-                
-                if let imageURL = info.value(forKey: "picture") as? NSDictionary {
-                    let data = imageURL.value(forKey: "data") as? NSDictionary
-                    let url = data?.value(forKey: "url") as? String
-                    
-                    if let Url = NSURL(string: url!) {
-                        
-                        if let imageData = NSData(contentsOf: Url as URL) {
-                            let str64 = imageData.base64EncodedData(options: .lineLength64Characters)
-                            let data: NSData = NSData(base64Encoded: str64 , options: .ignoreUnknownCharacters)!
-                            img = UIImage(data: data as Data)
-                        }
-                    }
-                }
+//                var img = UIImage(named:"Profile.png")
+//                
+//                if let imageURL = info.value(forKey: "picture") as? NSDictionary {
+//                    let data = imageURL.value(forKey: "data") as? NSDictionary
+//                    let url = data?.value(forKey: "url") as? String
+//                    
+//                    if let Url = NSURL(string: url!) {
+//                        
+//                        if let imageData = NSData(contentsOf: Url as URL) {
+//                            let str64 = imageData.base64EncodedData(options: .lineLength64Characters)
+//                            let data: NSData = NSData(base64Encoded: str64 , options: .ignoreUnknownCharacters)!
+//                            img = UIImage(data: data as Data)
+//                        }
+//                    }
+//                }
                 
                 let storyboard = UIStoryboard(name:"Main", bundle: Bundle.main)
                 let destination = storyboard.instantiateViewController(withIdentifier: "SignUp") as! UserSignUpVC
                 destination.FB_Name = name!
-                destination.image = img
                 self.present(destination, animated: true, completion: nil)
                 
             }}

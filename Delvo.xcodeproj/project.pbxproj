@@ -28,7 +28,6 @@
 		188E1FCC1E59B99B009508CD /* UIColor+AddColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188E1FCB1E59B99B009508CD /* UIColor+AddColor.swift */; };
 		188F9B231ED801D800F85699 /* app_logo.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 188F9B221ED801D800F85699 /* app_logo.pdf */; };
 		188FF02E1E9CECC7002CEEDF /* PlanCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188FF02D1E9CECC7002CEEDF /* PlanCollectionCell.swift */; };
-		188FF2F91E9E1B3000C7A6A1 /* UserSetPasswordVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188FF2F81E9E1B3000C7A6A1 /* UserSetPasswordVc.swift */; };
 		188FF2FD1E9E5C7F00C7A6A1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188FF2FB1E9E5C7F00C7A6A1 /* FBSDKCoreKit.framework */; };
 		188FF2FE1E9E5C8000C7A6A1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188FF2FC1E9E5C7F00C7A6A1 /* FBSDKLoginKit.framework */; };
 		188FF30A1E9F4AC300C7A6A1 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188FF3091E9F4AC300C7A6A1 /* Bolts.framework */; };
@@ -80,7 +79,6 @@
 		188E1FCB1E59B99B009508CD /* UIColor+AddColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+AddColor.swift"; path = "../UIColor+AddColor.swift"; sourceTree = "<group>"; };
 		188F9B221ED801D800F85699 /* app_logo.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = app_logo.pdf; sourceTree = "<group>"; };
 		188FF02D1E9CECC7002CEEDF /* PlanCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanCollectionCell.swift; sourceTree = "<group>"; };
-		188FF2F81E9E1B3000C7A6A1 /* UserSetPasswordVc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSetPasswordVc.swift; sourceTree = "<group>"; };
 		188FF2FB1E9E5C7F00C7A6A1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		188FF2FC1E9E5C7F00C7A6A1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		188FF3091E9F4AC300C7A6A1 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
@@ -267,7 +265,6 @@
 				18C424541E4FA899005E5546 /* SearchViewController.swift */,
 				18A30B6A1E92273E0062BB57 /* UserSignIn.swift */,
 				18A30B721E9269340062BB57 /* UserSignUpVC.swift */,
-				188FF2F81E9E1B3000C7A6A1 /* UserSetPasswordVc.swift */,
 				18BBBD061EA7786000DBD57E /* PickUpDetails.swift */,
 				18CFDB2B1EA885C100CF0538 /* DropDetailsVc.swift */,
 				1893A16F1EA9E99E005589E1 /* VerifyUser.swift */,
@@ -462,7 +459,6 @@
 				1893A1701EA9E99E005589E1 /* VerifyUser.swift in Sources */,
 				18C424591E4FAE36005E5546 /* Geocoding.swift in Sources */,
 				18B2275D1ED407A600AB6C8A /* ChangePasswordVc.swift in Sources */,
-				188FF2F91E9E1B3000C7A6A1 /* UserSetPasswordVc.swift in Sources */,
 				18C424551E4FA899005E5546 /* SearchViewController.swift in Sources */,
 				18C424351E4F8D4D005E5546 /* AppDelegate.swift in Sources */,
 				181316F71E51C7CB00910ADB /* DelvoMethods.swift in Sources */,

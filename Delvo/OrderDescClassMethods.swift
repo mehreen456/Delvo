@@ -48,6 +48,7 @@ class OrderDescClassMethods: NSObject {
         let PHONE_REGEX = "^[0-9]{10}$"
         let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
         let result =  phoneTest.evaluate(with: phoneNumber)
+        print(result)
         return result
     }
     
@@ -63,8 +64,7 @@ class OrderDescClassMethods: NSObject {
        
         return true
     }
-
-    
+  
     func AddDoneButton(controller: UIViewController) -> UIToolbar{
         
         let keyboardDoneButtonView = UIToolbar.init()
@@ -76,6 +76,4 @@ class OrderDescClassMethods: NSObject {
         keyboardDoneButtonView.items = [doneButton]
         return keyboardDoneButtonView
     }
-
-   
 }

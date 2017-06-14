@@ -9,12 +9,11 @@
 import UIKit
 import NVActivityIndicatorView
 
-class UserSignUpVC: UIViewController, UINavigationControllerDelegate , NVActivityIndicatorViewable{
+class UserSignUpVC: UIViewController , NVActivityIndicatorViewable{
     
     @IBOutlet weak var SignUpButton: UIButton!
     @IBOutlet weak var ToastView: UIView!
     @IBOutlet weak var LoaderView: UIView!
-    @IBOutlet weak var ProfileImage: UIImageView!
     @IBOutlet weak var U_FirstName: UITextField!
     @IBOutlet weak var U_Contact: UITextField!
     @IBOutlet weak var U_Email: UITextField!
@@ -26,9 +25,8 @@ class UserSignUpVC: UIViewController, UINavigationControllerDelegate , NVActivit
     @IBOutlet weak var UEmailView: UIView!
     @IBOutlet weak var UPasswordView: UIView!
     @IBOutlet weak var NameView: UIView!
-   
+    
     var FB_Name = ""
-    var image:UIImage? = nil
     let PhoneValidationError = "Invalid PhoneNo"
     let EmailValidationError = "Invalid Email"
     let DelvoMethodObj = DelvoMethods()
@@ -41,10 +39,8 @@ class UserSignUpVC: UIViewController, UINavigationControllerDelegate , NVActivit
         super.viewDidLoad()
         
         self.ToastView.isHidden = true
-        self.ProfileImage.GetCircularImage(color: UIColor.ToastViewColor().cgColor)
-        if FB_Name != "" && image != nil{
+        if FB_Name != ""{
             self.U_FirstName.text = FB_Name
-            self.ProfileImage.image = image
         }
         self.LoaderView.isHidden = true
         self.setDelegate()
@@ -65,15 +61,7 @@ class UserSignUpVC: UIViewController, UINavigationControllerDelegate , NVActivit
         self.UPasswordView.SetCorners(radius: 5)
         self.UConfirmPassView.SetCorners(radius: 5)
     }
-
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
-            ProfileImage.image = image
-            
-        }
-        self.dismiss(animated: true, completion: nil)
-    }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         return false    }
@@ -82,6 +70,8 @@ class UserSignUpVC: UIViewController, UINavigationControllerDelegate , NVActivit
     @IBAction func SignUp(_ sender: Any) {
         
         self.view.frame.origin.y = self.origin!
+        self.view.endEditing(true)
+        
         if  U_FirstName.text != "" && U_Contact.text != "" && Password.text != "" {
             
             self.CheckValidations()
@@ -186,13 +176,12 @@ class UserSignUpVC: UIViewController, UINavigationControllerDelegate , NVActivit
                 self.obj.alert(message:"Internet connection failed." ,title: "Failed" ,controller: self)
         })
     }
+    
     func removeLoader(){
         
         self.stopAnimating()
         self.LoaderView.isHidden=true
     }
-
-    
 }
 
 extension UserSignUpVC: UITextFieldDelegate{
@@ -222,7 +211,7 @@ extension UserSignUpVC: UITextFieldDelegate{
             
             self.view.frame.origin.y = self.origin! - 150
         }
-
+        
         return true
     }
     
@@ -230,7 +219,6 @@ extension UserSignUpVC: UITextFieldDelegate{
         
         self.view.frame.origin.y = self.origin!
         return true
-        
     }
 }
 
