@@ -29,6 +29,7 @@ class ApiParsing: NSObject {
     let COMPANY_API_KEY = "fa66dede-348e-4c14-b628-7c49d985398e"
     let myOrdersApi = "http://138.197.112.122/consumer_api/v1/orders"
     var updateProfileApi = "http://138.197.112.122/consumer_api/v1/consumers/"
+    let updatePasswordApi = "http://138.197.112.122/consumer_api/v1/change_password"
     
     func PlaceOrder(token:String , Success:@escaping (String) -> (),failure: @escaping (String) -> () ,Failure: @escaping (NSError) -> ()){
         
@@ -158,6 +159,45 @@ class ApiParsing: NSObject {
                 }
         }
     }
+    func UpdatePassword(token:String,id:Int,oldPass:String,newPass:String, Success:@escaping (Bool) -> (),failure: @escaping (String) -> () ,Failure: @escaping (NSError) -> ()){
+        
+        let headers: HTTPHeaders = [
+            
+            "Authorization":token,
+            "COMPANYAPIKEY": COMPANY_API_KEY
+        ]
+        
+        let params = [
+            
+            "old_password": oldPass,
+            "password": newPass
+            
+            ] as [String : Any]
+        
+        Alamofire.request(updatePasswordApi, method: .patch, parameters: params , encoding: JSONEncoding.default, headers: headers)
+            .responseJSON { response in
+                
+                if response.result.error != nil
+                {
+                    Failure(response.result.error! as NSError)}
+                
+                if let result = response.result.value {
+                    
+                    let status = response.response?.statusCode
+                    let json = result as! NSDictionary
+                    
+                    if status == 200{
+                        Success(true)
+                    }
+                        
+                    else{
+                        
+                        let Message = json["message"]
+                        failure(Message as! String)}
+                }
+        }
+    }
+
     
     func MyOrders(token:String, Success:@escaping (Bool) -> (),failure: @escaping (String) -> () ,Failure: @escaping (NSError) -> ()){
         

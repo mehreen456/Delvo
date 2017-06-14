@@ -75,8 +75,7 @@ struct UserInfo{
     static var Name = String()
     static var Phone = String()
     static var Email = String()
-    static var Password = String()
-    static var image = Data()
+    static var auth_token = String()
     
 }
 
