@@ -398,12 +398,20 @@
                                     <constraint firstAttribute="height" constant="80" id="Izg-RQ-l5n"/>
                                 </constraints>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pMv-Lb-bQz">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="kU1-sG-qOp" firstAttribute="top" secondItem="pMv-Lb-bQz" secondAttribute="bottom" id="9J5-yv-qZr"/>
                             <constraint firstAttribute="trailing" secondItem="6jt-Dt-XrT" secondAttribute="trailing" id="DzV-bA-P8F"/>
                             <constraint firstItem="eMG-e0-1yy" firstAttribute="top" secondItem="b8P-XK-tgt" secondAttribute="bottom" constant="-29" id="GUD-HW-hik"/>
+                            <constraint firstAttribute="trailing" secondItem="pMv-Lb-bQz" secondAttribute="trailing" id="O10-da-luc"/>
                             <constraint firstItem="6jt-Dt-XrT" firstAttribute="top" secondItem="E7m-6P-SEU" secondAttribute="bottom" constant="30" id="SHi-7t-Uqy"/>
+                            <constraint firstItem="pMv-Lb-bQz" firstAttribute="top" secondItem="Asq-pp-cxc" secondAttribute="top" id="eaL-cW-J0g"/>
+                            <constraint firstItem="pMv-Lb-bQz" firstAttribute="leading" secondItem="Asq-pp-cxc" secondAttribute="leading" id="gBG-Nh-a9j"/>
                             <constraint firstItem="kU1-sG-qOp" firstAttribute="top" secondItem="6jt-Dt-XrT" secondAttribute="bottom" constant="30" id="gBO-wW-GAH"/>
                             <constraint firstItem="6jt-Dt-XrT" firstAttribute="leading" secondItem="Asq-pp-cxc" secondAttribute="leading" id="ri0-2x-8fj"/>
                             <constraint firstItem="b8P-XK-tgt" firstAttribute="centerX" secondItem="6jt-Dt-XrT" secondAttribute="centerX" id="vnn-Aw-UDH"/>
@@ -412,6 +420,7 @@
                     <connections>
                         <outlet property="CurrentPass" destination="JqW-4x-shN" id="M3l-wi-ove"/>
                         <outlet property="ImageView" destination="b8P-XK-tgt" id="ZZA-P5-JW7"/>
+                        <outlet property="LoaderView" destination="pMv-Lb-bQz" id="uIa-Gs-Qzp"/>
                         <outlet property="NewPass" destination="zTH-tm-6il" id="GzX-3a-xOn"/>
                         <outlet property="NewPassView" destination="pxv-h3-yjd" id="VL9-NZ-npQ"/>
                         <outlet property="OldPassView" destination="qHu-M7-ulB" id="s7h-xM-SPB"/>

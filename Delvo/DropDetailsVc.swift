@@ -219,7 +219,7 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
         
         let U_token = UserDefaults.standard.value(forKey: "UserToken") as! String
         self.dismissKeyboard()
-        startAnimating(CGSize(width:50 ,height:50) , message: "Placing Order ..." , messageFont: UIFont.boldSystemFont(ofSize: 15) , type:.ballClipRotatePulse , color: UIColor.DoneButtonColor()
+        startAnimating(CGSize(width:50 ,height:50) , message: "Placing Order ..." , messageFont: UIFont.boldSystemFont(ofSize: 15) , type:.ballClipRotatePulse , color: UIColor.white
             , backgroundColor: UIColor.clear)
         self.LoaderView.isHidden=false
         ApiObj.PlaceOrder(token: U_token, Success:{ (message) -> () in
