@@ -119,8 +119,10 @@ class ApiParsing: NSObject {
         ]
         
         let params = [
+            
             "name": name,
-            "status": email
+            "email": email
+           
             ] as [String : Any]
         
         
@@ -159,7 +161,7 @@ class ApiParsing: NSObject {
                 }
         }
     }
-    func UpdatePassword(token:String,id:Int,oldPass:String,newPass:String, Success:@escaping (Bool) -> (),failure: @escaping (String) -> () ,Failure: @escaping (NSError) -> ()){
+    func UpdatePassword(token:String,oldPass:String,newPass:String, Success:@escaping (Bool) -> (),failure: @escaping (String) -> () ,Failure: @escaping (NSError) -> ()){
         
         let headers: HTTPHeaders = [
             
