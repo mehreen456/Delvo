@@ -42,7 +42,7 @@ class ChangePasswordVc: UIViewController , NVActivityIndicatorViewable{
         CurrentPass.isSecureTextEntry = true
         NewPass.isSecureTextEntry = true
         RetypePass.isSecureTextEntry = true
-        
+        self.LoaderView.isHidden=true
     }
     
     func setOrigin(){
@@ -68,18 +68,19 @@ class ChangePasswordVc: UIViewController , NVActivityIndicatorViewable{
             
             if json{
                 
+                self.DMobj.alert(message:"Your Password has been updated." ,title: "Faliure!" ,controller: self)
                 self.removeLoader()
             }
         }
             , failure: { (message) -> () in
                 
-                self.DMobj.alert(message:message ,title: "Faliure" ,controller: self)
+                self.DMobj.alert(message:message ,title: "Faliure!" ,controller: self)
                 self.removeLoader()
         }
             
             , Failure: { (error) -> () in
                 
-                self.DMobj.alert(message:error.description ,title: "Faliure" ,controller: self)
+                self.DMobj.alert(message:error.description ,title: "Faliure!" ,controller: self)
                 self.removeLoader()
         })
     }
@@ -104,16 +105,40 @@ class ChangePasswordVc: UIViewController , NVActivityIndicatorViewable{
         if NewPass.text != RetypePass.text {
             
             self.DMobj.alert(message: "Password doesn't match", controller: self)
+            RetypePassView.addRedBorder()
             return
+        }
+        
+        RetypePassView.removeBorder()
+
+        _ = self.validation(text: CurrentPass.text!, View: OldPassView)
+        _ = self.validation(text: NewPass.text!, View: NewPassView)
+        _ = self.validation(text: RetypePass.text!, View: RetypePassView)
+        
+        if !(self.validation(text: CurrentPass.text!, View: OldPassView)) || !(self.validation(text: NewPass.text!, View: NewPassView)) || !(self.validation(text: RetypePass.text!, View: RetypePassView)){
+            
+          return
         }
         let u_token =  UserDefaults.standard.value(forKey: "UserToken") as! String
         self.updatePassword(U_token: u_token ,old_Pass:CurrentPass.text!,new_Pass:NewPass.text!)
+}
+    
+    func validation(text:String , View:UIView) -> Bool{
         
+        if (text.characters.count) < 6 || (text.characters.count) == 0 {
+            
+            View.addRedBorder()
+            self.DMobj.alert(message: "Password must be atleast 6 digits long", controller: self)
+            return false
+        }
+        View.removeBorder()
+        return true
     }
+    
     func dismissKeyboard() {
         
         view.endEditing(true)
-        //  self.view.frame.origin.y = origin!
+        self.view.frame.origin.y = origin!
     }
 }
 
@@ -125,6 +150,7 @@ extension ChangePasswordVc: UITextFieldDelegate{
         
         self.view.frame.origin.y = self.origin!
         self.view.endEditing(true)
+        
         return true
     }
     
