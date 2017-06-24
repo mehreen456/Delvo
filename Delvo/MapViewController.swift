@@ -28,6 +28,7 @@ class MapViewController: UIViewController ,GMSMapViewDelegate,Address,CLLocation
         self.setLocationManager()
         self.setMapView()
         notification()
+       
     }
    
     // Mark ~ LocationManagerDelegates
