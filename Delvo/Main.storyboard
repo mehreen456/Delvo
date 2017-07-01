@@ -1136,14 +1136,6 @@
                                     <constraint firstItem="F4e-4p-XVq" firstAttribute="centerY" secondItem="WFO-Hy-Zhx" secondAttribute="centerY" id="cII-Ta-A4N"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aqf-Qt-KWe">
-                                <rect key="frame" x="25" y="509" width="325" height="61"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="61" id="7hC-oy-hk4"/>
-                                    <constraint firstAttribute="width" constant="325" id="eph-6h-d5D"/>
-                                </constraints>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jNH-ap-2bY">
                                 <rect key="frame" x="31" y="545" width="20" height="20"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1164,6 +1156,24 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jme-EM-XVC">
+                                <rect key="frame" x="242" y="541.5" width="70" height="27"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <state key="normal" title="Edit Amount">
+                                    <color key="titleColor" red="1" green="0.4941176471" blue="0.027450980390000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="EditButton:" destination="Uvh-aw-x3M" eventType="touchUpInside" id="ExX-na-LAl"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Aqf-Qt-KWe">
+                                <rect key="frame" x="16" y="177" width="325" height="61"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="61" id="7hC-oy-hk4"/>
+                                    <constraint firstAttribute="width" constant="325" id="eph-6h-d5D"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1180,6 +1190,7 @@
                             <constraint firstItem="ai6-j4-bxQ" firstAttribute="top" secondItem="yeM-xd-IYX" secondAttribute="bottom" constant="15.5" id="MAd-u6-aQj"/>
                             <constraint firstAttribute="trailing" secondItem="yeM-xd-IYX" secondAttribute="trailing" constant="15" id="P9i-Fn-6Js"/>
                             <constraint firstItem="DVu-aP-MQ8" firstAttribute="top" secondItem="Xzi-id-MLQ" secondAttribute="bottom" id="R7I-hH-Xim"/>
+                            <constraint firstItem="Jme-EM-XVC" firstAttribute="leading" secondItem="O0X-HF-l15" secondAttribute="trailing" constant="8" id="RCd-Up-BSM"/>
                             <constraint firstAttribute="trailing" secondItem="pbM-kg-zCm" secondAttribute="trailing" constant="15" id="RuQ-A7-0In"/>
                             <constraint firstItem="O0X-HF-l15" firstAttribute="top" secondItem="BN6-GK-EuB" secondAttribute="bottom" constant="10" id="Sz8-fZ-aQx"/>
                             <constraint firstAttribute="trailing" secondItem="KVd-dq-j8k" secondAttribute="trailing" constant="15" id="TGH-Av-Pv2"/>
@@ -1193,6 +1204,7 @@
                             <constraint firstItem="JOI-ue-6TP" firstAttribute="leading" secondItem="XN3-lO-6I2" secondAttribute="leading" constant="23" id="evx-Vp-x4o"/>
                             <constraint firstAttribute="trailingMargin" secondItem="WFO-Hy-Zhx" secondAttribute="trailing" id="fLe-GE-148"/>
                             <constraint firstItem="Qo2-uT-aKS" firstAttribute="leading" secondItem="XN3-lO-6I2" secondAttribute="leadingMargin" constant="-1" id="fj8-R7-qOQ"/>
+                            <constraint firstItem="Jme-EM-XVC" firstAttribute="centerY" secondItem="O0X-HF-l15" secondAttribute="centerY" id="g97-48-0PI"/>
                             <constraint firstItem="JOI-ue-6TP" firstAttribute="centerY" secondItem="pbM-kg-zCm" secondAttribute="centerY" id="gsL-wC-ai7"/>
                             <constraint firstItem="WFO-Hy-Zhx" firstAttribute="width" secondItem="Qo2-uT-aKS" secondAttribute="width" id="hEY-Dq-Hdo"/>
                             <constraint firstItem="YED-Kz-P72" firstAttribute="top" secondItem="Aqf-Qt-KWe" secondAttribute="bottom" constant="3" id="hIX-lf-Wdg"/>
@@ -1227,6 +1239,7 @@
                         <outlet property="DateView" destination="aQn-TJ-mwW" id="ziR-8c-n5J"/>
                         <outlet property="DetailView" destination="KA1-Yf-jlj" id="NkV-s8-Eo4"/>
                         <outlet property="DropLocButton" destination="G1x-qM-dQX" id="Ys6-yt-Ga8"/>
+                        <outlet property="EditAmount" destination="Jme-EM-XVC" id="c1S-3Y-nra"/>
                         <outlet property="NameView" destination="Qo2-uT-aKS" id="REM-4a-lto"/>
                         <outlet property="PickDateLabel" destination="KA1-Yf-jlj" id="cBJ-kz-O7Z"/>
                         <outlet property="PickTimeLabel" destination="JOI-ue-6TP" id="31N-Qy-JqF"/>
