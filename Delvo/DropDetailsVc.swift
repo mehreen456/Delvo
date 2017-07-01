@@ -14,7 +14,7 @@ import RxCocoa
 import NVActivityIndicatorView
 
 class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
-   
+    
     @IBOutlet weak var NameView: UIView!
     @IBOutlet weak var DetailView: UIView!
     @IBOutlet weak var AddressView: UIView!
@@ -43,7 +43,7 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.navigationItem.setHidesBackButton(true, animated: false)
         MoveToVc.visitDD=true
         MoveToVc.PD_visitDD = true
@@ -78,7 +78,14 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
         self.DropContact.text = Drop_Detail.DropContact
         self.DropAddress.text = Drop_Detail.DropAddress
         self.DropTime.text = Drop_Detail.DropTime
-        self.DropDate.text = Pick_Detail.PickUpDate
+        if Pick_Detail.timeCritical {
+            
+            self.DropDate.text = obj.formatDate(format:"dd-MM-yyyy" , date: Date())
+        }
+            
+        else {
+            self.DropDate.text = Pick_Detail.PickUpDate
+        }
         
         if Drop_Detail.DropDetail != ""{
             self.DropDetail.text = Drop_Detail.DropDetail
@@ -108,7 +115,7 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
             Drop_Detail.DropContact =  self.DropContact.text!
             
         }).addDisposableTo(diposeBag)
-      
+        
         self.DropDetail.rx.text.asObservable().subscribe(onNext: {
             text in
             
@@ -119,7 +126,7 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         
-       return false
+        return false
     }
     
     func setOrigin(){
@@ -155,8 +162,17 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
         let calendar = Calendar.current
         let formatter = DateFormatter()
         formatter.dateFormat="h:mm a"
-        let TimeA = formatter.date(from: Pick_Detail.PickUpTime)
-        let date:Date = calendar.date(byAdding: .minute, value: 45, to: TimeA!)!
+        var TimeA = Date()
+        if Pick_Detail.timeCritical {
+            
+            TimeA = formatter.date(from: obj.formatDate(format:"h:mm a" , date: Date()))!
+            
+        }
+        else {
+            TimeA = formatter.date(from: Pick_Detail.PickUpTime)!
+        }
+        
+        let date:Date = calendar.date(byAdding: .minute, value: 45, to: TimeA)!
         TimePicker.minimumDate = date
         TimePicker.date = date
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(DonePressedTime))
@@ -177,19 +193,19 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
         Drop_Detail.DropTime = dateFormater.string(for: TimePicker.date)!
         self.view.endEditing(true)
     }
-        
+    
     @IBAction func GoToPickLoc(_ sender: Any) {
-      
-         self.performSegue(withIdentifier: "GoPick", sender: self)
+        
+        self.performSegue(withIdentifier: "GoPick", sender: self)
     }
     
     @IBAction func GoToPickDetail(_ sender: Any) {
-
+        
         self.performSegue(withIdentifier: "GoPickD", sender: self)
     }
     
     @IBAction func GoToDropLoc(_ sender: Any) {
-
+        
         self.performSegue(withIdentifier: "GoDrop", sender: self)
     }
     
@@ -214,7 +230,7 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
         //ComapareDates()
         
     }
-
+    
     func PlaceOrder(){
         
         let U_token = UserDefaults.standard.value(forKey: "UserToken") as! String
@@ -224,11 +240,11 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
         self.LoaderView.isHidden=false
         ApiObj.PlaceOrder(token: U_token, Success:{ (message) -> () in
             
-                self.obj.ShowAlert(controller: self, identifier: "OrderPlaced", message: message)
-                self.EmptyOrderDetails()
-                self.removeLoader()
-    
-            }
+            self.obj.ShowAlert(controller: self, identifier: "OrderPlaced", message: message)
+            self.EmptyOrderDetails()
+            self.removeLoader()
+            
+        }
             , failure: { (message) -> () in
                 
                 self.removeLoader()
@@ -265,7 +281,7 @@ class DropDetailsVc: UIViewController , NVActivityIndicatorViewable {
 
 extension DropDetailsVc: UITextFieldDelegate, UITextViewDelegate{
     
-
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         
         self.view.frame.origin.y = self.origin! - 130
@@ -321,5 +337,5 @@ extension DropDetailsVc: UITextFieldDelegate, UITextViewDelegate{
         return true
         
     }
-
+    
 }

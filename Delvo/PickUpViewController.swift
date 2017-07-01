@@ -59,9 +59,7 @@ class PickUpViewController: UIViewController ,SWRevealViewControllerDelegate {
         obj.AddGesture(controller:self)
         self.revealViewController().rightViewRevealWidth = self.view.frame.width - 55
         obj.navBar(controller:self,Title:TitleVc)
-        
-        // objOD.EmptyUserDefaults()
-    }
+        }
 
     override func viewWillAppear(_ animated: Bool) {
         

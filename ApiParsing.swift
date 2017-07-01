@@ -573,22 +573,35 @@ class ApiParsing: NSObject {
     
     func OrderKeyValue() -> (NSDictionary){
         
-        
-        let params = [
-            "pickup_time" :  changeFormat(time:Pick_Detail.PickUpTime),
+        var params = [
+            
+            "pickup_time" : changeFormat(time:Pick_Detail.PickUpTime),
             "pickup_date" : Pick_Detail.PickUpDate,
-            "drop_time":  changeFormat(time:Drop_Detail.DropTime),
+            "drop_time": changeFormat(time:Drop_Detail.DropTime),
             "drop_date": Drop_Detail.DropDate,
             "totaldistance": "5.2",
             "order_type": "time_critical",
             "status": 800
             ] as [String : Any]
         
+        if Pick_Detail.timeCritical{
+            
+            let obj = OrderDescClassMethods()
+            let pickTime = obj.formatDate(format:"h:mm a" , date: Date())
+            let calendar = Calendar.current
+            let formatter = DateFormatter()
+            formatter.dateFormat="h:mm a"
+            let TimeA = formatter.date(from:pickTime)!
+            let time:Date = calendar.date(byAdding: .minute, value: 45, to: TimeA)!
+            let dropTime = formatter.string(for:time)
+            params["pickup_time"] = changeFormat(time:pickTime)
+            params["drop_time"] = changeFormat(time:dropTime!)
+        }
+
         return params as (NSDictionary)
     }
     
     func task1KeyValue() -> (NSDictionary){
-        
         
         let params = [
             "name": Pick_Detail.PickName,
@@ -607,7 +620,6 @@ class ApiParsing: NSObject {
     }
     
     func task2KeyValue() -> (NSDictionary){
-        
         
         let params = [
             "name": Drop_Detail.DropName,
