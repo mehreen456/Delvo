@@ -932,8 +932,8 @@
                                     <constraint firstItem="gys-Ca-I6i" firstAttribute="centerY" secondItem="yeM-xd-IYX" secondAttribute="centerY" id="yn1-wv-o24"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BN6-GK-EuB">
-                                <rect key="frame" x="59" y="542" width="60" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pick Now" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BN6-GK-EuB">
+                                <rect key="frame" x="59" y="542" width="63.5" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1226,9 +1226,11 @@
                         <outlet property="DDLine" destination="Ihj-8t-D3W" id="PbO-AE-rhx"/>
                         <outlet property="DLocLine" destination="5Fd-F4-fL1" id="hV7-ue-qFj"/>
                         <outlet property="DateView" destination="aQn-TJ-mwW" id="ziR-8c-n5J"/>
-                        <outlet property="DetailView" destination="KVd-dq-j8k" id="8bN-Pz-T06"/>
+                        <outlet property="DetailView" destination="KA1-Yf-jlj" id="NkV-s8-Eo4"/>
                         <outlet property="DropLocButton" destination="G1x-qM-dQX" id="Ys6-yt-Ga8"/>
                         <outlet property="NameView" destination="Qo2-uT-aKS" id="REM-4a-lto"/>
+                        <outlet property="PickDateLabel" destination="KA1-Yf-jlj" id="cBJ-kz-O7Z"/>
+                        <outlet property="PickTimeLabel" destination="JOI-ue-6TP" id="31N-Qy-JqF"/>
                         <outlet property="PickUpAmount" destination="bD7-mi-uSq" id="jtW-rY-VJW"/>
                         <outlet property="PickUpDate" destination="pBa-Vy-eUl" id="Q7E-3y-dNb"/>
                         <outlet property="PickUpDetail" destination="PrY-DS-u8b" id="jco-JX-j35"/>
@@ -1835,7 +1837,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eoM-BP-Yh8" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Vtv-37-58u">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Vtv-37-58u">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1903,7 +1905,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="GoBack:" destination="OMS-oO-hU1" eventType="touchUpInside" id="MRE-bG-P1d"/>
+                                    <action selector="GoBack:" destination="OMS-oO-hU1" eventType="touchUpInside" id="ffh-q7-vg1"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YVS-Rq-Kkt" userLabel="UserNameView">
@@ -2797,12 +2799,12 @@
         <image name="login-screen-img" width="1080" height="1008"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="FD3-FZ-OaL"/>
+        <segue reference="VxX-XG-ZWb"/>
+        <segue reference="bTv-Tb-pMs"/>
         <segue reference="kat-ie-fWj"/>
         <segue reference="3S7-ub-iCx"/>
         <segue reference="Cta-Sy-Ojt"/>
-        <segue reference="a0h-VH-lE9"/>
-        <segue reference="uuW-bb-zDD"/>
-        <segue reference="bTv-Tb-pMs"/>
+        <segue reference="FD3-FZ-OaL"/>
+        <segue reference="t4t-nM-wd6"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -68,13 +68,13 @@ class ChangePasswordVc: UIViewController , NVActivityIndicatorViewable{
             
             if json{
                 
-                self.DMobj.alert(message:"Your Password has been updated." ,title: "Faliure!" ,controller: self)
+                self.DMobj.alert(message:"Your Password has been updated." ,title: "Success!" ,controller: self)
                 self.removeLoader()
             }
         }
             , failure: { (message) -> () in
                 
-                self.DMobj.alert(message:message ,title: "Faliure!" ,controller: self)
+                self.DMobj.alert(message:"Wrong Password." ,title: "Faliure!" ,controller: self)
                 self.removeLoader()
         }
             
@@ -89,6 +89,7 @@ class ChangePasswordVc: UIViewController , NVActivityIndicatorViewable{
         
         self.stopAnimating()
         self.LoaderView.isHidden=true
+        dismissKeyboard()
     }
 
     

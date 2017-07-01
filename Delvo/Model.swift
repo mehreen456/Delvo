@@ -19,7 +19,7 @@ struct Pick_Detail{
     static var PickUpDate = String()
     static var PickUpDetail = String()
     static var PickUpAmount = String()
-    
+    static var timeCritical = Bool()
     init(){
        
         Pick_Detail.PickLocation = ""
@@ -31,7 +31,7 @@ struct Pick_Detail{
         Pick_Detail.PickUpDate = ""
         Pick_Detail.PickUpDetail = ""
         Pick_Detail.PickUpAmount = ""
-        
+        Pick_Detail.timeCritical = false
     }
 
 }

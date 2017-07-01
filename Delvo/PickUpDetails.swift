@@ -14,6 +14,8 @@ import RxCocoa
 class PickUpDetails: UIViewController  {
     
     @IBOutlet weak var DetailView: UIView!
+    @IBOutlet weak var PickDateLabel: UILabel!
+    @IBOutlet weak var PickTimeLabel: UILabel!
     @IBOutlet weak var NameView: UIView!
     @IBOutlet weak var AddressView: UIView!
     @IBOutlet weak var DateView: UIView!
@@ -89,11 +91,17 @@ class PickUpDetails: UIViewController  {
             self.PickUpDetail.text = Pick_Detail.PickUpDetail
         }
         if Pick_Detail.PickUpAmount != ""{
-            self.AmountView.isHidden = false
-            self.PickUpAmount.isHidden = false
-            self.CheckButton.setImage(UIImage(named:"PayCheck"), for: .normal)
-            self.PickUpAmount.text = Pick_Detail.PickUpAmount
+            
+            //            self.AmountView.isHidden = false
+            //            self.PickUpAmount.isHidden = false
+            //            self.CheckButton.setImage(UIImage(named:"PayCheck"), for: .normal)
+            //            self.PickUpAmount.text = Pick_Detail.PickUpAmount
         }
+        if Pick_Detail.timeCritical {
+        
+            setDateTime(enable:false , color:UIColor.gray , labelColor:UIColor.gray , image: UIImage(named:"PayCheck")! )
+        }
+        
         self.setTextFields()
         
         if MoveToVc.PD_visitDD {
@@ -116,28 +124,58 @@ class PickUpDetails: UIViewController  {
     @IBAction func CheckButton(_ sender: Any) {
         
         if CheckButton.image(for: .normal) == UIImage(named:"PayUncheck"){
-            self.AmountView.isHidden = false
-            self.PickUpAmount.isHidden = false
-            self.CheckButton.setImage(UIImage(named:"PayCheck"), for: .normal)
+            
+            //            self.AmountView.isHidden = false
+            //            self.PickUpAmount.isHidden = false
+          
+            setDateTime(enable:false , color:UIColor.gray , labelColor:UIColor.gray , image: UIImage(named:"PayCheck")! )
+            Pick_Detail.timeCritical = true
         }
             
         else{
-            self.CheckButton.setImage(UIImage(named:"PayUncheck"), for: .normal)
-            self.AmountView.isHidden = true
-            self.PickUpAmount.isHidden = true
-            Pick_Detail.PickUpAmount = ""
-            PickUpAmount.text = ""
+            
+             setDateTime(enable:true , color:UIColor.DoneButtonColor() ,labelColor:UIColor.black , image: UIImage(named:"PayUncheck")! )
+             Pick_Detail.timeCritical = false
+            
+            //            self.AmountView.isHidden = true
+            //            self.PickUpAmount.isHidden = true
+            //            Pick_Detail.PickUpAmount = ""
+            //            PickUpAmount.text = ""
         }
+    }
+    
+    func setDateTime(enable:Bool , color:UIColor , labelColor:UIColor , image:UIImage ){
+        
+        PickUpTime.isEnabled = enable
+        PickUpDate.isEnabled = enable
+        self.PickDateLabel.textColor = labelColor
+        self.PickTimeLabel.textColor = labelColor
+        PickUpTime.textColor = color
+        PickUpDate.textColor = color
+        PickUpTime.attributedPlaceholder = NSAttributedString(string:"h:mm a", attributes: [NSForegroundColorAttributeName: color])
+        PickUpDate.attributedPlaceholder = NSAttributedString(string:"dd-MM-yyyy", attributes: [NSForegroundColorAttributeName: color])
+        self.CheckButton.setImage(image, for: .normal)
+        
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         
         if identifier == "Drop"{
             
-            guard PickUpDetail.text != DefaultText && PickUpDetail.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) != "" && SenderAddress.text != "" && SenderContact.text != "" && PickUpTime.text != "" && PickUpDate.text != "" && SenderName.text != "" else {
+            guard PickUpDetail.text != DefaultText && PickUpDetail.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) != "" && SenderAddress.text != "" && SenderContact.text != "" && SenderName.text != "" else {
                 
                 DMobj.Toast(view: self.view, ToastView: self.ToastView, message:"Please fill the fields.")
                 return false
+            }
+            if !Pick_Detail.timeCritical{
+                
+                if PickUpTime.text == "" && PickUpDate.text == "" {
+                    
+                    DMobj.Toast(view: self.view, ToastView: self.ToastView, message:"Please fill the fields.")
+                    return false
+                    
+                }
+                return checkDate()
             }
             
             if !obj.validate(phoneNumber: self.SenderContact.text!) {
@@ -148,8 +186,7 @@ class PickUpDetails: UIViewController  {
             else{
                 ContactView.removeBorder()
             }
-            
-            return checkDate()
+            return true
             
         }
         return false
@@ -230,17 +267,13 @@ class PickUpDetails: UIViewController  {
         toolbar.setItems([doneButton], animated: false)
         PickUpTime.inputAccessoryView = toolbar
         PickUpTime.inputView = TimePicker
-        DonePressedTime()
-           }
+    }
     
     func DonePressedTime(){
         
-        let dateFormater = DateFormatter()
-        dateFormater.dateStyle = .none
-        dateFormater.timeStyle = .medium
-        dateFormater.dateFormat = "h:mm a"
-        Pick_Detail.PickUpTime = dateFormater.string(for: TimePicker.date)!
-        PickUpTime.text = dateFormater.string(for: TimePicker.date)
+        let PickTime = obj.formatDate(format: "h:mm a" , date:TimePicker.date)
+        Pick_Detail.PickUpTime = PickTime
+        PickUpTime.text = PickTime 
         self.view.endEditing(true)
     }
     
@@ -258,17 +291,13 @@ class PickUpDetails: UIViewController  {
         toolbar.setItems([doneButton], animated: false)
         PickUpDate.inputAccessoryView = toolbar
         PickUpDate.inputView = DatePicker
-        DonePressedDate()
     }
     
     func DonePressedDate(){
         
-        let dateFormater = DateFormatter()
-        dateFormater.dateStyle = .medium
-        dateFormater.timeStyle = .none
-        dateFormater.dateFormat = "dd-MM-yyyy"
-        PickUpDate.text = dateFormater.string(for: DatePicker.date)
-        Pick_Detail.PickUpDate = dateFormater.string(for: DatePicker.date)!
+        let PickDate = obj.formatDate(format:"dd-MM-yyyy" , date:DatePicker.date)
+        PickUpDate.text = PickDate
+        Pick_Detail.PickUpDate = PickDate
         self.view.endEditing(true)
     }
     
@@ -312,7 +341,6 @@ class PickUpDetails: UIViewController  {
         super.viewWillDisappear(true)
         self.view.endEditing(true)
     }
-    
 }
 
 extension PickUpDetails: UITextFieldDelegate, UITextViewDelegate{
@@ -371,7 +399,6 @@ extension PickUpDetails: UITextFieldDelegate, UITextViewDelegate{
         
         return true
     }
-    
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         
         self.view.frame.origin.y = self.origin!

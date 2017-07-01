@@ -76,4 +76,13 @@ class OrderDescClassMethods: NSObject {
         keyboardDoneButtonView.items = [doneButton]
         return keyboardDoneButtonView
     }
+    
+    func formatDate(format:String,date: Date) -> String{
+        
+        let dateFormater = DateFormatter()
+        dateFormater.dateStyle = .medium
+        dateFormater.timeStyle = .none
+        dateFormater.dateFormat = format
+        return dateFormater.string(for: date)!
+    }
 }

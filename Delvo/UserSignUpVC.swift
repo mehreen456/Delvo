@@ -155,7 +155,7 @@ class UserSignUpVC: UIViewController , NVActivityIndicatorViewable{
     
     func SendSignUpInfo(){
         
-        startAnimating(CGSize(width:60 ,height:60) , message: "Verifying User ..." , messageFont: UIFont.boldSystemFont(ofSize: 17) , type:.ballClipRotatePulse , color: UIColor.white
+        startAnimating(CGSize(width:60 ,height:60) , message: "Creating Account ..." , messageFont: UIFont.boldSystemFont(ofSize: 17) , type:.ballClipRotatePulse , color: UIColor.white
             , backgroundColor: UIColor.clear
         )
         self.LoaderView.isHidden=false
